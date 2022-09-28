@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tag_legal_forms",
+  "info": {
+    "name": "TAG legal form"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "default": "Untitled legal form"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tag-districts",
+      "handler": "tag-district.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tag-districts/count",
+      "handler": "tag-district.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tag-districts/:id",
+      "handler": "tag-district.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tag-districts",
+      "handler": "tag-district.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tag-districts/:id",
+      "handler": "tag-district.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tag-districts/:id",
+      "handler": "tag-district.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

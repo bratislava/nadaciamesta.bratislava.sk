@@ -1,0 +1,50 @@
+{
+  "kind": "singleType",
+  "collectionName": "generals",
+  "info": {
+    "name": "General",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "address": {
+      "type": "string",
+      "default": "Nadácia mesta Bratislavy, Primaciálne námestie č. 1, 814 99 Bratislava"
+    },
+    "newsletter_text": {
+      "type": "string",
+      "default": "Odoberajte novinky Nadácie mesta Bratislavy"
+    },
+    "bank_account_url": {
+      "type": "string",
+      "default": "bank_account_url"
+    },
+    "bank_account_iban": {
+      "type": "string",
+      "default": "bank_account_iban"
+    },
+    "email": {
+      "type": "email",
+      "default": "nadacia@bratislava.sk"
+    },
+    "phone": {
+      "type": "string",
+      "default": "+421 000 000 000"
+    },
+    "copyright_text": {
+      "type": "string",
+      "default": "2022 Hlavné mesto Bratislava"
+    },
+    "facebook_link": {
+      "type": "string"
+    },
+    "instagram_link": {
+      "type": "string"
+    }
+  }
+}

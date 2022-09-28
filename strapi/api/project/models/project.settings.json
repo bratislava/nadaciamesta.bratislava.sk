@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects",
+  "info": {
+    "name": "Project",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "images": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": ["images"],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "categories": {
+      "collection": "tag-category"
+    },
+    "support_fields": {
+      "collection": "tag-support-field"
+    },
+    "year": {
+      "model": "tag-year"
+    },
+    "program": {
+      "model": "tag-program"
+    },
+    "districts": {
+      "collection": "tag-district"
+    },
+    "legal_form": {
+      "model": "tag-legal-form"
+    },
+    "goals": {
+      "collection": "tag-goal"
+    },
+    "appliciant": {
+      "type": "string",
+      "required": true
+    },
+    "amount": {
+      "type": "string"
+    }
+  }
+}

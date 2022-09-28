@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tag_support_fields",
+  "info": {
+    "name": "TAG support field"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "default": "Untitled support field"
+    }
+  }
+}

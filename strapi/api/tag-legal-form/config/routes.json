@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tag-legal-forms",
+      "handler": "tag-legal-form.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tag-legal-forms/count",
+      "handler": "tag-legal-form.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tag-legal-forms/:id",
+      "handler": "tag-legal-form.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tag-legal-forms",
+      "handler": "tag-legal-form.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tag-legal-forms/:id",
+      "handler": "tag-legal-form.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tag-legal-forms/:id",
+      "handler": "tag-legal-form.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

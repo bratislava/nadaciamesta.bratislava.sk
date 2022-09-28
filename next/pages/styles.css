@@ -1,0 +1,144 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --primary-color: #da5a49;
+  --primary-muted-color: #f68a7b;
+  --secondary-color: #ffffff;
+  --background-color: #e5e5e5;
+  --font-color: #424242;
+  --error-color: #da5a49;
+  --dark-gray-color: #424242;
+  --universal-gray-100: #bdbdbd;
+  --semilight-gray-color: #c4c4c4;
+  --universal-gray-500: #9f9f9f;
+  --universal-gray-800: #585757;
+  --universal-black: #2f2f2f;
+  --input-stroke-color: #f23005;
+  --swiper-theme-color: #ffffff;
+}
+
+.download-card-container {
+  display: inline-block;
+  width: 370px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  display: none;
+}
+
+/* the timing property needs to be controlled on a child component we don't have direct acces to
+   this way, we can append linear-swiper sclass to the <Swiper> element to affect the child */
+.linear-swiper .swiper-wrapper {
+  transition-timing-function: linear;
+}
+
+.section {
+  padding: 48px 0;
+  @apply border-t-2 border-dark-gray-color;
+}
+
+.section:last-child {
+  @apply border-b-2 border-dark-gray-color;
+}
+
+.section-muted {
+  @apply border-white text-white bg-primary-muted;
+}
+
+.section-muted:last-child {
+  @apply border-white;
+}
+
+.section-no-padding {
+  padding: 0;
+}
+
+.container {
+  @apply mx-auto px-10;
+}
+
+/* multiline text truncate */
+.text-truncate-4 {
+  @apply h-24;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+@layer components {
+  .base-button {
+    @apply appearance-none box-border inline-flex items-center justify-center text-center;
+    @apply px-6 py-0 font-semibold cursor-pointer focus:outline-none;
+  }
+
+  .base-radio {
+    @apply appearance-none box-border inline-flex items-center relative px-6 py-0 pl-16 rounded-lg;
+    @apply bg-input-nav-bg border-input-stroke border-4 text-font font-medium h-14 cursor-pointer;
+  }
+
+  .base-link {
+    @apply appearance-none box-border inline-flex items-center justify-center text-center;
+    @apply px-6 py-0 font-medium h-14 cursor-pointer;
+    @apply focus:outline-none;
+  }
+
+  .base-input {
+    @apply appearance-none box-border inline-block border-3 px-6 py-0 text-font rounded-10 font-medium h-14 bg-white;
+    @apply bg-white border-input-stroke focus:outline-none focus:border-primary hover:border-primary;
+  }
+
+  .base-input--with-error {
+    @apply border-error;
+  }
+
+  .base-input--disabled {
+    @apply bg-gray-100;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--input-nav-background-color) inset !important;
+  }
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: none no-repeat;
+}
+
+input[type='date']::-webkit-datetime-edit-text {
+  color: inherit;
+}
+
+.border-black-top {
+  border-top: 2px solid var(--universal-black);
+}
+
+.border-black-right {
+  border-right: 2px solid var(--universal-black);
+}

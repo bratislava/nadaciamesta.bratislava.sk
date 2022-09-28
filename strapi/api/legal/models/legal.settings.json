@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "legals",
+  "info": {
+    "name": "Legal",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "project_detail_disclaimer": {
+      "type": "text"
+    },
+    "gdpr": {
+      "type": "richtext"
+    }
+  }
+}

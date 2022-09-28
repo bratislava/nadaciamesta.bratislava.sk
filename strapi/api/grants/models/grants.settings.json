@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "grants",
+  "info": {
+    "name": "Grants",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "program": {
+      "model": "tag-program"
+    },
+    "description": {
+      "type": "text"
+    },
+    "files": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": ["images", "files", "videos"],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "link": {
+      "type": "string",
+      "required": false
+    },
+    "order": {
+      "type": "integer"
+    }
+  }
+}
