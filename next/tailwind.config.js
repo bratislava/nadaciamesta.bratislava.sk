@@ -1,5 +1,5 @@
-const { join } = require('path');
-const plugin = require('tailwindcss/plugin');
+const { join } = require('path')
+const plugin = require('tailwindcss/plugin')
 
 const scrollBarHide = plugin(function ({ addUtilities }) {
   addUtilities({
@@ -12,26 +12,16 @@ const scrollBarHide = plugin(function ({ addUtilities }) {
         display: 'none',
       },
     },
-  });
-});
+  })
+})
 
 module.exports = {
-  presets: [require('../../../libs/ui/bratislava/tailwind.config')],
-  content: [
-    join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'),
-    join(__dirname, 'components/**/*.{js,ts,jsx,tsx}'),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
+  presets: [require('./tailwind-workspace-preset.js')],
+  content: [join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'), join(__dirname, 'components/**/*.{js,ts,jsx,tsx}')],
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          'Inter',
-          'Public Sans',
-          'ui-sans-serif',
-          'system-ui',
-          '-apple-system',
-        ],
+        sans: ['Inter', 'Public Sans', 'ui-sans-serif', 'system-ui', '-apple-system'],
       },
       textColor: {
         default: 'var(--font-color)',
@@ -54,4 +44,4 @@ module.exports = {
       },
     },
   },
-};
+}

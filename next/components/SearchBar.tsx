@@ -1,24 +1,17 @@
-import { ReactComponent as SearchIcon } from '../assets/icons/search.svg';
-import cx from 'classnames';
-import { MutableRefObject } from 'react';
+import SearchIcon from '../assets/icons/search.svg'
+import cx from 'classnames'
+import { MutableRefObject } from 'react'
 
 interface ISearchBarProps {
-  query?: string;
-  onQueryChange?: (query: string) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
-  className?: string;
-  inputRef?: MutableRefObject<HTMLInputElement>;
+  query?: string
+  onQueryChange?: (query: string) => void
+  onFocus?: () => void
+  onBlur?: () => void
+  className?: string
+  inputRef?: MutableRefObject<HTMLInputElement>
 }
 
-const SearchBar = ({
-  query,
-  onQueryChange,
-  className,
-  onFocus,
-  onBlur,
-  inputRef,
-}: ISearchBarProps) => {
+const SearchBar = ({ query, onQueryChange, className, onFocus, onBlur, inputRef }: ISearchBarProps) => {
   return (
     <div className={cx('relative bg-white rounded', className)}>
       <input
@@ -35,7 +28,7 @@ const SearchBar = ({
         <SearchIcon />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

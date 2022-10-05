@@ -1,24 +1,18 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import Tag from './Tag';
-import { ReactComponent as CancelIcon } from '../assets/icons/cancel.svg';
-import cx from 'classnames';
-import Button from './Button';
+import React, { Dispatch, SetStateAction } from 'react'
+import Tag from './Tag'
+import CancelIcon from '../assets/icons/cancel.svg'
+import cx from 'classnames'
+import Button from './Button'
 
 export interface ITagGroupSingleProps {
-  tags: Array<{ name: string }>;
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
-  clearable?: boolean;
-  uppercase?: boolean;
+  tags: Array<{ name: string }>
+  value: string
+  setValue: Dispatch<SetStateAction<string>>
+  clearable?: boolean
+  uppercase?: boolean
 }
 
-const TagGroupSingle = ({
-  tags,
-  value,
-  setValue,
-  clearable = false,
-  uppercase = false,
-}: ITagGroupSingleProps) => {
+const TagGroupSingle = ({ tags, value, setValue, clearable = false, uppercase = false }: ITagGroupSingleProps) => {
   return (
     <div className="flex flex-wrap gap-2 mb-4 items-center">
       {tags.map((tag, index) => (
@@ -33,17 +27,14 @@ const TagGroupSingle = ({
       {clearable && (
         <div className="w-6">
           {value && (
-            <Button
-              onClick={() => setValue(undefined)}
-              className={'border-none py-1 px-1 w-full'}
-            >
+            <Button onClick={() => setValue(undefined)} className={'border-none py-1 px-1 w-full'}>
               <CancelIcon stroke="var(--font-color)" />
             </Button>
           )}
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default TagGroupSingle;
+export default TagGroupSingle

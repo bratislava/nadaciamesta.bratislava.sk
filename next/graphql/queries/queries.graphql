@@ -1,0 +1,299 @@
+query ContactPage {
+  contacts {
+    id
+    full_name_including_degrees
+    role
+    email
+    phone
+    photo {
+      url
+      formats
+    }
+  }
+  general {
+    address
+    bank_account_url
+    bank_account_iban
+  }
+}
+
+query GrantsPage {
+  general {
+    newsletter_text
+  }
+  grants {
+    id
+    order
+    title
+    description
+    link
+    program {
+      name
+    }
+    files {
+      id
+      url
+      name
+    }
+  }
+  tagPrograms {
+    name
+  }
+}
+
+query GdprPage {
+  legal {
+    gdpr
+  }
+}
+
+query DocumentsPage {
+  general {
+    newsletter_text
+  }
+  documents(sort: "created_at:desc") {
+    id
+    title
+    created_at
+    file {
+      url
+      ext
+      size
+    }
+  }
+}
+
+query AboutUsPage {
+  aboutUs {
+    sections {
+      id
+      title
+      detail
+      files {
+        id
+        name
+        ext
+        size
+        url
+        created_at
+      }
+    }
+  }
+}
+
+query LandingPage {
+  landingPage {
+    grants_text
+    # grants_button_text
+    featured_projects_top {
+      id
+      images {
+        alternativeText
+        url
+        formats
+      }
+    }
+    featured_projects_bottom {
+      id
+      images {
+        alternativeText
+        url
+        formats
+      }
+    }
+  }
+}
+
+query HeaderAndFooter {
+  general {
+    copyright_text
+    phone
+    email
+    facebook_link
+    instagram_link
+  }
+}
+
+query Project($pid: ID!) {
+  project(id: $pid) {
+    id
+    title
+    description
+    categories {
+      id
+      name
+    }
+    year {
+      id
+      name
+    }
+    districts {
+      id
+      name
+    }
+    legal_form {
+      id
+      name
+    }
+    program {
+      id
+      name
+    }
+    support_fields {
+      id
+      name
+    }
+    goals {
+      id
+      name
+    }
+    images {
+      id
+      alternativeText
+      url
+      formats
+    }
+  }
+  legal {
+    project_detail_disclaimer
+  }
+}
+
+query ProjectsTotalCount(
+  $query: String
+  $year: String
+  $program: [String]
+  $categories: [String]
+  $district: String
+  $supportFields: [String]
+  $goals: [String]
+  $legalForms: [String]
+) {
+  projects(
+    where: {
+      year: { name_eq: $year }
+      program: { name_eq: $program }
+      categories: { name_in: $categories }
+      districts: { name_eq: $district }
+      support_fields: { name_in: $supportFields }
+      goals: { name_in: $goals }
+      legal_form: { name_in: $legalForms }
+      _or: [{ title_contains: $query }, { appliciant_contains: $query }]
+    }
+  ) {
+    id
+  }
+}
+
+query Projects(
+  $query: String
+  $limit: Int
+  $offset: Int
+  $year: String
+  $program: [String]
+  $categories: [String]
+  $district: String
+  $supportFields: [String]
+  $goals: [String]
+  $legalForms: [String]
+) {
+  projects(
+    limit: $limit
+    start: $offset
+    where: {
+      year: { name_eq: $year }
+      program: { name_eq: $program }
+      categories: { name_in: $categories }
+      districts: { name_eq: $district }
+      support_fields: { name_in: $supportFields }
+      goals: { name_in: $goals }
+      legal_form: { name_in: $legalForms }
+      _or: [{ title_contains: $query }, { appliciant_contains: $query }]
+    }
+  ) {
+    id
+    title
+    description
+    images {
+      url
+      alternativeText
+      formats
+    }
+    categories {
+      name
+    }
+    year {
+      name
+    }
+    districts {
+      name
+    }
+    legal_form {
+      name
+    }
+    program {
+      name
+    }
+    support_fields {
+      name
+    }
+    goals {
+      name
+    }
+  }
+}
+
+query ProjectsPage {
+  tagCategories {
+    name
+  }
+  tagDistricts {
+    name
+  }
+  tagGoals {
+    name
+  }
+  tagLegalForms {
+    name
+  }
+  tagPrograms {
+    name
+  }
+  tagSupportFields {
+    name
+  }
+  tagYears {
+    name
+  }
+}
+
+query BlogPostsPage {
+  blogPosts(sort: "created_at:desc") {
+    id
+    title
+    description
+    slug
+    image {
+      url
+      alternativeText
+      formats
+    }
+  }
+}
+
+query BlogPostsBySlug($slug: String!) {
+  blogPosts(where: { slug: $slug }) {
+    id
+    title
+    description
+    content
+    slug
+    author
+    created_at
+    image {
+      url
+      alternativeText
+      formats
+    }
+  }
+}

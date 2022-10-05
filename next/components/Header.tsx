@@ -1,10 +1,10 @@
-import { ReactComponent as BaLogo } from '../assets/images/ba-logo.svg';
-import { ReactComponent as FbLogo } from '../assets/images/fb-logo.svg';
-import { ReactComponent as IgLogo } from '../assets/images/ig-logo.svg';
+import BaLogo from '../assets/images/ba-logo.svg'
+import FbLogo from '../assets/images/fb-logo.svg'
+import IgLogo from '../assets/images/ig-logo.svg'
 
 export interface IHeaderProps {
-  facebookLink?: string;
-  instagramLink?: string;
+  facebookLink?: string
+  instagramLink?: string
 }
 
 const Header = ({ facebookLink, instagramLink }: IHeaderProps) => (
@@ -32,6 +32,6 @@ const Header = ({ facebookLink, instagramLink }: IHeaderProps) => (
       </div>
     </div>
   </div>
-);
+)
 
-export default Header;
+export default Header

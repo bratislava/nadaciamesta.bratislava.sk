@@ -1,69 +1,68 @@
-import cx from 'classnames';
+import cx from 'classnames'
 
-import NavigationItem from './NavigationItem';
-import { ReactComponent as FoundationLogo } from '../../assets/images/foundation-logo.svg';
-import { ReactComponent as MenuIcon } from '../../assets/icons/menu.svg';
-import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
-import SearchBar from '../SearchBar';
+import NavigationItem from './NavigationItem'
+import FoundationLogo from '../../assets/images/foundation-logo.svg'
+import MenuIcon from '../../assets/icons/menu.svg'
+import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import SearchIcon from '../../assets/icons/search.svg'
+import SearchBar from '../SearchBar'
 
 const searchResultTypes = {
   project: 'Podporený projekt',
   grant: 'Grantový program',
   blog: 'Blog',
   document: 'Dokument',
-};
+}
 
 const searchResultLinks = {
   project: (id: string) => `/projects/${id}`,
   grant: (id: string) => `/grants#${id}`,
   blog: (id: string) => `/blog/${id}`,
   document: (id: string) => `/documents#${id}`,
-};
+}
 
 const Navigation = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    router.events.on('beforeHistoryChange', () => setSearchQuery(''));
-    return () =>
-      router.events.off('beforeHistoryChange', () => setSearchQuery(''));
-  }, [router]);
+    router.events.on('beforeHistoryChange', () => setSearchQuery(''))
+    return () => router.events.off('beforeHistoryChange', () => setSearchQuery(''))
+  }, [router])
 
-  const [isNavOpen, setNavOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [isSearchResultsVisible, setSearchResultsVisible] = useState(false);
-  const [isSearchModalOpen, setSearchModalOpen] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [isNavOpen, setNavOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState<any[]>([])
+  const [isSearchResultsVisible, setSearchResultsVisible] = useState(false)
+  const [isSearchModalOpen, setSearchModalOpen] = useState(false)
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
-  const search = (query) => fetch(`/search/${query}`).then((res) => res.json());
+  const search = (query) => fetch(`/search/${query}`).then((res) => res.json())
 
   useEffect(() => {
     if (searchQuery.length > 2) {
       search(searchQuery).then((results) => {
-        setSearchResults(results);
+        setSearchResults(results)
         if (results.length) {
-          setSearchResultsVisible(true);
+          setSearchResultsVisible(true)
         } else {
-          setSearchResultsVisible(false);
+          setSearchResultsVisible(false)
         }
-      });
+      })
     } else {
-      setSearchResultsVisible(false);
+      setSearchResultsVisible(false)
     }
-  }, [searchQuery, setSearchResultsVisible]);
+  }, [searchQuery, setSearchResultsVisible])
 
   useEffect(() => {
-    setNavOpen(false);
-  }, [router.pathname]);
+    setNavOpen(false)
+  }, [router.pathname])
 
   useEffect(() => {
     if (isSearchModalOpen) {
-      searchInputRef?.current.focus();
+      searchInputRef?.current.focus()
     }
-  }, [isSearchModalOpen]);
+  }, [isSearchModalOpen])
 
   return (
     <>
@@ -76,10 +75,7 @@ const Navigation = () => {
           <button onClick={() => setSearchModalOpen(true)}>
             <SearchIcon />
           </button>
-          <button
-            className="hover:text-primary"
-            onClick={() => setNavOpen(true)}
-          >
+          <button className="hover:text-primary" onClick={() => setNavOpen(true)}>
             <MenuIcon className="w-8 h-8" />
           </button>
         </div>
@@ -100,10 +96,7 @@ const Navigation = () => {
           <NavigationItem url="/documents">Dokumenty</NavigationItem>
           <NavigationItem url="/about-us">O nás</NavigationItem>
           <NavigationItem url="/contacts">Kontakty</NavigationItem>
-          <button
-            className="hidden xl:block"
-            onClick={() => setSearchModalOpen(true)}
-          >
+          <button className="hidden xl:block" onClick={() => setSearchModalOpen(true)}>
             <SearchIcon />
           </button>
         </nav>
@@ -129,9 +122,7 @@ const Navigation = () => {
               className="w-full"
               inputRef={searchInputRef}
               onQueryChange={(query) => setSearchQuery(query)}
-              onFocus={() =>
-                searchQuery.length > 2 && setSearchResultsVisible(true)
-              }
+              onFocus={() => searchQuery.length > 2 && setSearchResultsVisible(true)}
               onBlur={() => setSearchResultsVisible(false)}
               query={searchQuery}
             />
@@ -139,30 +130,28 @@ const Navigation = () => {
               <div className="flex w-full left-0 top-16 bg-white flex-col absolute shadow-lg py-4 rounded">
                 {searchResults.map((searchResult, index) => (
                   <div className="select-none cursor-pointer" key={index}>
-                    {searchResult.result.map(
-                      ({ id: fullId, doc: { title, slug } }) => {
-                        const type = fullId.split('-')[0];
-                        const id = fullId.split('-')[1];
-                        return (
-                          <div
-                            key={id}
-                            onMouseDown={() => {
-                              setSearchModalOpen(false);
-                              router.push(searchResultLinks[type](slug ?? id));
-                            }}
-                            role="link"
-                            tabIndex={0}
-                          >
-                            <div className="flex flex-col sm:flex-row items-start py-2 px-8 hover:bg-gray-100">
-                              <span className="bg-primary-muted whitespace-nowrap mt-0.5 rounded text-white px-1 uppercase text-xs mr-2">
-                                {searchResultTypes[type]}
-                              </span>
-                              <span>{title}</span>
-                            </div>
+                    {searchResult.result.map(({ id: fullId, doc: { title, slug } }) => {
+                      const type = fullId.split('-')[0]
+                      const id = fullId.split('-')[1]
+                      return (
+                        <div
+                          key={id}
+                          onMouseDown={() => {
+                            setSearchModalOpen(false)
+                            router.push(searchResultLinks[type](slug ?? id))
+                          }}
+                          role="link"
+                          tabIndex={0}
+                        >
+                          <div className="flex flex-col sm:flex-row items-start py-2 px-8 hover:bg-gray-100">
+                            <span className="bg-primary-muted whitespace-nowrap mt-0.5 rounded text-white px-1 uppercase text-xs mr-2">
+                              {searchResultTypes[type]}
+                            </span>
+                            <span>{title}</span>
                           </div>
-                        );
-                      }
-                    )}
+                        </div>
+                      )
+                    })}
                   </div>
                 ))}
               </div>
@@ -171,7 +160,7 @@ const Navigation = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Navigation;
+export default Navigation

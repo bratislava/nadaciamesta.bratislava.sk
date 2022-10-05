@@ -1,19 +1,14 @@
-import cx from 'classnames';
-import { ReactComponent as DownloadIcon } from '../assets/icons/download.svg';
+import cx from 'classnames'
+import DownloadIcon from '../assets/icons/download.svg'
 
 interface IDownloadLinkProps {
-  text: string;
-  fileUrl: string;
-  fileName?: string;
-  className?: string;
+  text: string
+  fileUrl: string
+  fileName?: string
+  className?: string
 }
 
-const DownloadLink = ({
-  text,
-  fileUrl,
-  fileName,
-  className,
-}: IDownloadLinkProps) => {
+const DownloadLink = ({ text, fileUrl, fileName, className }: IDownloadLinkProps) => {
   return (
     <a
       href={fileUrl}
@@ -25,7 +20,7 @@ const DownloadLink = ({
       <div className="font-bold group-hover:underline break-all">{text}</div>
       <DownloadIcon className="w-4 h-4 flex-shrink-0 mt-1 ml-2" />
     </a>
-  );
-};
+  )
+}
 
-export default DownloadLink;
+export default DownloadLink
