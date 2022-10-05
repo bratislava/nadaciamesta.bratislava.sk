@@ -1,4 +1,4 @@
-# city-gallery
+# city-foundation
 
 Simple Strapi v4 + Next.js template
 
