@@ -1,4 +1,4 @@
-# Bratislava City Gallery website
+# nadaciamesta.bratislava.sk website
 
 Install dependencies:
 

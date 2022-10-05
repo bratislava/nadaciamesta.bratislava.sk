@@ -1,6 +1,4 @@
-# city-foundation
-
-Simple Strapi v4 + Next.js template
+# nadaciamesta.bratislava.sk website
 
 ## How to run locally
 
@@ -25,14 +23,6 @@ yarn dev
 ```
 
 Follow readme files in folders `/strapi` and `/next`.
-
-### Quick run
-
-Just for testing purposes to check if everything works together, you can run all services without installing it locally quickly through `docker-compose`:
-
-```bash
-docker-compose up
-```
 
 ## Deployment
 
