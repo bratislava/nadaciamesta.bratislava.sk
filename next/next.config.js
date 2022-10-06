@@ -2,19 +2,18 @@
 const { i18n } = require('./next-i18next.config')
 const { withSentryConfig } = require('@sentry/nextjs')
 
-/**
- * @type {import('next').NextConfig}
- */
 const nextConfig = {
-  nx: {
-    // Set this to false if you do not want to use SVGR
-    // See: https://github.com/gregberge/svgr
-    svgr: true,
-  },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
+  },
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
   },
   images: {
     domains: ['nadaciadev.blob.core.windows.net'],
@@ -22,10 +21,9 @@ const nextConfig = {
   async rewrites() {
     const protocol =
       process.env.STRAPI_URL &&
-      (process.env.STRAPI_URL.startsWith('http://') ||
-        process.env.STRAPI_URL.startsWith('https://'))
+      (process.env.STRAPI_URL.startsWith('http://') || process.env.STRAPI_URL.startsWith('https://'))
         ? ''
-        : 'http://';
+        : 'http://'
 
     return {
       beforeFiles: [
@@ -45,12 +43,12 @@ const nextConfig = {
           destination: `${protocol}${process.env.STRAPI_URL}/search/:query`,
         },
       ],
-    };
+    }
   },
   serverRuntimeConfig: {
     strapiUrl: process.env.STRAPI_URL,
   },
-};
+}
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
