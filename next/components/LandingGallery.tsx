@@ -34,14 +34,14 @@ const LandingGallery = ({ slidesTop, slidesBottom }: ILandingGalleryProps) => {
       >
         <LandingSwiper
           numOfSlides={numTopSlides}
-          speed={17000}
+          speed={17_000}
           slides={slidesTop}
         />
       </div>
       <div className="flex min-w-full justify-center" style={{ height: 390 }}>
         <LandingSwiper
           numOfSlides={numBottomSlides}
-          speed={19000}
+          speed={19_000}
           slides={slidesBottom}
         />
       </div>

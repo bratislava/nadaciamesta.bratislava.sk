@@ -1,8 +1,9 @@
 import { ComponentProps } from 'react'
 import ReactSelect, { components } from 'react-select'
+
+import CancelIcon from '../assets/icons/cancel.svg'
 import ChevronDown from '../assets/icons/chevron-down.svg'
 import ChevronUp from '../assets/icons/chevron-up.svg'
-import CancelIcon from '../assets/icons/cancel.svg'
 
 export interface IOption {
   value: string
@@ -87,7 +88,7 @@ const Select = ({ placeholder = 'Placeholder', value, options, className, id, on
     placeholder={placeholder}
     styles={styles}
     options={options}
-    isClearable={true}
+    isClearable
     className={className}
     components={{ DropdownIndicator, ClearIndicator }}
     instanceId={id}

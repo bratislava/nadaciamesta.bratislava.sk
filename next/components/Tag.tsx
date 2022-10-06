@@ -21,13 +21,13 @@ const Tag = ({
     role="button"
     tabIndex={0}
     className={cx(
-      'flex justify-center  text-center border-solid border-2',
+      'flex justify-center  border-2 border-solid text-center',
       {
-        'text-sm rounded-sm py-1 px-2': size === 'small',
-        'text-xl rounded py-2 px-3 font-semibold': size === 'large',
-        'text-primary border-primary': variant === 'active',
-        'text-dark-gray-color border-dark-gray-color': variant === 'inactive',
-        'text-gray-universal-100 cursor-default': variant === 'passive',
+        'rounded-sm py-1 px-2 text-sm': size === 'small',
+        'rounded py-2 px-3 text-xl font-semibold': size === 'large',
+        'border-primary text-primary': variant === 'active',
+        'border-dark-gray-color text-dark-gray-color': variant === 'inactive',
+        'cursor-default text-gray-universal-100': variant === 'passive',
       },
       className
     )}

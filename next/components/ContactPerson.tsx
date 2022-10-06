@@ -13,17 +13,17 @@ const ContactPerson = ({
   phone,
   email,
 }: IContactPersonProps) => (
-  <div className="w-full grid gap-4 sm:gap-8 text-center justify-items-center text-base sm:flex items-center">
-    <div className="w-48 h-48 sm:w-32 sm:h-32 xl:w-48 xl:h-48 flex-shrink-0 relative rounded-full">
+  <div className="grid w-full items-center justify-items-center gap-4 text-center text-base sm:flex sm:gap-8">
+    <div className="relative h-48 w-48 shrink-0 rounded-full sm:h-32 sm:w-32 xl:h-48 xl:w-48">
       <img
-        className="object-cover rounded-full w-48 h-48 max-h-[100%] max-w-[100%]"
+        className="h-48 max-h-[100%] w-48 max-w-[100%] rounded-full object-cover"
         src={image}
         alt=""
       />
     </div>
     <div className="w-full sm:text-left">
       <div className="font-bold">{name}</div>
-      {role && <div className="font-bold mb-2">{role}</div>}
+      {role && <div className="mb-2 font-bold">{role}</div>}
       <div>
         <a href={`tel:${phone}`} className="hover:underline">
           {phone}

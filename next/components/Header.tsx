@@ -9,15 +9,15 @@ export interface IHeaderProps {
 
 const Header = ({ facebookLink, instagramLink }: IHeaderProps) => (
   <div className="bg-primary">
-    <div className="container mx-auto flex justify-between items-center">
-      <div className="flex flex-row gap-4 items-center">
+    <div className="container mx-auto flex items-center justify-between">
+      <div className="flex flex-row items-center gap-4">
         <BaLogo />
-        <p className="text-secondary font-light md:flex text-xs sm:text-sm">
+        <p className="text-xs font-light text-secondary sm:text-sm md:flex">
           Hlavné mesto Slovenskej republiky
           <span className="font-bold">&nbsp;Bratislava</span>
         </p>
       </div>
-      <div className="py-4 flex flex-row space-x-3 justify-between">
+      <div className="flex flex-row justify-between space-x-3 py-4">
         {facebookLink && (
           <a href={facebookLink} target="_blank" rel="noreferrer">
             <FbLogo alt="Facebook" />

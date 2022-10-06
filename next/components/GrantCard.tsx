@@ -1,6 +1,7 @@
-import DownloadLink from './DownloadLink';
-import Button from './Button';
 import cx from 'classnames';
+
+import Button from './Button';
+import DownloadLink from './DownloadLink';
 
 export interface IGrantCardProps {
   title: string;
@@ -20,12 +21,12 @@ const GrantCard = ({
   return (
     <div className={cx('flex flex-col space-y-4', className)}>
       <div className="h-[110px]">
-        <div className="font-semibold min-h-[3.2em] flex items-center justify-center text-xl border-2 rounded-md text-center border-dark-gray-color py-2 px-6 mb-4">
+        <div className="mb-4 flex min-h-[3.2em] items-center justify-center rounded-md border-2 border-dark-gray-color py-2 px-6 text-center text-xl font-semibold">
           <span>{title}</span>
         </div>
       </div>
       <div className="h-full">
-        <div className="w-full mb-2">{text}</div>
+        <div className="mb-2 w-full">{text}</div>
         <div className="flex flex-wrap gap-2">
           {files.map((file, index) => (
             <DownloadLink

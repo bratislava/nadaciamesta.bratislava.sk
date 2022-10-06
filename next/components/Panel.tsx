@@ -14,7 +14,7 @@ export const Panel = ({
 }: PanelProps) => (
   <div
     className={cx(className, 'rounded-lg bg-white shadow', {
-      'cursor-pointer transition-all transform hover:-translate-y-2 hover:shadow-lg':
+      'transform cursor-pointer transition-all hover:-translate-y-2 hover:shadow-lg':
         hoverable,
       'overflow-hidden': !overflowVisible,
     })}

@@ -1,4 +1,5 @@
-import Tag from '../../components/Tag';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import {
   Dispatch,
   SetStateAction,
@@ -6,21 +7,21 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { client } from '../../utils/gql';
-import TagGroupSingle from '../../components/TagGroupSingle';
-import TagGroupMultiple from '../../components/TagGroupMultiple';
-import { AsyncServerProps } from '../../utils/types';
-import ProjectCard from '../../components/ProjectCard';
-import { ProjectsQuery } from '../graphql/index';
-import { useRouter } from 'next/router';
-import { parseQueryArray, parseQueryString } from '../../utils/helpers';
-import Head from 'next/head';
-import SearchBar from '../../components/SearchBar';
+
 import Button from '../../components/Button';
+import ProjectCard from '../../components/ProjectCard';
+import SearchBar from '../../components/SearchBar';
+import Tag from '../../components/Tag';
+import TagGroupMultiple from '../../components/TagGroupMultiple';
+import TagGroupSingle from '../../components/TagGroupSingle';
+import { client } from '../../utils/gql';
+import { parseQueryArray, parseQueryString } from '../../utils/helpers';
+import { AsyncServerProps } from '../../utils/types';
+import { ProjectsQuery } from '../graphql/index';
 
 const PROJECT_COUNT_PER_LOAD = 24;
 
-export function Projects({
+export const Projects = ({
   tagPrograms,
   tagCategories,
   tagDistricts,
@@ -28,7 +29,7 @@ export function Projects({
   tagLegalForms,
   tagSupportFields,
   tagYears,
-}: AsyncServerProps<typeof getServerSideProps>) {
+}: AsyncServerProps<typeof getServerSideProps>) => {
   const { query } = useRouter();
 
   const [projects, setProjects] = useState<ProjectsQuery['projects']>([]);
@@ -67,9 +68,9 @@ export function Projects({
   ) => {
     if (!queryParam) return;
 
-    const tags = tagsObj.map((tag) => tag.name);
+    const tags = new Set(tagsObj.map((tag) => tag.name));
     setValue(
-      parseQueryArray(queryParam).filter((param) => tags.includes(param))
+      parseQueryArray(queryParam).filter((param) => tags.has(param))
     );
   };
 
@@ -152,7 +153,7 @@ export function Projects({
       setAllProjectsLoaded(true);
       const { projects: newProjects } = await client.Projects({
         limit: PROJECT_COUNT_PER_LOAD,
-        offset: offset,
+        offset,
         year,
         program,
         district,
@@ -280,10 +281,10 @@ export function Projects({
 
       <div className="section section-no-padding">
         <div className="container mx-auto flex min-h-[100px] items-stretch">
-          <div className="flex items-center w-2/5 border-black-right pr-4">
+          <div className="border-black-right flex w-2/5 items-center pr-4">
             {getFilteredProjectText()}
           </div>
-          <div className="flex flex-wrap gap-2 w-3/5 pl-10 my-4 items-center">
+          <div className="my-4 flex w-3/5 flex-wrap items-center gap-2 pl-10">
             {year && <Tag text={year} />}
             {program && (
               <Tag
@@ -294,7 +295,7 @@ export function Projects({
             )}
             {[]
               .concat(categories, goals, supportFields, legalForms, district)
-              .filter((tag) => tag)
+              .filter(Boolean)
               .map((label, index) => (
                 <Tag text={label} key={index} />
               ))}
@@ -304,7 +305,7 @@ export function Projects({
 
       <section className="section">
         <div className="container mx-auto">
-          <div className="w-full grid gap-8 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mb-12">
+          <div className="mb-12 grid w-full gap-8 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {projects.map((project) => (
               <ProjectCard project={project} key={project.id} />
             ))}

@@ -1,4 +1,5 @@
 import cx from 'classnames'
+
 import DownloadIcon from '../assets/icons/download.svg'
 
 interface IDownloadLinkProps {
@@ -12,13 +13,13 @@ const DownloadLink = ({ text, fileUrl, fileName, className }: IDownloadLinkProps
   return (
     <a
       href={fileUrl}
-      download={fileName && fileName.length ? fileName : true}
+      download={fileName && fileName.length > 0 ? fileName : true}
       target="_blank"
-      className={cx('w-full text-left flex justify-between group', className)}
+      className={cx('group flex w-full justify-between text-left', className)}
       rel="noopener noreferrer"
     >
-      <div className="font-bold group-hover:underline break-all">{text}</div>
-      <DownloadIcon className="w-4 h-4 flex-shrink-0 mt-1 ml-2" />
+      <div className="break-all font-bold group-hover:underline">{text}</div>
+      <DownloadIcon className="mt-1 ml-2 h-4 w-4 shrink-0" />
     </a>
   )
 }

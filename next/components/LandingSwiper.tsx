@@ -1,7 +1,7 @@
-import React from 'react';
 import cx from 'classnames';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 export interface ILandingSwiperProps {
   numOfSlides: number;
@@ -18,7 +18,7 @@ const LandingSwiper = ({ numOfSlides, speed, slides }: ILandingSwiperProps) => {
       slidesPerView={numOfSlides}
       spaceBetween={15}
       speed={speed}
-      loop={true}
+      loop
       freeMode={{
         enabled: true,
         sticky: false,
@@ -41,7 +41,7 @@ const LandingSwiper = ({ numOfSlides, speed, slides }: ILandingSwiperProps) => {
         >
           <Link href={`/projects/${project.id}`}>
             <a href={`/projects/${project.id}`}>
-              {project.images.length ? (
+              {project.images.length > 0 ? (
                 <img
                   src={
                     project.images[0]?.formats?.medium?.url ||

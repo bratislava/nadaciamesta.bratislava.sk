@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+
 import { sendNewSubscriber } from '../../utils/email';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -10,8 +11,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await sendNewSubscriber(req.body.email, req.body.name);
 
     return res.status(200).json({});
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({});
   }
 };

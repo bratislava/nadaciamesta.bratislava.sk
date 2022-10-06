@@ -1,8 +1,9 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import Tag from './Tag'
-import CancelIcon from '../assets/icons/cancel.svg'
 import cx from 'classnames'
+import React, { Dispatch, SetStateAction } from 'react'
+
+import CancelIcon from '../assets/icons/cancel.svg'
 import Button from './Button'
+import Tag from './Tag'
 
 export interface ITagGroupSingleProps {
   tags: Array<{ name: string }>
@@ -14,20 +15,20 @@ export interface ITagGroupSingleProps {
 
 const TagGroupSingle = ({ tags, value, setValue, clearable = false, uppercase = false }: ITagGroupSingleProps) => {
   return (
-    <div className="flex flex-wrap gap-2 mb-4 items-center">
+    <div className="mb-4 flex flex-wrap items-center gap-2">
       {tags.map((tag, index) => (
         <Tag
           text={tag.name}
           key={index}
           variant={value === tag.name ? 'active' : 'inactive'}
           onClick={() => setValue(tag.name)}
-          className={cx({ uppercase: uppercase })}
+          className={cx({ uppercase })}
         />
       ))}
       {clearable && (
         <div className="w-6">
           {value && (
-            <Button onClick={() => setValue(undefined)} className={'border-none py-1 px-1 w-full'}>
+            <Button onClick={() => setValue()} className="w-full border-none p-1">
               <CancelIcon stroke="var(--font-color)" />
             </Button>
           )}

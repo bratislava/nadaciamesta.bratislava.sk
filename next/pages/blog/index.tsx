@@ -1,12 +1,12 @@
+import Head from 'next/head';
+
+import BlogPostCard from '../../components/BlogPostCard';
 import { client } from '../../utils/gql';
 import { AsyncServerProps } from '../../utils/types';
 
-import BlogPostCard from '../../components/BlogPostCard';
-import Head from 'next/head';
-
-export function Blogs({
+export const Blogs = ({
   blogPosts,
-}: AsyncServerProps<typeof getServerSideProps>) {
+}: AsyncServerProps<typeof getServerSideProps>) => {
   return (
     <>
       <Head>
@@ -14,7 +14,7 @@ export function Blogs({
       </Head>
       <section className="section">
         <div className="container mb-12">
-          <div className="w-full grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid w-full gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {blogPosts.map((blog, index) => (
               <BlogPostCard key={index} blogPost={blog} />
             ))}

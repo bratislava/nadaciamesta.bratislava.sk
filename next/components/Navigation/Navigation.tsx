@@ -1,12 +1,12 @@
 import cx from 'classnames'
-
-import NavigationItem from './NavigationItem'
-import FoundationLogo from '../../assets/images/foundation-logo.svg'
-import MenuIcon from '../../assets/icons/menu.svg'
-import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useEffect, useRef, useState } from 'react'
+
+import MenuIcon from '../../assets/icons/menu.svg'
 import SearchIcon from '../../assets/icons/search.svg'
+import FoundationLogo from '../../assets/images/foundation-logo.svg'
 import SearchBar from '../SearchBar'
+import NavigationItem from './NavigationItem'
 
 const searchResultTypes = {
   project: 'Podporený projekt',
@@ -43,7 +43,7 @@ const Navigation = () => {
     if (searchQuery.length > 2) {
       search(searchQuery).then((results) => {
         setSearchResults(results)
-        if (results.length) {
+        if (results.length > 0) {
           setSearchResultsVisible(true)
         } else {
           setSearchResultsVisible(false)
@@ -66,22 +66,22 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="container flex items-center py-4 justify-between relative z-20">
+      <div className="container relative z-20 flex items-center justify-between py-4">
         <NavigationItem url="/" className="text-primary">
-          <FoundationLogo className="w-64 sm:w-96 mb-[-6px]" />
+          <FoundationLogo className="mb-[-6px] w-64 sm:w-96" />
         </NavigationItem>
 
-        <div className="flex gap-4 items-center 2xl:hidden">
+        <div className="flex items-center gap-4 2xl:hidden">
           <button onClick={() => setSearchModalOpen(true)}>
             <SearchIcon />
           </button>
           <button className="hover:text-primary" onClick={() => setNavOpen(true)}>
-            <MenuIcon className="w-8 h-8" />
+            <MenuIcon className="h-8 w-8" />
           </button>
         </div>
         <nav
           className={cx(
-            'fixed 2xl:static p-8 pr-24 2xl:p-0 bg-white z-40 top-0 left-0 bottom-0 flex flex-col 2xl:flex-row gap-8 2xl:items-center transform transition-transform 2xl:transition-none 2xl:transform-none',
+            'fixed top-0 left-0 bottom-0 z-40 flex transform flex-col gap-8 bg-white p-8 pr-24 transition-transform 2xl:static 2xl:transform-none 2xl:flex-row 2xl:items-center 2xl:p-0 2xl:transition-none',
             { 'translate-x-0': isNavOpen },
             { '-translate-x-full': !isNavOpen }
           )}
@@ -102,7 +102,7 @@ const Navigation = () => {
         </nav>
         <div
           className={cx(
-            'fixed z-30 top-0 right-0 bottom-0 left-0 bg-black visible opacity-40 transition-all cursor-default 2xl:hidden',
+            'visible fixed top-0 right-0 bottom-0 left-0 z-30 cursor-default bg-black opacity-40 transition-all 2xl:hidden',
             { 'invisible opacity-0': !isNavOpen }
           )}
           onClick={() => setNavOpen(false)}
@@ -112,12 +112,12 @@ const Navigation = () => {
         />
       </div>
       {isSearchModalOpen && (
-        <div className="fixed flex top-0 right-0 bottom-0 left-0 z-30 items-start justify-center">
+        <div className="fixed inset-0 z-30 flex items-start justify-center">
           <button
             onClick={() => setSearchModalOpen(false)}
-            className="absolute bg-black bg-opacity-40 top-0 right-0 bottom-0 left-0 cursor-default"
-          ></button>
-          <div className="relative mx-12 mt-32 w-full flex justify-center max-w-[700px]">
+            className="absolute inset-0 cursor-default bg-black bg-opacity-40"
+           />
+          <div className="relative mx-12 mt-32 flex w-full max-w-[700px] justify-center">
             <SearchBar
               className="w-full"
               inputRef={searchInputRef}
@@ -127,9 +127,9 @@ const Navigation = () => {
               query={searchQuery}
             />
             {isSearchResultsVisible && (
-              <div className="flex w-full left-0 top-16 bg-white flex-col absolute shadow-lg py-4 rounded">
+              <div className="absolute left-0 top-16 flex w-full flex-col rounded bg-white py-4 shadow-lg">
                 {searchResults.map((searchResult, index) => (
-                  <div className="select-none cursor-pointer" key={index}>
+                  <div className="cursor-pointer select-none" key={index}>
                     {searchResult.result.map(({ id: fullId, doc: { title, slug } }) => {
                       const type = fullId.split('-')[0]
                       const id = fullId.split('-')[1]
@@ -143,8 +143,8 @@ const Navigation = () => {
                           role="link"
                           tabIndex={0}
                         >
-                          <div className="flex flex-col sm:flex-row items-start py-2 px-8 hover:bg-gray-100">
-                            <span className="bg-primary-muted whitespace-nowrap mt-0.5 rounded text-white px-1 uppercase text-xs mr-2">
+                          <div className="flex flex-col items-start py-2 px-8 hover:bg-gray-100 sm:flex-row">
+                            <span className="mt-0.5 mr-2 whitespace-nowrap rounded bg-primary-muted px-1 text-xs uppercase text-white">
                               {searchResultTypes[type]}
                             </span>
                             <span>{title}</span>

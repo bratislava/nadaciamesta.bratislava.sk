@@ -1,6 +1,7 @@
 import cx from 'classnames'
-import { Panel } from './Panel'
+
 import Download from '../assets/icons/download.svg'
+import { Panel } from './Panel'
 
 export interface DownloadCardProps {
   className?: string
@@ -27,17 +28,17 @@ export const DownloadCard = ({
         hoverable
         className={cx(
           className,
-          'py-6 px-5 space-y-4 border-4 border-transparent hover:border-primary md:min-h-[154px]'
+          'space-y-4 border-4 border-transparent py-6 px-5 hover:border-primary md:min-h-[154px]'
         )}
       >
-        <div className=" flex space-x-5 lg:space-x-8 items-end">
-          <span className="text-sm font-normal max-h-[96px] w-[250px] overflow-hidden">{title}</span>
-          <span className="flex text-primary justify-end items-end h-[88px]">
+        <div className=" flex items-end space-x-5 lg:space-x-8">
+          <span className="max-h-[96px] w-[250px] overflow-hidden text-sm font-normal">{title}</span>
+          <span className="flex h-[88px] items-end justify-end text-primary">
             <Download />
           </span>
         </div>
 
-        <div className="flex justify-between mt-5 text-xs opacity-50">
+        <div className="mt-5 flex justify-between text-xs opacity-50">
           <span>{uploadDate}</span>
           <span>{downloadDetail}</span>
         </div>

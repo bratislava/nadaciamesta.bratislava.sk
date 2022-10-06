@@ -9,12 +9,12 @@ export interface IProjectCardProps {
 const ProjectCard = ({ project }: IProjectCardProps) => {
   return (
     <Card
-      className="flex flex-col space-y-4 hover:border-black border-transparent border-2"
+      className="flex flex-col space-y-4 border-2 border-transparent hover:border-black"
       href={`/projects/${project.id}/`}
     >
       <div className="relative h-48">
         <img
-          className="object-cover h-48 w-[100%]"
+          className="h-48 w-[100%] object-cover"
           src={
             project.images[0]?.formats?.small?.url ||
             project.images[0]?.url ||
@@ -24,7 +24,7 @@ const ProjectCard = ({ project }: IProjectCardProps) => {
         />
       </div>
       <div className="text-lg font-bold">{project.title}</div>
-      <div className="w-full text-truncate-4">{project.description}</div>
+      <div className="text-truncate-4 w-full">{project.description}</div>
       <div className="flex flex-wrap gap-2">
         {[]
           .concat(
@@ -37,7 +37,7 @@ const ProjectCard = ({ project }: IProjectCardProps) => {
             // TEMPORARILY HIDDEN
             // project.districts.map((tag) => tag.name)
           )
-          .filter((tag) => tag)
+          .filter(Boolean)
           .map((tag, index) => (
             <Tag key={index} text={tag} />
           ))}

@@ -1,16 +1,17 @@
-import DownloadCard from '../components/DownloadCard';
-import { client } from '../utils/gql';
-import { AsyncServerProps } from '../utils/types';
-import { formatKiloBytes, getLocalDate } from '../utils/helpers';
-import Newsletter from '../components/Newsletter';
+import cx from 'classnames';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import cx from 'classnames';
 
-export function Documents({
+import DownloadCard from '../components/DownloadCard';
+import Newsletter from '../components/Newsletter';
+import { client } from '../utils/gql';
+import { formatKiloBytes, getLocalDate } from '../utils/helpers';
+import { AsyncServerProps } from '../utils/types';
+
+export const Documents = ({
   documents,
   general: { newsletter_text },
-}: AsyncServerProps<typeof getServerSideProps>) {
+}: AsyncServerProps<typeof getServerSideProps>) => {
   const router = useRouter();
   return (
     <>
@@ -19,7 +20,7 @@ export function Documents({
       </Head>
       <section className="section">
         <div className="container mx-auto">
-          <div className="w-full grid gap-12 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+          <div className="grid w-full gap-12 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {documents.map(({ id, title, created_at, file }) => (
               <div key={id} id={id}>
                 <DownloadCard

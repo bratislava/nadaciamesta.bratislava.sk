@@ -1,17 +1,18 @@
-import Newsletter from '../components/Newsletter';
-import GrantCard from '../components/GrantCard';
-import Tag from '../components/Tag';
+import cx from 'classnames';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
+
+import GrantCard from '../components/GrantCard';
+import Newsletter from '../components/Newsletter';
+import Tag from '../components/Tag';
 import { client } from '../utils/gql';
 import { AsyncServerProps } from '../utils/types';
-import { useRouter } from 'next/router';
-import cx from 'classnames';
 
-export function Grants({
+export const Grants = ({
   grants,
   tagPrograms: programs,
   general: { newsletter_text },
-}: AsyncServerProps<typeof getServerSideProps>) {
+}: AsyncServerProps<typeof getServerSideProps>) => {
   const [selectedProgram, setSelectedProgram] = useState<string>(
     programs[0].name
   );
@@ -39,7 +40,7 @@ export function Grants({
                 )
             )}
           </div>
-          <div className="w-full grid gap-8 lg:grid-cols-3 xl:grid-cols-5 pb-52">
+          <div className="grid w-full gap-8 pb-52 lg:grid-cols-3 xl:grid-cols-5">
             {grants
               .filter((grant) => grant.program.name === selectedProgram)
               .sort((a, b) => a.order - b.order)
@@ -47,7 +48,7 @@ export function Grants({
                 <div key={grant.id} id={grant.id}>
                   <GrantCard
                     className={cx({
-                      'border-primary-muted border-4 rounded-xl p-2':
+                      'rounded-xl border-4 border-primary-muted p-2':
                         router.asPath.split('#')[1] == grant.id,
                     })}
                     href={grant.link}

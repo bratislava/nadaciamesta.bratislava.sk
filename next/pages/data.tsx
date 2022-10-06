@@ -9,17 +9,17 @@ export const Contacts = () => {
       <section className="section">
         <div className="container mx-auto" style={{ maxWidth: '1024px' }}>
           <div
-            className="relative w-full flex justify-center"
-            style={{ paddingTop: '115%' }} //this is just to keep ratio of an iframe content
+            className="relative flex w-full justify-center"
+            style={{ paddingTop: '115%' }} // this is just to keep ratio of an iframe content
           >
             <iframe
-              className="absolute top-0 w-full h-full"
+              className="absolute top-0 h-full w-full"
               title="Nadacia_web - Prehľad"
               src="https://app.powerbi.com/view?r=eyJrIjoiN2FhNjZmYjEtN2RjYi00ODM2LWE5NzgtYmJmYTA3ZjhiN2Y4IiwidCI6ImZlNjllNzRlLTFlNjYtNGZjYi05OWM1LTU4ZTRhMmQyYTA2MyIsImMiOjl9&pageName=ReportSectionbf571cbfa82dbe07c22e"
               frameBorder="0"
               allowFullScreen
               scrolling="no"
-            ></iframe>
+             />
           </div>
         </div>
       </section>

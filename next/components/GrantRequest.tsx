@@ -8,7 +8,7 @@ export interface IGrantRequestProps {
 export const GrantRequest = ({ text, buttonText }: IGrantRequestProps) => {
   return (
     <section className="section section-muted w-full">
-      <div className="container flex flex-col space-y-8 justify-between lg:items-center lg:flex-row lg:space-y-0 lg:space-x-8">
+      <div className="container flex flex-col justify-between space-y-8 lg:flex-row lg:items-center lg:space-y-0 lg:space-x-8">
         <div className="lg:w-1/2">{text}</div>
         <div>
           <Button href="/grants" variant="secondary" size="xl">

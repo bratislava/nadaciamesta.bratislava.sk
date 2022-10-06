@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+
 import Tag from './Tag';
 
 export interface ITagGroupMultipleProps {
@@ -13,7 +14,7 @@ const TagGroupMultiple = ({
   setValues,
 }: ITagGroupMultipleProps) => {
   return (
-    <div className="flex flex-wrap gap-2 mb-4">
+    <div className="mb-4 flex flex-wrap gap-2">
       {tags.map((tag, index) => (
         <Tag
           text={tag.name}

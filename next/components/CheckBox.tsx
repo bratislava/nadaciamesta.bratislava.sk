@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import React from 'react'
+
 import CheckMark from '../assets/icons/check-mark.svg'
 
 type ICheckBoxProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
@@ -9,14 +10,14 @@ type ICheckBoxProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInpu
 }
 
 export const CheckBox = ({ className, id, content, variant = 'default', ...rest }: ICheckBoxProps) => (
-  <label htmlFor={id} className={cx('cursor-pointer inline-flex gap-6 font-medium text-sm', className)}>
+  <label htmlFor={id} className={cx('inline-flex cursor-pointer gap-6 text-sm font-medium', className)}>
     <input type="checkbox" id={id} className="hidden" {...rest} />
     <div
       className={cx(
-        'border-primary border-2 text-white flex flex-0 items-center justify-center box-border overflow-hidden',
+        'flex-0 box-border flex items-center justify-center overflow-hidden border-2 border-primary text-white',
         {
-          'rounded-5 w-8 h-8': variant === 'default',
-          'rounded-full w-6 h-6': variant === 'circle',
+          'h-8 w-8 rounded-5': variant === 'default',
+          'h-6 w-6 rounded-full': variant === 'circle',
           'bg-primary': rest.checked,
           'bg-input-nav-bg': !rest.checked,
         },

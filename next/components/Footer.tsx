@@ -7,9 +7,9 @@ export interface IFooterProps {
 const Footer = ({ copyrightText, phone, email }: IFooterProps) => {
   return (
     <div className="bg-primary text-white">
-      <div className="container py-8 flex flex-col space-y-4 items-center text-center lg:flex-row lg:space-y-0 justify-between">
+      <div className="container flex flex-col items-center justify-between space-y-4 py-8 text-center lg:flex-row lg:space-y-0">
         <div className="">&copy; {copyrightText}</div>
-        <div className="flex flex-col space-y-4 items-center lg:flex-row lg:space-y-0 lg:space-x-8">
+        <div className="flex flex-col items-center space-y-4 lg:flex-row lg:space-y-0 lg:space-x-8">
           <a href={`tel:${phone}`} className="hover:underline">
             {phone}
           </a>

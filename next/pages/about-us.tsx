@@ -1,14 +1,15 @@
-import { client } from '../utils/gql';
-import { AsyncServerProps } from '../utils/types';
-import DownloadCard from '../components/DownloadCard';
-import { formatKiloBytes, getLocalDate } from '../utils/helpers';
+import Head from 'next/head';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import Head from 'next/head';
 
-export function AboutUs({
+import DownloadCard from '../components/DownloadCard';
+import { client } from '../utils/gql';
+import { formatKiloBytes, getLocalDate } from '../utils/helpers';
+import { AsyncServerProps } from '../utils/types';
+
+export const AboutUs = ({
   aboutUs,
-}: AsyncServerProps<typeof getServerSideProps>) {
+}: AsyncServerProps<typeof getServerSideProps>) => {
   return (
     <>
       <Head>
@@ -18,13 +19,13 @@ export function AboutUs({
         <section className="section" key={section.id}>
           <div className="container mx-auto">
             <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              <div className="space-y-4 lg:col-span-2 xl:col-span-3 md:pr-16 xl:pr-80 2xl:pr-96">
+              <div className="space-y-4 md:pr-16 lg:col-span-2 xl:col-span-3 xl:pr-80 2xl:pr-96">
                 <div className="text-xl font-bold">{section.title}</div>
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {section.detail}
                 </ReactMarkdown>
               </div>
-              <div className="flex flex-col gap-8 items-center">
+              <div className="flex flex-col items-center gap-8">
                 {section.files.map((file) => (
                   <DownloadCard
                     title={file.name}

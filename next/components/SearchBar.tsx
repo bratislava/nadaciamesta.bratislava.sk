@@ -1,6 +1,7 @@
-import SearchIcon from '../assets/icons/search.svg'
 import cx from 'classnames'
 import { MutableRefObject } from 'react'
+
+import SearchIcon from '../assets/icons/search.svg'
 
 interface ISearchBarProps {
   query?: string
@@ -13,7 +14,7 @@ interface ISearchBarProps {
 
 const SearchBar = ({ query, onQueryChange, className, onFocus, onBlur, inputRef }: ISearchBarProps) => {
   return (
-    <div className={cx('relative bg-white rounded', className)}>
+    <div className={cx('relative rounded bg-white', className)}>
       <input
         ref={inputRef}
         onFocus={onFocus}
@@ -22,9 +23,9 @@ const SearchBar = ({ query, onQueryChange, className, onFocus, onBlur, inputRef 
         value={query}
         onChange={(event) => onQueryChange(event.target.value)}
         placeholder="Vyhľadávanie"
-        className="relative z-10 pl-11 border-dark-gray-color flex-1 rounded w-full h-12 bg-transparent "
+        className="relative z-10 h-12 w-full flex-1 rounded border-dark-gray-color bg-transparent pl-11 "
       />
-      <div className="text-black absolute left-0 top-0 w-12 h-12 flex items-center justify-center">
+      <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center text-black">
         <SearchIcon />
       </div>
     </div>

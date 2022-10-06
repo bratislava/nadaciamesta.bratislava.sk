@@ -1,24 +1,25 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head';
-import Script from 'next/script';
-import Header from '../components/Header';
-import Navigation from '../components/Navigation/Navigation';
-import Footer from '../components/Footer';
-import { client } from '../utils/gql';
-import SwiperCore, {
-  Autoplay,
-  FreeMode,
-  Pagination,
-  Grid,
-  Navigation as SwiperNavigation,
-  Scrollbar,
-} from 'swiper';
-
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './styles.css';
+
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import Script from 'next/script';
 import { useEffect, useState } from 'react';
+import SwiperCore, {
+  Autoplay,
+  FreeMode,
+  Grid,
+  Navigation as SwiperNavigation,
+  Pagination,
+  Scrollbar,
+} from 'swiper';
+
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import Navigation from '../components/Navigation/Navigation';
+import { client } from '../utils/gql';
 
 SwiperCore.use([
   Autoplay,
@@ -29,7 +30,7 @@ SwiperCore.use([
   Scrollbar,
 ]);
 
-function CustomApp({ Component, pageProps }: AppProps) {
+const CustomApp = ({ Component, pageProps }: AppProps) => {
   const [facebookLink, setFacebookLink] = useState<string>(null);
   const [instagramLink, setInstagramLink] = useState<string>(null);
   const [copyrightText, setCopyrightText] = useState<string>(null);
@@ -85,7 +86,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#ffffff" />
       </Head>
       <Script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.sk" />
-      <div className="flex flex-1 flex-col justify-self-stretch min-h-screen">
+      <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
         <header>
           <Header facebookLink={facebookLink} instagramLink={instagramLink} />
           <Navigation />

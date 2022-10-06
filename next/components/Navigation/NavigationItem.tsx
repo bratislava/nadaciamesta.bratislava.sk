@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React, { ReactNode } from 'react';
 
 export interface INavigationItemProps {
   url: string;

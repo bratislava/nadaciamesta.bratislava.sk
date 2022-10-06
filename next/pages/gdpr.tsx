@@ -1,12 +1,12 @@
 import Head from 'next/head';
 
+import { Markdown } from '../components/Markdown';
 import { client } from '../utils/gql';
 import { AsyncServerProps } from '../utils/types';
-import { Markdown } from '../components/Markdown';
 
-export function Blog({
+export const Blog = ({
   legal: { gdpr },
-}: AsyncServerProps<typeof getServerSideProps>) {
+}: AsyncServerProps<typeof getServerSideProps>) => {
   return (
     <article>
       <Head>

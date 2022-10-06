@@ -1,17 +1,18 @@
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { client } from '../../utils/gql'
-import { AsyncServerProps } from '../../utils/types'
-import Tag from '../../components/Tag'
+import _ from 'lodash'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
-import ArrowLeftIcon from '../../assets/icons/arrow-circle-left.svg'
-import ArrowRightIcon from '../../assets/icons/arrow-circle-right.svg'
 import { useState } from 'react'
 import SwiperCore from 'swiper'
-import Button from '../../components/Button'
-import Head from 'next/head'
-import _ from 'lodash'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-function Project({ project, legal }: AsyncServerProps<typeof getServerSideProps>) {
+import ArrowLeftIcon from '../../assets/icons/arrow-circle-left.svg'
+import ArrowRightIcon from '../../assets/icons/arrow-circle-right.svg'
+import Button from '../../components/Button'
+import Tag from '../../components/Tag'
+import { client } from '../../utils/gql'
+import { AsyncServerProps } from '../../utils/types'
+
+const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>) => {
   const router = useRouter()
 
   const [swipe, setSwipe] = useState<SwiperCore>()
@@ -36,11 +37,11 @@ function Project({ project, legal }: AsyncServerProps<typeof getServerSideProps>
           }
         />
       </Head>
-      <div className="flex self-stretch h-[678px] bg-white">
+      <div className="flex h-[678px] self-stretch bg-white">
         <Swiper
           slidesPerView={1}
           speed={2000}
-          loop={true}
+          loop
           autoplay={{
             delay: 2500,
             disableOnInteraction: true,
@@ -49,18 +50,18 @@ function Project({ project, legal }: AsyncServerProps<typeof getServerSideProps>
         >
           {project.images.map((image) => (
             <SwiperSlide style={{ height: '100%', backgroundColor: 'gray' }} key={image.id}>
-              <img className="w-[100%] h-[100%]" src={image.url} alt={image.alternativeText} />
+              <img className="h-[100%] w-[100%]" src={image.url} alt={image.alternativeText} />
             </SwiperSlide>
           ))}
 
           <Button
-            className="swiper-button-prev w-16 h-16 ml-30 px-px py-px border-none"
+            className="swiper-button-prev ml-30 h-16 w-16 border-none p-px"
             onClick={() => swipe?.slidePrev()}
           >
             <ArrowLeftIcon />
           </Button>
           <Button
-            className="swiper-button-next w-16 h-16 mr-30 px-px py-px border-none"
+            className="swiper-button-next mr-30 h-16 w-16 border-none p-px"
             onClick={() => swipe?.slideNext()}
           >
             <ArrowRightIcon />
@@ -68,8 +69,8 @@ function Project({ project, legal }: AsyncServerProps<typeof getServerSideProps>
         </Swiper>
       </div>
       <section className="section section-no-padding">
-        <div className="container grid md:grid-cols-2 items-stretch">
-          <div className="py-16 px-4 md:p-16 space-y-4 md:border-r-2 border-dark-gray-color">
+        <div className="container grid items-stretch md:grid-cols-2">
+          <div className="space-y-4 border-dark-gray-color py-16 px-4 md:border-r-2 md:p-16">
             <h2 className="text-xl font-bold">{project.title}</h2>
             <div className="flex flex-wrap gap-2">
               {project.year && (
@@ -121,9 +122,9 @@ function Project({ project, legal }: AsyncServerProps<typeof getServerSideProps>
               ))} */
               }
             </div>
-            <p className=" text-sm italic font-thin">{legal?.project_detail_disclaimer}</p>
+            <p className=" text-sm font-thin italic">{legal?.project_detail_disclaimer}</p>
           </div>
-          <div className="pb-16 px-4 md:p-16">{project.description}</div>
+          <div className="px-4 pb-16 md:p-16">{project.description}</div>
         </div>
       </section>
     </>

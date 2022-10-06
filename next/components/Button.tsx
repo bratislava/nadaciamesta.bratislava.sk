@@ -23,23 +23,23 @@ const Button = ({
 }: IButtonProps) => {
   const props = {
     className: cx(
-      'flex rounded-sm text-center justify-center font-semibold border-solid border-2 select-none',
+      'flex select-none justify-center rounded-sm border-2 border-solid text-center font-semibold',
       {
-        'text-font border-font hover:text-primary hover:border-primary':
+        'border-font text-font hover:border-primary hover:text-primary':
           variant === 'regular',
-        'text-primary border-primary hover:text-secondary hover:bg-primary hover:border-primary':
+        'border-primary text-primary hover:border-primary hover:bg-primary hover:text-secondary':
           variant === 'primary',
-        'text-secondary border-secondary hover:text-accent hover:bg-secondary':
+        'border-secondary text-secondary hover:bg-secondary hover:text-accent':
           variant === 'secondary',
         'px-3 py-0.5 text-lg': size === 'base',
         'px-10 py-3 text-xl': size === 'xl',
-        'opacity-50 pointer-events-none cursor-not-allowed': disabled === true,
+        'pointer-events-none cursor-not-allowed opacity-50': disabled === true,
       },
       className
     ),
   };
 
-  return href && href.length ? (
+  return href && href.length > 0 ? (
     <Link href={href}>
       <a href={href} {...props}>
         {children}

@@ -1,13 +1,13 @@
 import Head from 'next/head';
 
-import { client } from '../../utils/gql';
-import { AsyncServerProps } from '../../utils/types';
 import { Markdown } from '../../components/Markdown';
+import { client } from '../../utils/gql';
 import { getLocalDate } from '../../utils/helpers';
+import { AsyncServerProps } from '../../utils/types';
 
-export function Blog({
+export const Blog = ({
   blogPosts,
-}: AsyncServerProps<typeof getServerSideProps>) {
+}: AsyncServerProps<typeof getServerSideProps>) => {
   const blogPost = blogPosts[0];
 
   return (
@@ -17,8 +17,8 @@ export function Blog({
         <meta name="description" content={blogPost.description} />
       </Head>
       <section className="section">
-        <div className="container max-w-4xl text-center mb-24 space-y-12 mt-12">
-          <h1 className="font-bold text-6xl">{blogPost.title}</h1>
+        <div className="container mb-24 mt-12 max-w-4xl space-y-12 text-center">
+          <h1 className="text-6xl font-bold">{blogPost.title}</h1>
           <div className="flex items-center justify-center divide-x-4">
             <span className="border-primary px-8">{blogPost.author}</span>
             <span className="border-primary px-8">
@@ -27,7 +27,7 @@ export function Blog({
           </div>
           <div className="relative h-100">
             <img
-              className="object-cover h-100 w-[100%]"
+              className="h-100 w-[100%] object-cover"
               src={blogPost.image.url}
               alt={blogPost.image.alternativeText}
             />

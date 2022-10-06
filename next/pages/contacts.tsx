@@ -1,8 +1,9 @@
-import { client } from '../utils/gql';
-import ContactPerson from '../components/ContactPerson';
-import { AsyncServerProps } from '../utils/types';
-import Button from '../components/Button';
 import Head from 'next/head';
+
+import Button from '../components/Button';
+import ContactPerson from '../components/ContactPerson';
+import { client } from '../utils/gql';
+import { AsyncServerProps } from '../utils/types';
 
 export const Contacts = ({
   contacts,
@@ -15,7 +16,7 @@ export const Contacts = ({
       </Head>
       <section className="section">
         <div className="container mx-auto">
-          <div className="w-full grid gap-12 lg:grid-cols-2">
+          <div className="grid w-full gap-12 lg:grid-cols-2">
             {contacts.map((contact) => (
               <ContactPerson
                 key={contact.id}
@@ -31,10 +32,10 @@ export const Contacts = ({
       </section>
       <section className="section">
         <div className="container mx-auto text-center md:text-left">
-          <div className="w-full flex flex-col md:flex-row space-y-8 md:space-y-0 justify-between items-center">
-            <div className="flex flex-col items-center lg:flex-row lg:space-x-4 md:items-start lg:items-center">
+          <div className="flex w-full flex-col items-center justify-between space-y-8 md:flex-row md:space-y-0">
+            <div className="flex flex-col items-center md:items-start lg:flex-row lg:items-center lg:space-x-4">
               <div>Transparentný účet:</div>
-              <div className="font-bold text-xl">{bank_account_iban}</div>
+              <div className="text-xl font-bold">{bank_account_iban}</div>
             </div>
             <Button href={bank_account_url} size="xl">
               Pozrieť účet
@@ -44,8 +45,8 @@ export const Contacts = ({
       </section>
       <section className="section">
         <div className="container mx-auto text-center md:text-left">
-          <div className="w-full flex flex-col md:flex-row space-y-8 md:space-y-0 justify-between items-center">
-            <div className="flex flex-col items-center lg:flex-row lg:space-x-4 md:items-start lg:items-center">
+          <div className="flex w-full flex-col items-center justify-between space-y-8 md:flex-row md:space-y-0">
+            <div className="flex flex-col items-center md:items-start lg:flex-row lg:items-center lg:space-x-4">
               <div>Adresa:</div>
               <div className="font-bold">{address}</div>
             </div>
