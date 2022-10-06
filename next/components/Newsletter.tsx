@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import CancelIcon from '../assets/icons/cancel.svg'
 import Button from './Button'
-import CheckBox from './Checkbox'
+import CheckBox from './CheckBox'
 import Input from './Input'
 
 export interface INewsletterProps {
