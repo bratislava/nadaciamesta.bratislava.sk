@@ -15,6 +15,10 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  sentry: {
+    disableServerWebpackPlugin: true,
+    disableClientWebpackPlugin: true,
+  },
   images: {
     domains: ['nadaciadev.blob.core.windows.net'],
   },
