@@ -62,7 +62,7 @@ jobs:
     name: after staging Strapi deploy Next
     if: needs.conditions.outputs.staging == 'true'
     needs: [conditions, deploy-staging-strapi]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@beta
     with:
       directory: next/
       cluster: tkg-innov-staging
@@ -77,7 +77,7 @@ jobs:
     name: staging Strapi
     needs: conditions
     if: needs.conditions.outputs.staging-strapi == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@beta
     with:
       directory: strapi/
       cluster: tkg-innov-staging
@@ -92,7 +92,7 @@ jobs:
     name: staging Next
     needs: conditions
     if: needs.conditions.outputs.staging-next == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@beta
     with:
       directory: next/
       cluster: tkg-innov-staging
@@ -107,7 +107,7 @@ jobs:
     name: after prod Strapi deploy Next
     if: needs.conditions.outputs.prod == 'true'
     needs: [conditions, deploy-prod-strapi]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@beta
     with:
       directory: next/
       cluster: tkg-innov-prod
@@ -122,7 +122,7 @@ jobs:
     name: prod Strapi
     needs: conditions
     if: needs.conditions.outputs.prod-strapi == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@beta
     with:
       directory: strapi/
       cluster: tkg-innov-prod
@@ -137,7 +137,7 @@ jobs:
     name: prod Next
     needs: conditions
     if: needs.conditions.outputs.prod-next == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@beta
     with:
       directory: next/
       cluster: tkg-innov-prod
