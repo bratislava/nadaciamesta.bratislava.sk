@@ -17,7 +17,7 @@ jobs:
     name: after dev Strapi deploy Next
     if: needs.conditions.outputs.dev == 'true'
     needs: [conditions, deploy-dev-strapi]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@beta
     with:
       directory: next/
       cluster: tkg-innov-dev
