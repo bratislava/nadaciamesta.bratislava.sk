@@ -1667,7 +1667,7 @@
     escape-string-regexp "^2.0.0"
     lodash.deburr "^4.1.0"
 
-"@strapi/utils@^4.2.3":
+"@strapi/utils@^4.4.1":
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.4.3.tgz#6947eda897a936d31b3879fabe1163e13f8c1d04"
   integrity sha512-EsyNrC4F95KC+tRNN+IBQrOVJIoKmbNxE2El6FBeO1TeKpppYFI4AWzAbj/txcaIOlhvlAY7J9zTRGms72GgHA==
@@ -7601,10 +7601,10 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==
 
-meilisearch@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.27.0.tgz#8bd57ddb77b975f93e054cb977b951c488ece297"
-  integrity sha512-kZOZFIuSO7c6xRf+Y2/9/h6A9pl0sCl/G44X4KuaSwxGbruOZPhmxbeVEgLHBv4pUFvQ56rNVTA/2d/5GCU1YA==
+meilisearch@^0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.28.0.tgz#650f08a56ef0a989a41d13233f7a744cfa7f54df"
+  integrity sha512-zC50xLyPWBtfAIZiFTSJyYJp/a5bO+dSSigBKUEoShFkuv9+/KC4J3T3ZejNVHXG2DU0ohOMf8TZ3HAHXNd3EA==
   dependencies:
     cross-fetch "^3.1.5"
 
@@ -11214,12 +11214,13 @@ strapi-plugin-i18n@3.6.8:
     pluralize "8.0.0"
     strapi-utils "3.6.8"
 
-strapi-plugin-meilisearch@bratislava/strapi-plugin-meilisearch:
-  version "0.7.1"
-  resolved "https://codeload.github.com/bratislava/strapi-plugin-meilisearch/tar.gz/6ca8a2a8542a9d50c3c1762861bd91bfb6726f00"
+strapi-plugin-meilisearch@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-meilisearch/-/strapi-plugin-meilisearch-0.7.3.tgz#98a929cf374fcd4f51feec137fbfd68bc371a3c9"
+  integrity sha512-FzMHnupQHzszIOpA76c3ktKM7BKg2zC5BqKYDDwObGbrJvSD/O17E3wBJGIziqRnmhzCqFP/f4Iee7QEyymJ9w==
   dependencies:
-    "@strapi/utils" "^4.2.3"
-    meilisearch "^0.27.0"
+    "@strapi/utils" "^4.4.1"
+    meilisearch "^0.28.0"
 
 strapi-plugin-upload@3.6.8:
   version "3.6.8"
