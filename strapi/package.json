@@ -24,6 +24,7 @@
     "strapi-plugin-email": "3.6.8",
     "strapi-plugin-graphql": "3.6.8",
     "strapi-plugin-i18n": "3.6.8",
+    "strapi-plugin-meilisearch": "bratislava/strapi-plugin-meilisearch",
     "strapi-plugin-upload": "3.6.8",
     "strapi-plugin-users-permissions": "3.6.8",
     "strapi-provider-email-mailgun": "^3.6.8",
