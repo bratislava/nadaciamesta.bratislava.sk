@@ -63,29 +63,20 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
     <div className="font-sans text-default">
       <Head>
         <title>Nadácia mesta Bratislava</title>
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
       <Script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.sk" />
+      <Script
+        strategy="afterInteractive"
+        data-domain="nadaciamesta.bratislava.sk"
+        src="https://plausible.io/js/plausible.js"
+      />
       <div className="flex min-h-screen flex-1 flex-col justify-self-stretch">
         <header>
           <Header facebookLink={facebookLink} instagramLink={instagramLink} />
@@ -99,7 +90,7 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
         </footer>
       </div>
     </div>
-  );
+  )
 }
 
 export default CustomApp;
