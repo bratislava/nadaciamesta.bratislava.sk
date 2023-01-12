@@ -25,7 +25,7 @@
     "strapi-plugin-graphql": "3.6.8",
     "strapi-plugin-i18n": "3.6.8",
     "strapi-plugin-meilisearch": "^0.5.1",
-    "strapi-plugin-upload": "3.6.8",
+    "strapi-plugin-upload": "3.6.11",
     "strapi-plugin-users-permissions": "3.6.8",
     "strapi-provider-email-mailgun": "^3.6.8",
     "strapi-provider-upload-azure-storage": "^2.1.0",
