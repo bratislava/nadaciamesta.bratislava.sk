@@ -11183,15 +11183,15 @@ strapi-plugin-graphql@3.6.8:
     pluralize "^8.0.0"
     strapi-utils "3.6.8"
 
-strapi-plugin-i18n@3.6.8:
-  version "3.6.8"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-i18n/-/strapi-plugin-i18n-3.6.8.tgz#2e4d7f96923defa3525204846ccafbb9f15d1b11"
-  integrity sha512-741hMHEJQ+Yji5TPxTkw32PZnfp692LjeQjPzROWIPHD8JZ3nG7xpbaF/cUsV86jOCveeBV76oHutI5qBWn3rA==
+strapi-plugin-i18n@3.6.11:
+  version "3.6.11"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-i18n/-/strapi-plugin-i18n-3.6.11.tgz#2c61af37d6008f1494ab0205908ce417a74eaa1f"
+  integrity sha512-HvLGs4fxsYySZKazh7Gj7oBUS+eecz638GiBR4Fs1epIuYQBWrsObpXDidJDkArqODrwGgOV7jUVxPJkfVvYbw==
   dependencies:
     lodash "4.17.21"
     p-map "4.0.0"
     pluralize "8.0.0"
-    strapi-utils "3.6.8"
+    strapi-utils "3.6.11"
 
 strapi-plugin-meilisearch@^0.5.1:
   version "0.5.1"
@@ -11307,6 +11307,18 @@ strapi-utils@3.6.10:
   version "3.6.10"
   resolved "https://registry.yarnpkg.com/strapi-utils/-/strapi-utils-3.6.10.tgz#65daa435e1289450ed5a2741d417042a8868505e"
   integrity sha512-VpV9A9nqA4mkgUtlRNOMt0s1eCu0y6jKZ39Og8opTvxVud/aAnBKlDk7WaU70Mea/NtiPwUb9/fOLh7SAnOD9Q==
+  dependencies:
+    "@sindresorhus/slugify" "1.1.0"
+    date-fns "^2.19.0"
+    lodash "4.17.21"
+    pino "^4.7.1"
+    pluralize "^8.0.0"
+    yup "^0.32.9"
+
+strapi-utils@3.6.11:
+  version "3.6.11"
+  resolved "https://registry.yarnpkg.com/strapi-utils/-/strapi-utils-3.6.11.tgz#e64954670720d1af76783892089292cd3785a055"
+  integrity sha512-62bDtQlpvVvgQPi5xC6AuGlr1KCVVVIPkF/CeMsKYfnbkmgpg9fjjM7PfASiDOr371t86KdmOYj2SXf0vNu1Yw==
   dependencies:
     "@sindresorhus/slugify" "1.1.0"
     date-fns "^2.19.0"
