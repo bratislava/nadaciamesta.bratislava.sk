@@ -23,7 +23,7 @@
     "graphql-request": "^4.3.0",
     "graphql-tag": "^2.12.6",
     "gsap": "^3.10.4",
-    "html-react-parser": "^2.0.0",
+    "html-react-parser": "^3.0.12",
     "lodash": "^4.17.21",
     "mailgun-js": "^0.22.0",
     "mapbox-gl": "^2.6.1",
