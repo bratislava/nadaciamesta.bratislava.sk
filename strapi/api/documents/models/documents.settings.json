@@ -15,7 +15,11 @@
     "file": {
       "model": "file",
       "via": "related",
-      "allowedTypes": ["files", "images", "videos"],
+      "allowedTypes": [
+        "files",
+        "images",
+        "videos"
+      ],
       "plugin": "upload",
       "required": true,
       "pluginOptions": {}
@@ -23,6 +27,9 @@
     "title": {
       "type": "string",
       "required": true
+    },
+    "archived": {
+      "type": "boolean"
     }
   }
 }

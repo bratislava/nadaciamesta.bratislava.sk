@@ -119,3 +119,5 @@ dist
 .AppleDB
 .AppleDesktop
 .idea
+
+.env*.local

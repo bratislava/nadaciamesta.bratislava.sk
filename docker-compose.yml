@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   postgres:
     image: postgres:latest
@@ -8,8 +8,6 @@ services:
       POSTGRES_DB: strapi
       PGPORT: 54320
     expose:
-      - '54320'
+      - "54320"
     ports:
-      - '127.0.0.1:54320:54320'
-    volumes:
-      - ./data:/var/lib/postgresql/data/
+      - "127.0.0.1:54320:54320"
