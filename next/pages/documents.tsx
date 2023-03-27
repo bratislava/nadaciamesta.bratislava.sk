@@ -11,8 +11,7 @@ import { AsyncServerProps } from '../utils/types'
 export const Documents = ({ documents, general: { newsletter_text } }: AsyncServerProps<typeof getServerSideProps>) => {
   const router = useRouter()
 
-  const shouldBeArchived = (document) =>
-    typeof document?.created_at === 'string' && document.created_at.startsWith('2022')
+  const shouldBeArchived = (document) => document?.archived
 
   const archivedDocuments = documents.filter(shouldBeArchived)
   const activeDocuments = documents.filter((document) => !shouldBeArchived(document))
