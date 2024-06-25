@@ -91,9 +91,9 @@ const Navigation = () => {
           </NavigationItem>
           <NavigationItem url="/blog">Novinky</NavigationItem>
           <NavigationItem url="/grants">Programy</NavigationItem>
-          <NavigationItem url="/projects">Podporené projekty</NavigationItem>
+          <NavigationItem url="/projects">Príklady podporených projektov</NavigationItem>
           <NavigationItem url="/data">Dáta</NavigationItem>
-          <NavigationItem url="/documents">Dokumenty</NavigationItem>
+          <NavigationItem url="/documents">Dokumenty a výsledky</NavigationItem>
           <NavigationItem url="/about-us">O nás</NavigationItem>
           <NavigationItem url="/contacts">Kontakty</NavigationItem>
           <button className="hidden xl:block" onClick={() => setSearchModalOpen(true)}>
