@@ -55,6 +55,7 @@ query DocumentsPage {
     id
     title
     created_at
+    archived
     file {
       url
       ext

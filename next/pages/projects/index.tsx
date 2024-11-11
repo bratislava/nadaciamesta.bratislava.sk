@@ -216,7 +216,7 @@ export const Projects = ({
       <Head>
         <meta
           name="description"
-          content="Podporené projekty Nadácie mesta Bratislava"
+          content="Príklady podporených projektov Nadácie mesta Bratislava"
         />
       </Head>
       <div className="section section-no-padding">
