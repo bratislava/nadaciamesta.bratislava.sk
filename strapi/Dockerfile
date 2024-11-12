@@ -1,5 +1,5 @@
 # development
-FROM node:14.20.1 AS dev
+FROM node:14.21.3 AS dev
 
 RUN apt-get update && apt-get install -y git \
     vim \
