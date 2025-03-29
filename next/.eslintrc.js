@@ -1,5 +1,10 @@
 module.exports = {
-  extends: ['auto', 'plugin:tailwindcss/recommended', 'plugin:@next/next/recommended'],
+  extends: [
+    'auto',
+    'plugin:react/recommended',
+    'plugin:@next/next/recommended',
+    'plugin:tailwindcss/recommended',
+  ],
   plugins: ['only-warn'],
   rules: {
     'react/react-in-jsx-scope': 'off',
@@ -20,13 +25,6 @@ module.exports = {
       2,
       { allow: ['__NEXT_DATA__', '__NEXT_LOADED_PAGES__', '__typename'] },
     ],
-    /** Links get confused for secrets */
-    'no-secrets/no-secrets': ['error', { ignoreContent: '^http' }],
-    /** Use official sorting */
-    'tailwindcss/classnames-order': [
-      'warn',
-      { callees: ['classnames', 'cx'], officialSorting: true },
-    ],
     /** White list custom classes */
     'tailwindcss/no-custom-classname': ['warn', { whitelist: ['.*dw.*', '.*dh.*'] }],
     /** Hoisting of functions is useful */
@@ -37,6 +35,7 @@ module.exports = {
     'no-secrets/no-secrets': 'off',
     /** We use img on purpose */
     '@next/next/no-img-element': 'off',
+    'unicorn/expiring-todo-comments': 'off',
     /** Strapi and graphql somehow produce a lot of eslint errors with this rules */
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
