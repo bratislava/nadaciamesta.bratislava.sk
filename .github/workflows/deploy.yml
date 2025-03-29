@@ -27,7 +27,6 @@ jobs:
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy-dev-strapi:
     name: dev Strapi
@@ -43,7 +42,6 @@ jobs:
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy-dev-next:
     name: dev Next
@@ -59,7 +57,6 @@ jobs:
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy-staging:
     name: after staging Strapi deploy Next
@@ -75,7 +72,6 @@ jobs:
     secrets:
       service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy-staging-strapi:
     name: staging Strapi
@@ -91,7 +87,6 @@ jobs:
     secrets:
       service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy-staging-next:
     name: staging Next
@@ -107,7 +102,6 @@ jobs:
     secrets:
       service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy-prod:
     name: after prod Strapi deploy Next
@@ -122,7 +116,6 @@ jobs:
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy-prod-strapi:
     name: prod Strapi
@@ -137,7 +130,6 @@ jobs:
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy-prod-next:
     name: prod Next
@@ -152,4 +144,3 @@ jobs:
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}

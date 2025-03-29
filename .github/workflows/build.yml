@@ -16,8 +16,6 @@ jobs:
     with:
       directory: strapi/
       debug: --debug
-    secrets:
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
     permissions: write-all
 
   next:
@@ -28,6 +26,4 @@ jobs:
     with:
       directory: next/
       debug: --debug
-    secrets:
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
     permissions: write-all
