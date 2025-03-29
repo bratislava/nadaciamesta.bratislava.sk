@@ -28,7 +28,7 @@ const TagGroupSingle = ({ tags, value, setValue, clearable = false, uppercase = 
       {clearable && (
         <div className="w-6">
           {value && (
-            <Button onClick={() => setValue()} className="w-full border-none p-1">
+            <Button onClick={() => setValue('')} className="w-full border-none p-1">
               <CancelIcon stroke="var(--font-color)" />
             </Button>
           )}

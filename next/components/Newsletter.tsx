@@ -132,6 +132,7 @@ const Newsletter = ({ text }: INewsletterProps) => {
             <CheckBox
               className="items-center"
               id="acquaintance"
+              // @ts-ignore
               content={
                 <span>
                   Oboznámil/a som sa s{' '}

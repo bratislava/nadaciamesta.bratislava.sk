@@ -19,14 +19,14 @@ const Header = ({ facebookLink, instagramLink }: IHeaderProps) => (
       </div>
       <div className="flex flex-row justify-between space-x-3 py-4">
         {facebookLink && (
-          <a href={facebookLink} target="_blank" rel="noreferrer">
-            <FbLogo alt="Facebook" />
+          <a href={facebookLink} target="_blank" rel="noreferrer" aria-label="Facebook">
+            <FbLogo />
           </a>
         )}
 
         {instagramLink && (
-          <a href={instagramLink} target="_blank" rel="noreferrer">
-            <IgLogo alt="Instagram" />
+          <a href={instagramLink} target="_blank" rel="noreferrer" aria-label="Instagram">
+            <IgLogo />
           </a>
         )}
       </div>

@@ -1,21 +1,16 @@
-import Head from 'next/head';
-import React from 'react';
+import Head from 'next/head'
+import React from 'react'
 
-import { GrantRequest } from '../components/GrantRequest';
-import LandingGallery from '../components/LandingGallery';
-import { client } from '../utils/gql';
-import { AsyncServerProps } from '../utils/types';
+import { GrantRequest } from '../components/GrantRequest'
+import LandingGallery from '../components/LandingGallery'
+import { client } from '../utils/gql'
+import { AsyncServerProps } from '../utils/types'
 
-export const Index = ({
-  landingPage,
-}: AsyncServerProps<typeof getServerSideProps>) => {
+export const Index = ({ landingPage }: AsyncServerProps<typeof getServerSideProps>) => {
   return (
     <>
       <Head>
-        <meta
-          name="description"
-          content="Webstránka grantov a podporených projektov Nadácie mesta Bratislava"
-        />
+        <meta name="description" content="Webstránka grantov a podporených projektov Nadácie mesta Bratislava" />
       </Head>
       <div className="mt-1 flex flex-col items-center justify-start">
         <LandingGallery
@@ -24,17 +19,17 @@ export const Index = ({
         />
         <GrantRequest
           text={landingPage.grants_text}
-          buttonText={landingPage.grants_button_text}
+          // buttonText={landingPage.grants_button_text}
         />
       </div>
     </>
-  );
+  )
 }
 
 export const getServerSideProps = async () => {
   return {
     props: { ...(await client.LandingPage()) },
-  };
-};
+  }
+}
 
-export default Index;
+export default Index
