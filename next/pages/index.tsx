@@ -10,7 +10,10 @@ export const Index = ({ landingPage }: AsyncServerProps<typeof getServerSideProp
   return (
     <>
       <Head>
-        <meta name="description" content="Webstránka grantov a podporených projektov Nadácie mesta Bratislava" />
+        <meta
+          name="description"
+          content="Webstránka grantov a podporených projektov Nadácie mesta Bratislava"
+        />
       </Head>
       <div className="mt-1 flex flex-col items-center justify-start">
         <LandingGallery

@@ -83,7 +83,14 @@ const styles = {
   },
 }
 
-const Select = ({ placeholder = 'Placeholder', value, options, className, id, onChange }: ISelectProps) => (
+const Select = ({
+  placeholder = 'Placeholder',
+  value,
+  options,
+  className,
+  id,
+  onChange,
+}: ISelectProps) => (
   <ReactSelect
     placeholder={placeholder}
     styles={styles}

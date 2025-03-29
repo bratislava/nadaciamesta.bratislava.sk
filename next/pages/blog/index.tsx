@@ -1,12 +1,10 @@
-import Head from 'next/head';
+import Head from 'next/head'
 
-import BlogPostCard from '../../components/BlogPostCard';
-import { client } from '../../utils/gql';
-import { AsyncServerProps } from '../../utils/types';
+import BlogPostCard from '../../components/BlogPostCard'
+import { client } from '../../utils/gql'
+import { AsyncServerProps } from '../../utils/types'
 
-export const Blogs = ({
-  blogPosts,
-}: AsyncServerProps<typeof getServerSideProps>) => {
+export const Blogs = ({ blogPosts }: AsyncServerProps<typeof getServerSideProps>) => {
   return (
     <>
       <Head>
@@ -22,15 +20,15 @@ export const Blogs = ({
         </div>
       </section>
     </>
-  );
+  )
 }
 
 export const getServerSideProps = async () => {
-  const { blogPosts } = await client.BlogPostsPage();
+  const { blogPosts } = await client.BlogPostsPage()
 
   return {
     props: { blogPosts },
-  };
-};
+  }
+}
 
-export default Blogs;
+export default Blogs

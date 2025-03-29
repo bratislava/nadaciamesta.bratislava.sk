@@ -46,7 +46,7 @@ export const Projects = ({
   const setStateByQueryString = (
     setValue: Dispatch<SetStateAction<string>>,
     queryParam: string | string[] | undefined,
-    tagsObj: { name: string }[]
+    tagsObj: { name: string }[],
   ) => {
     if (!queryParam) return
     const tags = tagsObj.map((tag) => tag.name)
@@ -58,7 +58,7 @@ export const Projects = ({
   const setStateByQueryArray = (
     setValue: Dispatch<SetStateAction<string[]>>,
     queryParam: string | string[] | undefined,
-    tagsObj: { name: string }[]
+    tagsObj: { name: string }[],
   ) => {
     if (!queryParam) return
 
@@ -66,16 +66,31 @@ export const Projects = ({
     setValue(parseQueryArray(queryParam).filter((param) => tags.has(param)))
   }
 
-  const determineDeclension = (count: number, one: string, twoThreeOrFour: string, zeroOrGreaterThenFour: string) => {
+  const determineDeclension = (
+    count: number,
+    one: string,
+    twoThreeOrFour: string,
+    zeroOrGreaterThenFour: string,
+  ) => {
     return count === 1 ? one : count >= 2 && count <= 4 ? twoThreeOrFour : zeroOrGreaterThenFour
   }
 
   const getFilteredProjectText = useCallback(() => {
-    const wordDisplayed = determineDeclension(projects.length, 'zobrazený', 'zobrazené', 'zobrazených')
+    const wordDisplayed = determineDeclension(
+      projects.length,
+      'zobrazený',
+      'zobrazené',
+      'zobrazených',
+    )
 
     const wordProject = determineDeclension(projects.length, 'projekt', 'projekty', 'projektov')
 
-    const wordFiltered = determineDeclension(projectsTotalCount, 'vyfiltrovaného', 'vyfiltrovaných', 'vyfiltrovaných')
+    const wordFiltered = determineDeclension(
+      projectsTotalCount,
+      'vyfiltrovaného',
+      'vyfiltrovaných',
+      'vyfiltrovaných',
+    )
 
     return `${wordDisplayed} ${projects.length} ${wordProject} z ${projectsTotalCount} ${wordFiltered}`
   }, [projects, projectsTotalCount])
@@ -97,7 +112,16 @@ export const Projects = ({
     setStateByQueryArray(setSupportFields, supportFieldsQ, tagSupportFields)
     setStateByQueryArray(setLegalForms, legalFormsQ, tagLegalForms)
     setStateByQueryString(setDistrict, districtQ, tagDistricts)
-  }, [query, tagCategories, tagDistricts, tagGoals, tagLegalForms, tagPrograms, tagSupportFields, tagYears])
+  }, [
+    query,
+    tagCategories,
+    tagDistricts,
+    tagGoals,
+    tagLegalForms,
+    tagPrograms,
+    tagSupportFields,
+    tagYears,
+  ])
 
   useEffect(() => {
     if (searchQuery.length > 2) {
@@ -143,18 +167,31 @@ export const Projects = ({
         setAllProjectsLoaded(false)
       }
     },
-    [year, program, district, supportFields, goals, categories, legalForms, legalSearchQuery]
+    [year, program, district, supportFields, goals, categories, legalForms, legalSearchQuery],
   )
 
   useEffect(() => {
     setProjects([])
     loadProjects(0)
-  }, [loadProjects, year, program, categories, goals, supportFields, legalForms, district, legalSearchQuery])
+  }, [
+    loadProjects,
+    year,
+    program,
+    categories,
+    goals,
+    supportFields,
+    legalForms,
+    district,
+    legalSearchQuery,
+  ])
 
   return (
     <>
       <Head>
-        <meta name="description" content="Príklady podporených projektov Nadácie mesta Bratislava" />
+        <meta
+          name="description"
+          content="Príklady podporených projektov Nadácie mesta Bratislava"
+        />
       </Head>
       <div className="section section-no-padding">
         <div className="container mx-auto py-8">
@@ -162,11 +199,21 @@ export const Projects = ({
 
           <div className="flex flex-wrap gap-8">
             <TagGroupSingle tags={tagYears} value={year} setValue={setYear} clearable />
-            <TagGroupSingle tags={tagPrograms} value={program} setValue={setProgram} clearable uppercase />
+            <TagGroupSingle
+              tags={tagPrograms}
+              value={program}
+              setValue={setProgram}
+              clearable
+              uppercase
+            />
           </div>
           <TagGroupMultiple tags={tagCategories} values={categories} setValues={setCategories} />
           <TagGroupMultiple tags={tagGoals} values={goals} setValues={setGoals} />
-          <TagGroupMultiple tags={tagSupportFields} values={supportFields} setValues={setSupportFields} />
+          <TagGroupMultiple
+            tags={tagSupportFields}
+            values={supportFields}
+            setValues={setSupportFields}
+          />
           <TagGroupMultiple tags={tagLegalForms} values={legalForms} setValues={setLegalForms} />
 
           <div className="max-w-lg">
@@ -191,10 +238,14 @@ export const Projects = ({
 
       <div className="section section-no-padding">
         <div className="container mx-auto flex min-h-[100px] items-stretch">
-          <div className="border-black-right flex w-2/5 items-center pr-4">{getFilteredProjectText()}</div>
+          <div className="border-black-right flex w-2/5 items-center pr-4">
+            {getFilteredProjectText()}
+          </div>
           <div className="my-4 flex w-3/5 flex-wrap items-center gap-2 pl-10">
             {year && <Tag text={year} />}
-            {program && <Tag text={program} variant="inactive" className="cursor-default uppercase" />}
+            {program && (
+              <Tag text={program} variant="inactive" className="cursor-default uppercase" />
+            )}
             {[]
               .concat(categories, goals, supportFields, legalForms, district)
               .filter(Boolean)
@@ -214,7 +265,12 @@ export const Projects = ({
           </div>
           {!allProjectsLoaded && (
             <div className="flex justify-center">
-              <Button onClick={() => loadProjects(projects.length)} className="w-fit" variant="primary" size="xl">
+              <Button
+                onClick={() => loadProjects(projects.length)}
+                className="w-fit"
+                variant="primary"
+                size="xl"
+              >
                 Načítať ďalšie
               </Button>
             </div>
@@ -226,8 +282,15 @@ export const Projects = ({
 }
 
 export const getServerSideProps = async () => {
-  const { tagCategories, tagDistricts, tagGoals, tagLegalForms, tagPrograms, tagSupportFields, tagYears } =
-    await client.ProjectsPage()
+  const {
+    tagCategories,
+    tagDistricts,
+    tagGoals,
+    tagLegalForms,
+    tagPrograms,
+    tagSupportFields,
+    tagYears,
+  } = await client.ProjectsPage()
   return {
     props: {
       tagCategories,

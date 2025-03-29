@@ -1,9 +1,9 @@
-import cx from 'classnames';
-import React from 'react';
+import cx from 'classnames'
+import React from 'react'
 
 export interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {
-  hoverable?: boolean;
-  overflowVisible?: boolean;
+  hoverable?: boolean
+  overflowVisible?: boolean
 }
 
 export const Panel = ({
@@ -14,12 +14,11 @@ export const Panel = ({
 }: PanelProps) => (
   <div
     className={cx(className, 'rounded-lg bg-white shadow', {
-      'transform cursor-pointer transition-all hover:-translate-y-2 hover:shadow-lg':
-        hoverable,
+      'transform cursor-pointer transition-all hover:-translate-y-2 hover:shadow-lg': hoverable,
       'overflow-hidden': !overflowVisible,
     })}
     {...rest}
   />
-);
+)
 
-export default Panel;
+export default Panel

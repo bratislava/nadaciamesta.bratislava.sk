@@ -57,7 +57,7 @@
 }
 
 .section-muted {
-  @apply border-white text-white bg-primary-muted;
+  @apply border-white bg-primary-muted text-white;
 }
 
 .section-muted:last-child {
@@ -87,24 +87,24 @@ a {
 
 @layer components {
   .base-button {
-    @apply appearance-none box-border inline-flex items-center justify-center text-center;
-    @apply px-6 py-0 font-semibold cursor-pointer focus:outline-none;
+    @apply box-border inline-flex appearance-none items-center justify-center text-center;
+    @apply cursor-pointer px-6 py-0 font-semibold focus:outline-none;
   }
 
   .base-radio {
-    @apply appearance-none box-border inline-flex items-center relative px-6 py-0 pl-16 rounded-lg;
-    @apply bg-input-nav-bg border-input-stroke border-4 text-font font-medium h-14 cursor-pointer;
+    @apply relative box-border inline-flex appearance-none items-center rounded-lg px-6 py-0 pl-16;
+    @apply h-14 cursor-pointer border-4 border-input-stroke bg-input-nav-bg font-medium text-font;
   }
 
   .base-link {
-    @apply appearance-none box-border inline-flex items-center justify-center text-center;
-    @apply px-6 py-0 font-medium h-14 cursor-pointer;
+    @apply box-border inline-flex appearance-none items-center justify-center text-center;
+    @apply h-14 cursor-pointer px-6 py-0 font-medium;
     @apply focus:outline-none;
   }
 
   .base-input {
-    @apply appearance-none box-border inline-block border-3 px-6 py-0 text-font rounded-10 font-medium h-14 bg-white;
-    @apply bg-white border-input-stroke focus:outline-none focus:border-primary hover:border-primary;
+    @apply box-border inline-block h-14 appearance-none rounded-10 border-3 bg-white px-6 py-0 font-medium text-font;
+    @apply border-input-stroke bg-white hover:border-primary focus:border-primary focus:outline-none;
   }
 
   .base-input--with-error {

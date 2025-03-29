@@ -1,12 +1,12 @@
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import './styles.css';
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import './styles.css'
 
-import { AppProps } from 'next/app';
-import Head from 'next/head';
-import Script from 'next/script';
-import { useEffect, useState } from 'react';
+import { AppProps } from 'next/app'
+import Head from 'next/head'
+import Script from 'next/script'
+import { useEffect, useState } from 'react'
 import SwiperCore, {
   Autoplay,
   FreeMode,
@@ -14,50 +14,33 @@ import SwiperCore, {
   Navigation as SwiperNavigation,
   Pagination,
   Scrollbar,
-} from 'swiper';
+} from 'swiper'
 
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import Navigation from '../components/Navigation/Navigation';
-import { client } from '../utils/gql';
+import Footer from '../components/Footer'
+import Header from '../components/Header'
+import Navigation from '../components/Navigation/Navigation'
+import { client } from '../utils/gql'
 
-SwiperCore.use([
-  Autoplay,
-  FreeMode,
-  Pagination,
-  Grid,
-  SwiperNavigation,
-  Scrollbar,
-]);
+SwiperCore.use([Autoplay, FreeMode, Pagination, Grid, SwiperNavigation, Scrollbar])
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
-  const [facebookLink, setFacebookLink] = useState<string>(null);
-  const [instagramLink, setInstagramLink] = useState<string>(null);
-  const [copyrightText, setCopyrightText] = useState<string>(null);
-  const [phone, setPhone] = useState<string>(null);
-  const [email, setEmail] = useState<string>(null);
+  const [facebookLink, setFacebookLink] = useState<string>(null)
+  const [instagramLink, setInstagramLink] = useState<string>(null)
+  const [copyrightText, setCopyrightText] = useState<string>(null)
+  const [phone, setPhone] = useState<string>(null)
+  const [email, setEmail] = useState<string>(null)
 
   useEffect(() => {
     client
       .HeaderAndFooter()
-      .then(
-        ({
-          general: {
-            facebook_link,
-            instagram_link,
-            copyright_text,
-            phone,
-            email,
-          },
-        }) => {
-          setFacebookLink(facebook_link);
-          setInstagramLink(instagram_link);
-          setCopyrightText(copyright_text);
-          setPhone(phone);
-          setEmail(email);
-        }
-      );
-  }, []);
+      .then(({ general: { facebook_link, instagram_link, copyright_text, phone, email } }) => {
+        setFacebookLink(facebook_link)
+        setInstagramLink(instagram_link)
+        setCopyrightText(copyright_text)
+        setPhone(phone)
+        setEmail(email)
+      })
+  }, [])
 
   return (
     <div className="font-sans text-default">
@@ -93,4 +76,4 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
   )
 }
 
-export default CustomApp;
+export default CustomApp

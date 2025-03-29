@@ -81,9 +81,9 @@ const Navigation = () => {
         </div>
         <nav
           className={cx(
-            'fixed top-0 left-0 bottom-0 z-40 flex transform flex-col gap-8 bg-white p-8 pr-24 transition-transform 2xl:static 2xl:transform-none 2xl:flex-row 2xl:items-center 2xl:p-0 2xl:transition-none',
+            'fixed bottom-0 left-0 top-0 z-40 flex transform flex-col gap-8 bg-white p-8 pr-24 transition-transform 2xl:static 2xl:transform-none 2xl:flex-row 2xl:items-center 2xl:p-0 2xl:transition-none',
             { 'translate-x-0': isNavOpen },
-            { '-translate-x-full': !isNavOpen }
+            { '-translate-x-full': !isNavOpen },
           )}
         >
           <NavigationItem className="2xl:hidden" url="/">
@@ -102,8 +102,8 @@ const Navigation = () => {
         </nav>
         <div
           className={cx(
-            'visible fixed top-0 right-0 bottom-0 left-0 z-30 cursor-default bg-black opacity-40 transition-all 2xl:hidden',
-            { 'invisible opacity-0': !isNavOpen }
+            'visible fixed bottom-0 left-0 right-0 top-0 z-30 cursor-default bg-black opacity-40 transition-all 2xl:hidden',
+            { 'invisible opacity-0': !isNavOpen },
           )}
           onClick={() => setNavOpen(false)}
           onKeyDown={() => setNavOpen(false)}
@@ -116,7 +116,7 @@ const Navigation = () => {
           <button
             onClick={() => setSearchModalOpen(false)}
             className="absolute inset-0 cursor-default bg-black bg-opacity-40"
-           />
+          />
           <div className="relative mx-12 mt-32 flex w-full max-w-[700px] justify-center">
             <SearchBar
               className="w-full"
@@ -143,8 +143,8 @@ const Navigation = () => {
                           role="link"
                           tabIndex={0}
                         >
-                          <div className="flex flex-col items-start py-2 px-8 hover:bg-gray-100 sm:flex-row">
-                            <span className="mt-0.5 mr-2 whitespace-nowrap rounded bg-primary-muted px-1 text-xs uppercase text-white">
+                          <div className="flex flex-col items-start px-8 py-2 hover:bg-gray-100 sm:flex-row">
+                            <span className="mr-2 mt-0.5 whitespace-nowrap rounded bg-primary-muted px-1 text-xs uppercase text-white">
                               {searchResultTypes[type]}
                             </span>
                             <span>{title}</span>

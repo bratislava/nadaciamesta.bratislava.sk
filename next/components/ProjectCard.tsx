@@ -1,9 +1,9 @@
-import { ProjectsQuery } from '../graphql/index';
-import Card from './Card';
-import Tag from './Tag';
+import { ProjectsQuery } from '../graphql/index'
+import Card from './Card'
+import Tag from './Tag'
 
 export interface IProjectCardProps {
-  project: ProjectsQuery['projects'][number];
+  project: ProjectsQuery['projects'][number]
 }
 
 const ProjectCard = ({ project }: IProjectCardProps) => {
@@ -33,7 +33,7 @@ const ProjectCard = ({ project }: IProjectCardProps) => {
             project.categories.map((tag) => tag.name),
             project.goals.map((tag) => tag.name),
             project.support_fields.map((tag) => tag.name),
-            project.legal_form?.name
+            project.legal_form?.name,
             // TEMPORARILY HIDDEN
             // project.districts.map((tag) => tag.name)
           )
@@ -43,7 +43,7 @@ const ProjectCard = ({ project }: IProjectCardProps) => {
           ))}
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default ProjectCard;
+export default ProjectCard

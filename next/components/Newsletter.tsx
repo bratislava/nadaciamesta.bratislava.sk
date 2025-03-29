@@ -61,7 +61,7 @@ const Newsletter = ({ text }: INewsletterProps) => {
       emailError = 'Email je povinný'
     } else if (
       !/^(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z\-]+\.)+[A-Za-z]{2,}))$/.test(
-        String(email).toLowerCase()
+        String(email).toLowerCase(),
       )
     ) {
       emailError = 'Nesprávny formát emailovej adresy'
@@ -90,7 +90,7 @@ const Newsletter = ({ text }: INewsletterProps) => {
         Prihlásiť sa na odber noviniek
       </Button>
       <div
-        className={cx('fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center', {
+        className={cx('fixed bottom-0 left-0 right-0 top-0 flex items-center justify-center', {
           hidden: !isModalOpened,
         })}
       >
@@ -102,11 +102,16 @@ const Newsletter = ({ text }: INewsletterProps) => {
           tabIndex={0}
         />
         <div className="m-8z relative z-10 grid gap-8 bg-font px-8 py-12 text-white md:p-24">
-          <Button className="absolute right-5 top-5 border-none p-2" onClick={() => setModalOpened(false)}>
+          <Button
+            className="absolute right-5 top-5 border-none p-2"
+            onClick={() => setModalOpened(false)}
+          >
             <CancelIcon stroke="var(--secondary-color)" />
           </Button>
-          <div className="text-center text-xl font-bold lg:text-2xl">Prihlásenie sa na odber noviniek</div>
-          <div className="grid gap-y-4 gap-x-8 md:grid-cols-2">
+          <div className="text-center text-xl font-bold lg:text-2xl">
+            Prihlásenie sa na odber noviniek
+          </div>
+          <div className="grid gap-x-8 gap-y-4 md:grid-cols-2">
             <div className="grid content-start gap-2">
               <div>Meno</div>
               <Input
@@ -150,7 +155,7 @@ const Newsletter = ({ text }: INewsletterProps) => {
           </div>
           <div className="flex justify-center md:justify-end">
             <Button
-              className="border-primary bg-primary py-3 px-6 text-base text-white hover:text-font"
+              className="border-primary bg-primary px-6 py-3 text-base text-white hover:text-font"
               variant="primary"
               onClick={onSubmit}
             >

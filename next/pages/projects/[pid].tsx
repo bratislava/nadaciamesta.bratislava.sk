@@ -70,11 +70,15 @@ const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>
       </div>
       <section className="section section-no-padding">
         <div className="container grid items-stretch md:grid-cols-2">
-          <div className="space-y-4 border-dark-gray-color py-16 px-4 md:border-r-2 md:p-16">
+          <div className="space-y-4 border-dark-gray-color px-4 py-16 md:border-r-2 md:p-16">
             <h2 className="text-xl font-bold">{project.title}</h2>
             <div className="flex flex-wrap gap-2">
               {project.year && (
-                <Tag text={project.year.name} variant="inactive" onClick={() => pushQuery('year', project.year.name)} />
+                <Tag
+                  text={project.year.name}
+                  variant="inactive"
+                  onClick={() => pushQuery('year', project.year.name)}
+                />
               )}
               {project.program && (
                 <Tag
@@ -93,7 +97,12 @@ const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>
                 />
               ))}
               {project.goals.map((goal) => (
-                <Tag text={goal.name} key={goal.id} variant="inactive" onClick={() => pushQuery('goals', goal.name)} />
+                <Tag
+                  text={goal.name}
+                  key={goal.id}
+                  variant="inactive"
+                  onClick={() => pushQuery('goals', goal.name)}
+                />
               ))}
               {project.support_fields.map((supportField) => (
                 <Tag
@@ -122,7 +131,7 @@ const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>
               ))} */
               }
             </div>
-            <p className=" text-sm font-thin italic">{legal?.project_detail_disclaimer}</p>
+            <p className="text-sm font-thin italic">{legal?.project_detail_disclaimer}</p>
           </div>
           <div className="px-4 pb-16 md:p-16">{project.description}</div>
         </div>

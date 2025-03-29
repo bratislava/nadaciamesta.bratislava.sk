@@ -1,18 +1,14 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react'
 
-import Tag from './Tag';
+import Tag from './Tag'
 
 export interface ITagGroupMultipleProps {
-  tags: Array<{ name: string }>;
-  values: Array<string>;
-  setValues: Dispatch<SetStateAction<Array<string>>>;
+  tags: Array<{ name: string }>
+  values: Array<string>
+  setValues: Dispatch<SetStateAction<Array<string>>>
 }
 
-const TagGroupMultiple = ({
-  tags,
-  values,
-  setValues,
-}: ITagGroupMultipleProps) => {
+const TagGroupMultiple = ({ tags, values, setValues }: ITagGroupMultipleProps) => {
   return (
     <div className="mb-4 flex flex-wrap gap-2">
       {tags.map((tag, index) => (
@@ -23,12 +19,12 @@ const TagGroupMultiple = ({
           onClick={() => {
             values.includes(tag.name)
               ? setValues(values.filter((item) => item !== tag.name))
-              : setValues([...values, tag.name]);
+              : setValues([...values, tag.name])
           }}
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default TagGroupMultiple;
+export default TagGroupMultiple

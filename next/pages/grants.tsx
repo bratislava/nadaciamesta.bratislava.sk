@@ -1,22 +1,20 @@
-import cx from 'classnames';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import cx from 'classnames'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
-import GrantCard from '../components/GrantCard';
-import Newsletter from '../components/Newsletter';
-import Tag from '../components/Tag';
-import { client } from '../utils/gql';
-import { AsyncServerProps } from '../utils/types';
+import GrantCard from '../components/GrantCard'
+import Newsletter from '../components/Newsletter'
+import Tag from '../components/Tag'
+import { client } from '../utils/gql'
+import { AsyncServerProps } from '../utils/types'
 
 export const Grants = ({
   grants,
   tagPrograms: programs,
   general: { newsletter_text },
 }: AsyncServerProps<typeof getServerSideProps>) => {
-  const [selectedProgram, setSelectedProgram] = useState<string>(
-    programs[0].name
-  );
-  const router = useRouter();
+  const [selectedProgram, setSelectedProgram] = useState<string>(programs[0].name)
+  const router = useRouter()
 
   return (
     <>
@@ -37,7 +35,7 @@ export const Grants = ({
                       onClick={() => setSelectedProgram(name)}
                     />
                   </div>
-                )
+                ),
             )}
           </div>
           <div className="grid w-full gap-8 pb-52 lg:grid-cols-3 xl:grid-cols-5">
@@ -65,11 +63,11 @@ export const Grants = ({
         <Newsletter text={newsletter_text} />
       </section>
     </>
-  );
+  )
 }
 
 export const getServerSideProps = async () => {
-  const { general, grants, tagPrograms } = await client.GrantsPage();
+  const { general, grants, tagPrograms } = await client.GrantsPage()
 
   return {
     props: {
@@ -77,7 +75,7 @@ export const getServerSideProps = async () => {
       grants,
       tagPrograms,
     },
-  };
-};
+  }
+}
 
-export default Grants;
+export default Grants

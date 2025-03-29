@@ -3,14 +3,26 @@ import React from 'react'
 
 import CheckMark from '../assets/icons/check-mark.svg'
 
-type ICheckBoxProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+type ICheckBoxProps = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> & {
   id: string
   content?: React.ReactNode
   variant?: 'default' | 'circle'
 }
 
-export const CheckBox = ({ className, id, content, variant = 'default', ...rest }: ICheckBoxProps) => (
-  <label htmlFor={id} className={cx('inline-flex cursor-pointer gap-6 text-sm font-medium', className)}>
+export const CheckBox = ({
+  className,
+  id,
+  content,
+  variant = 'default',
+  ...rest
+}: ICheckBoxProps) => (
+  <label
+    htmlFor={id}
+    className={cx('inline-flex cursor-pointer gap-6 text-sm font-medium', className)}
+  >
     <input type="checkbox" id={id} className="hidden" {...rest} />
     <div
       className={cx(
@@ -21,7 +33,7 @@ export const CheckBox = ({ className, id, content, variant = 'default', ...rest 
           'bg-primary': rest.checked,
           'bg-input-nav-bg': !rest.checked,
         },
-        className
+        className,
       )}
     >
       <CheckMark className={cx({ hidden: !rest.checked })} />

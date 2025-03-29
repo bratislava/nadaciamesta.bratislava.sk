@@ -1,6 +1,6 @@
 // TODO get rid of this file! merge with tailwind.config.js and remove unused
 
-const plugin = require('tailwindcss/plugin');
+const plugin = require('tailwindcss/plugin')
 
 const scrollBarHide = plugin(({ addUtilities }) => {
   addUtilities({
@@ -13,8 +13,8 @@ const scrollBarHide = plugin(({ addUtilities }) => {
         display: 'none',
       },
     },
-  });
-});
+  })
+})
 
 module.exports = {
   theme: {
@@ -184,4 +184,4 @@ module.exports = {
     },
   },
   plugins: [scrollBarHide],
-};
+}

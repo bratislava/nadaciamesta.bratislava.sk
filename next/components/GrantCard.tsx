@@ -14,7 +14,7 @@ export interface IGrantCardProps {
 const GrantCard = ({ href, title, text, files = [], className }: IGrantCardProps) => {
   return (
     <div className={cx('flex flex-col space-y-4', className)}>
-      <div className="xl:h-[130px] lg:h-[160px] md:h-[350px]">
+      <div className="md:h-[350px] lg:h-[160px] xl:h-[130px]">
         <img src={`/grants/${title}.png`} className="mb-4 flex w-full" />
       </div>
       <div className="h-full">

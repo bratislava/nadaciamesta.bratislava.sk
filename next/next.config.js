@@ -20,7 +20,8 @@ const nextConfig = {
   async rewrites() {
     const protocol =
       process.env.STRAPI_URL &&
-      (process.env.STRAPI_URL.startsWith('http://') || process.env.STRAPI_URL.startsWith('https://'))
+      (process.env.STRAPI_URL.startsWith('http://') ||
+        process.env.STRAPI_URL.startsWith('https://'))
         ? ''
         : 'http://'
 

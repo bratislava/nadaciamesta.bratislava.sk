@@ -1,18 +1,15 @@
-import cx from 'classnames';
-import * as React from 'react';
+import cx from 'classnames'
+import * as React from 'react'
 
 interface IProps {
-  hasError?: boolean;
+  hasError?: boolean
 }
 
 export const Input = ({
   className,
   hasError,
   ...props
-}: React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> &
+}: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> &
   IProps) => (
   <input
     className={cx('base-input w-full', className, {
@@ -21,6 +18,6 @@ export const Input = ({
     })}
     {...props}
   />
-);
+)
 
-export default Input;
+export default Input
