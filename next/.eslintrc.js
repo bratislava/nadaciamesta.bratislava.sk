@@ -42,6 +42,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
+    'pii/no-phone-number': 'off',
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }
