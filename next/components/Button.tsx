@@ -39,10 +39,8 @@ const Button = ({
   }
 
   return href && href.length > 0 ? (
-    <Link href={href}>
-      <a href={href} {...props}>
-        {children}
-      </a>
+    <Link href={href} {...props}>
+      {children}
     </Link>
   ) : (
     <div

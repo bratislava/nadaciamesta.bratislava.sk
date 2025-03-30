@@ -141,10 +141,8 @@ const Newsletter = ({ text }: INewsletterProps) => {
               content={
                 <span>
                   Oboznámil/a som sa s{' '}
-                  <Link href="gdpr">
-                    <a href="gdpr" className="text-primary">
-                      podmienkami ochrany súkromia
-                    </a>
+                  <Link href="gdpr" className="text-primary">
+                    podmienkami ochrany súkromia
                   </Link>
                 </span>
               }

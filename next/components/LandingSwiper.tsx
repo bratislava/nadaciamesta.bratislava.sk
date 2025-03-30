@@ -40,20 +40,18 @@ const LandingSwiper = ({ numOfSlides, speed, slides }: ILandingSwiperProps) => {
           }}
         >
           <Link href={`/projects/${project.id}`}>
-            <a href={`/projects/${project.id}`}>
-              {project.images.length > 0 ? (
-                <img
-                  src={
-                    project.images[0]?.formats?.medium?.url ||
-                    project.images[0]?.url ||
-                    'https://via.placeholder.com/300?text=NO%20IMAGE'
-                  }
-                  alt={project.images[0]?.alternativeText || 'Placeholder image'}
-                />
-              ) : (
-                <div>Žiaden obrázok</div>
-              )}
-            </a>
+            {project.images.length > 0 ? (
+              <img
+                src={
+                  project.images[0]?.formats?.medium?.url ||
+                  project.images[0]?.url ||
+                  'https://via.placeholder.com/300?text=NO%20IMAGE'
+                }
+                alt={project.images[0]?.alternativeText || 'Placeholder image'}
+              />
+            ) : (
+              <div>Žiaden obrázok</div>
+            )}
           </Link>
         </SwiperSlide>
       ))}

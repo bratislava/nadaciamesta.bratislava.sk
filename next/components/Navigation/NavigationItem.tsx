@@ -14,20 +14,17 @@ const NavigationItem = ({ url, children, className }: INavigationItemProps) => {
 
   return (
     <div>
-      <Link href={url}>
-        <a
-          href={url}
-          className={cx(
-            'w-fit py-2 font-bold hover:text-primary',
-            {
-              'text-primary':
-                url === '/' ? router.pathname === url : router.pathname.startsWith(url),
-            },
-            className,
-          )}
-        >
-          {children}
-        </a>
+      <Link
+        href={url}
+        className={cx(
+          'w-fit py-2 font-bold hover:text-primary',
+          {
+            'text-primary': url === '/' ? router.pathname === url : router.pathname.startsWith(url),
+          },
+          className,
+        )}
+      >
+        {children}
       </Link>
     </div>
   )
