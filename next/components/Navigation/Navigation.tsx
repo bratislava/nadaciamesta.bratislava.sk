@@ -37,7 +37,7 @@ const Navigation = () => {
   const [isSearchModalOpen, setSearchModalOpen] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  const search = (query) => fetch(`/search/${query}`).then((res) => res.json())
+  const search = (query: string) => fetch(`/search/${query}`).then((res) => res.json())
 
   useEffect(() => {
     if (searchQuery.length > 2) {
