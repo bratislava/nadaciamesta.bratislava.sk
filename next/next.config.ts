@@ -35,6 +35,7 @@ const nextConfig: NextConfig = {
       // },
     },
   },
+  output: 'standalone',
   async rewrites() {
     const protocol =
       process.env.STRAPI_URL &&
