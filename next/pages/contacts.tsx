@@ -1,9 +1,9 @@
-import Head from 'next/head';
+import Head from 'next/head'
 
-import Button from '../components/Button';
-import ContactPerson from '../components/ContactPerson';
-import { client } from '../utils/gql';
-import { AsyncServerProps } from '../utils/types';
+import Button from '../components/Button'
+import ContactPerson from '../components/ContactPerson'
+import { client } from '../utils/gql'
+import { AsyncServerProps } from '../utils/types'
 
 export const Contacts = ({
   contacts,
@@ -54,15 +54,15 @@ export const Contacts = ({
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
 export const getServerSideProps = async () => {
-  const { contacts, general } = await client.ContactPage();
+  const { contacts, general } = await client.ContactPage()
 
   return {
     props: { contacts, general },
-  };
-};
+  }
+}
 
-export default Contacts;
+export default Contacts

@@ -1,18 +1,12 @@
 export interface IContactPersonProps {
-  image: string;
-  name: string;
-  role?: string;
-  phone?: string;
-  email?: string;
+  image: string
+  name: string
+  role?: string
+  phone?: string
+  email?: string
 }
 
-const ContactPerson = ({
-  image,
-  name,
-  role,
-  phone,
-  email,
-}: IContactPersonProps) => (
+const ContactPerson = ({ image, name, role, phone, email }: IContactPersonProps) => (
   <div className="grid w-full items-center justify-items-center gap-4 text-center text-base sm:flex sm:gap-8">
     <div className="relative h-48 w-48 shrink-0 rounded-full sm:h-32 sm:w-32 xl:h-48 xl:w-48">
       <img
@@ -36,6 +30,6 @@ const ContactPerson = ({
       </div>
     </div>
   </div>
-);
+)
 
-export default ContactPerson;
+export default ContactPerson

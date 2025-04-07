@@ -8,7 +8,10 @@ import { client } from '../utils/gql'
 import { formatKiloBytes, getLocalDate } from '../utils/helpers'
 import { AsyncServerProps } from '../utils/types'
 
-export const Documents = ({ documents, general: { newsletter_text } }: AsyncServerProps<typeof getServerSideProps>) => {
+export const Documents = ({
+  documents,
+  general: { newsletter_text },
+}: AsyncServerProps<typeof getServerSideProps>) => {
   const router = useRouter()
 
   const shouldBeArchived = (document) => document?.archived

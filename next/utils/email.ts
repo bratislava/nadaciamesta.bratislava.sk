@@ -20,7 +20,9 @@ export type NewSubscriberEmailData = {
 }
 
 export const sendNewSubscriber = (email: string, name: string) => {
-  console.log(`About to send sub email from: ${EMAIL_FROM} to: ${EMAIL_TO}, data: ${email}, ${name}`)
+  console.log(
+    `About to send sub email from: ${EMAIL_FROM} to: ${EMAIL_TO}, data: ${email}, ${name}`,
+  )
   const dataToSend = {
     from: EMAIL_FROM,
     to: EMAIL_TO,

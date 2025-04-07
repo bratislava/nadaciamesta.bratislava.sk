@@ -1,14 +1,12 @@
-import Head from 'next/head';
+import Head from 'next/head'
 
-import { Markdown } from '../../components/Markdown';
-import { client } from '../../utils/gql';
-import { getLocalDate } from '../../utils/helpers';
-import { AsyncServerProps } from '../../utils/types';
+import { Markdown } from '../../components/Markdown'
+import { client } from '../../utils/gql'
+import { getLocalDate } from '../../utils/helpers'
+import { AsyncServerProps } from '../../utils/types'
 
-export const Blog = ({
-  blogPosts,
-}: AsyncServerProps<typeof getServerSideProps>) => {
-  const blogPost = blogPosts[0];
+export const Blog = ({ blogPosts }: AsyncServerProps<typeof getServerSideProps>) => {
+  const blogPost = blogPosts[0]
 
   return (
     <article>
@@ -21,9 +19,7 @@ export const Blog = ({
           <h1 className="text-6xl font-bold">{blogPost.title}</h1>
           <div className="flex items-center justify-center divide-x-4">
             <span className="border-primary px-8">{blogPost.author}</span>
-            <span className="border-primary px-8">
-              {getLocalDate(blogPost.created_at)}
-            </span>
+            <span className="border-primary px-8">{getLocalDate(blogPost.created_at)}</span>
           </div>
           <div className="relative h-100">
             <img
@@ -39,23 +35,23 @@ export const Blog = ({
         </div>
       </section>
     </article>
-  );
+  )
 }
 
 export const getServerSideProps = async (context) => {
-  const { slug } = context.query;
+  const { slug } = context.query
 
-  const { blogPosts } = await client.BlogPostsBySlug({ slug });
+  const { blogPosts } = await client.BlogPostsBySlug({ slug })
 
   if (!blogPosts || blogPosts.length === 0) {
     return {
       notFound: true,
-    };
+    }
   }
 
   return {
     props: { blogPosts },
-  };
-};
+  }
+}
 
-export default Blog;
+export default Blog

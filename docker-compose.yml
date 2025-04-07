@@ -11,3 +11,5 @@ services:
       - "54320"
     ports:
       - "127.0.0.1:54320:54320"
+    volumes:
+      - ./postgres:/var/lib/postgresql/data

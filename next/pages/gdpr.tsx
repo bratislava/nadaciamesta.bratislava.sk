@@ -1,12 +1,10 @@
-import Head from 'next/head';
+import Head from 'next/head'
 
-import { Markdown } from '../components/Markdown';
-import { client } from '../utils/gql';
-import { AsyncServerProps } from '../utils/types';
+import { Markdown } from '../components/Markdown'
+import { client } from '../utils/gql'
+import { AsyncServerProps } from '../utils/types'
 
-export const Blog = ({
-  legal: { gdpr },
-}: AsyncServerProps<typeof getServerSideProps>) => {
+export const Blog = ({ legal: { gdpr } }: AsyncServerProps<typeof getServerSideProps>) => {
   return (
     <article>
       <Head>
@@ -19,15 +17,15 @@ export const Blog = ({
         </div>
       </section>
     </article>
-  );
+  )
 }
 
 export const getServerSideProps = async () => {
-  const { legal } = await client.GdprPage();
+  const { legal } = await client.GdprPage()
 
   return {
     props: { legal },
-  };
-};
+  }
+}
 
-export default Blog;
+export default Blog

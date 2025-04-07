@@ -19,7 +19,7 @@ const DownloadLink = ({ text, fileUrl, fileName, className }: IDownloadLinkProps
       rel="noopener noreferrer"
     >
       <div className="break-all font-bold group-hover:underline">{text}</div>
-      <DownloadIcon className="mt-1 ml-2 h-4 w-4 shrink-0" />
+      <DownloadIcon className="ml-2 mt-1 h-4 w-4 shrink-0" />
     </a>
   )
 }

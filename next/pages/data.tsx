@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Head from 'next/head'
 
 export const Contacts = () => {
   return (
@@ -19,11 +19,11 @@ export const Contacts = () => {
               frameBorder="0"
               allowFullScreen
               scrolling="no"
-             />
+            />
           </div>
         </div>
       </section>
     </>
-  );
-};
-export default Contacts;
+  )
+}
+export default Contacts

@@ -28,7 +28,7 @@ const DropdownIndicator = (props: ComponentProps<typeof components.DropdownIndic
   )
 }
 
-const ClearIndicator = (props: ComponentProps<typeof components.DropdownIndicator>) => {
+const ClearIndicator = (props: ComponentProps<typeof components.ClearIndicator>) => {
   return (
     <components.ClearIndicator className="p-1" {...props}>
       <CancelIcon stroke="var(--font-color)" />
@@ -83,7 +83,14 @@ const styles = {
   },
 }
 
-const Select = ({ placeholder = 'Placeholder', value, options, className, id, onChange }: ISelectProps) => (
+const Select = ({
+  placeholder = 'Placeholder',
+  value,
+  options,
+  className,
+  id,
+  onChange,
+}: ISelectProps) => (
   <ReactSelect
     placeholder={placeholder}
     styles={styles}

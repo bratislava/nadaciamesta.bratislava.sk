@@ -1,25 +1,19 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
 
-import Button from '../../components/Button';
-import ProjectCard from '../../components/ProjectCard';
-import SearchBar from '../../components/SearchBar';
-import Tag from '../../components/Tag';
-import TagGroupMultiple from '../../components/TagGroupMultiple';
-import TagGroupSingle from '../../components/TagGroupSingle';
-import { client } from '../../utils/gql';
-import { parseQueryArray, parseQueryString } from '../../utils/helpers';
-import { AsyncServerProps } from '../../utils/types';
-import { ProjectsQuery } from '../graphql/index';
+import Button from '../../components/Button'
+import ProjectCard from '../../components/ProjectCard'
+import SearchBar from '../../components/SearchBar'
+import Tag from '../../components/Tag'
+import TagGroupMultiple from '../../components/TagGroupMultiple'
+import TagGroupSingle from '../../components/TagGroupSingle'
+import { client } from '../../utils/gql'
+import { parseQueryArray, parseQueryString } from '../../utils/helpers'
+import { AsyncServerProps } from '../../utils/types'
+import { ProjectsQuery } from '../../graphql'
 
-const PROJECT_COUNT_PER_LOAD = 24;
+const PROJECT_COUNT_PER_LOAD = 24
 
 export const Projects = ({
   tagPrograms,
@@ -30,87 +24,76 @@ export const Projects = ({
   tagSupportFields,
   tagYears,
 }: AsyncServerProps<typeof getServerSideProps>) => {
-  const { query } = useRouter();
+  const { query } = useRouter()
 
-  const [projects, setProjects] = useState<ProjectsQuery['projects']>([]);
-  const [projectsTotalCount, setProjectsTotalCount] = useState(0);
-  const [allProjectsLoaded, setAllProjectsLoaded] = useState(false);
+  const [projects, setProjects] = useState<ProjectsQuery['projects']>([])
+  const [projectsTotalCount, setProjectsTotalCount] = useState(0)
+  const [allProjectsLoaded, setAllProjectsLoaded] = useState(false)
 
-  const [year, setYear] = useState<string>();
-  const [program, setProgram] = useState<string>();
+  const [year, setYear] = useState<string>()
+  const [program, setProgram] = useState<string>()
 
-  const [categories, setCategories] = useState<string[]>([]);
-  const [goals, setGoals] = useState<string[]>([]);
-  const [supportFields, setSupportFields] = useState<string[]>([]);
-  const [legalForms, setLegalForms] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([])
+  const [goals, setGoals] = useState<string[]>([])
+  const [supportFields, setSupportFields] = useState<string[]>([])
+  const [legalForms, setLegalForms] = useState<string[]>([])
 
-  const [district, setDistrict] = useState<string>();
+  const [district, setDistrict] = useState<string>()
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [legalSearchQuery, setLegalSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('')
+  const [legalSearchQuery, setLegalSearchQuery] = useState('')
 
   const setStateByQueryString = (
     setValue: Dispatch<SetStateAction<string>>,
     queryParam: string | string[] | undefined,
-    tagsObj: { name: string }[]
+    tagsObj: { name: string }[],
   ) => {
-    if (!queryParam) return;
-    const tags = tagsObj.map((tag) => tag.name);
+    if (!queryParam) return
+    const tags = tagsObj.map((tag) => tag.name)
     if (tags.includes(parseQueryString(queryParam))) {
-      setValue(parseQueryString(queryParam));
+      setValue(parseQueryString(queryParam))
     }
-  };
+  }
 
   const setStateByQueryArray = (
     setValue: Dispatch<SetStateAction<string[]>>,
     queryParam: string | string[] | undefined,
-    tagsObj: { name: string }[]
+    tagsObj: { name: string }[],
   ) => {
-    if (!queryParam) return;
+    if (!queryParam) return
 
-    const tags = new Set(tagsObj.map((tag) => tag.name));
-    setValue(
-      parseQueryArray(queryParam).filter((param) => tags.has(param))
-    );
-  };
+    const tags = new Set(tagsObj.map((tag) => tag.name))
+    setValue(parseQueryArray(queryParam).filter((param) => tags.has(param)))
+  }
 
   const determineDeclension = (
     count: number,
     one: string,
     twoThreeOrFour: string,
-    zeroOrGreaterThenFour: string
+    zeroOrGreaterThenFour: string,
   ) => {
-    return count === 1
-      ? one
-      : count >= 2 && count <= 4
-      ? twoThreeOrFour
-      : zeroOrGreaterThenFour;
-  };
+    return count === 1 ? one : count >= 2 && count <= 4 ? twoThreeOrFour : zeroOrGreaterThenFour
+  }
 
   const getFilteredProjectText = useCallback(() => {
     const wordDisplayed = determineDeclension(
       projects.length,
       'zobrazený',
       'zobrazené',
-      'zobrazených'
-    );
+      'zobrazených',
+    )
 
-    const wordProject = determineDeclension(
-      projects.length,
-      'projekt',
-      'projekty',
-      'projektov'
-    );
+    const wordProject = determineDeclension(projects.length, 'projekt', 'projekty', 'projektov')
 
     const wordFiltered = determineDeclension(
       projectsTotalCount,
       'vyfiltrovaného',
       'vyfiltrovaných',
-      'vyfiltrovaných'
-    );
+      'vyfiltrovaných',
+    )
 
-    return `${wordDisplayed} ${projects.length} ${wordProject} z ${projectsTotalCount} ${wordFiltered}`;
-  }, [projects, projectsTotalCount]);
+    return `${wordDisplayed} ${projects.length} ${wordProject} z ${projectsTotalCount} ${wordFiltered}`
+  }, [projects, projectsTotalCount])
 
   useEffect(() => {
     const {
@@ -121,14 +104,14 @@ export const Projects = ({
       supportFields: supportFieldsQ,
       legalForms: legalFormsQ,
       district: districtQ,
-    } = query;
-    setStateByQueryString(setYear, yearQ, tagYears);
-    setStateByQueryString(setProgram, programQ, tagPrograms);
-    setStateByQueryArray(setCategories, categoriesQ, tagCategories);
-    setStateByQueryArray(setGoals, goalsQ, tagGoals);
-    setStateByQueryArray(setSupportFields, supportFieldsQ, tagSupportFields);
-    setStateByQueryArray(setLegalForms, legalFormsQ, tagLegalForms);
-    setStateByQueryString(setDistrict, districtQ, tagDistricts);
+    } = query
+    setStateByQueryString(setYear, yearQ, tagYears)
+    setStateByQueryString(setProgram, programQ, tagPrograms)
+    setStateByQueryArray(setCategories, categoriesQ, tagCategories)
+    setStateByQueryArray(setGoals, goalsQ, tagGoals)
+    setStateByQueryArray(setSupportFields, supportFieldsQ, tagSupportFields)
+    setStateByQueryArray(setLegalForms, legalFormsQ, tagLegalForms)
+    setStateByQueryString(setDistrict, districtQ, tagDistricts)
   }, [
     query,
     tagCategories,
@@ -138,19 +121,19 @@ export const Projects = ({
     tagPrograms,
     tagSupportFields,
     tagYears,
-  ]);
+  ])
 
   useEffect(() => {
     if (searchQuery.length > 2) {
-      setLegalSearchQuery(searchQuery);
+      setLegalSearchQuery(searchQuery)
     } else {
-      setLegalSearchQuery('');
+      setLegalSearchQuery('')
     }
-  }, [searchQuery]);
+  }, [searchQuery])
 
   const loadProjects = useCallback(
     async (offset: number) => {
-      setAllProjectsLoaded(true);
+      setAllProjectsLoaded(true)
       const { projects: newProjects } = await client.Projects({
         limit: PROJECT_COUNT_PER_LOAD,
         offset,
@@ -162,7 +145,7 @@ export const Projects = ({
         categories,
         legalForms,
         query: legalSearchQuery,
-      });
+      })
 
       const projectsCount = await client
         .ProjectsTotalCount({
@@ -175,30 +158,21 @@ export const Projects = ({
           legalForms,
           query: legalSearchQuery,
         })
-        .then(({ projects }) => projects.length);
+        .then(({ projects }) => projects.length)
 
-      setProjects((projects) => [...projects, ...newProjects]);
-      setProjectsTotalCount(projectsCount);
+      setProjects((projects) => [...projects, ...newProjects])
+      setProjectsTotalCount(projectsCount)
 
       if (newProjects.length === PROJECT_COUNT_PER_LOAD) {
-        setAllProjectsLoaded(false);
+        setAllProjectsLoaded(false)
       }
     },
-    [
-      year,
-      program,
-      district,
-      supportFields,
-      goals,
-      categories,
-      legalForms,
-      legalSearchQuery,
-    ]
-  );
+    [year, program, district, supportFields, goals, categories, legalForms, legalSearchQuery],
+  )
 
   useEffect(() => {
-    setProjects([]);
-    loadProjects(0);
+    setProjects([])
+    loadProjects(0)
   }, [
     loadProjects,
     year,
@@ -209,7 +183,7 @@ export const Projects = ({
     legalForms,
     district,
     legalSearchQuery,
-  ]);
+  ])
 
   return (
     <>
@@ -224,12 +198,7 @@ export const Projects = ({
           <div className="mb-6">Filtrovať podporené projekty:</div>
 
           <div className="flex flex-wrap gap-8">
-            <TagGroupSingle
-              tags={tagYears}
-              value={year}
-              setValue={setYear}
-              clearable
-            />
+            <TagGroupSingle tags={tagYears} value={year} setValue={setYear} clearable />
             <TagGroupSingle
               tags={tagPrograms}
               value={program}
@@ -238,26 +207,14 @@ export const Projects = ({
               uppercase
             />
           </div>
-          <TagGroupMultiple
-            tags={tagCategories}
-            values={categories}
-            setValues={setCategories}
-          />
-          <TagGroupMultiple
-            tags={tagGoals}
-            values={goals}
-            setValues={setGoals}
-          />
+          <TagGroupMultiple tags={tagCategories} values={categories} setValues={setCategories} />
+          <TagGroupMultiple tags={tagGoals} values={goals} setValues={setGoals} />
           <TagGroupMultiple
             tags={tagSupportFields}
             values={supportFields}
             setValues={setSupportFields}
           />
-          <TagGroupMultiple
-            tags={tagLegalForms}
-            values={legalForms}
-            setValues={setLegalForms}
-          />
+          <TagGroupMultiple tags={tagLegalForms} values={legalForms} setValues={setLegalForms} />
 
           <div className="max-w-lg">
             <SearchBar query={searchQuery} onQueryChange={setSearchQuery} />
@@ -287,11 +244,7 @@ export const Projects = ({
           <div className="my-4 flex w-3/5 flex-wrap items-center gap-2 pl-10">
             {year && <Tag text={year} />}
             {program && (
-              <Tag
-                text={program}
-                variant="inactive"
-                className="cursor-default uppercase"
-              />
+              <Tag text={program} variant="inactive" className="cursor-default uppercase" />
             )}
             {[]
               .concat(categories, goals, supportFields, legalForms, district)
@@ -325,7 +278,7 @@ export const Projects = ({
         </div>
       </section>
     </>
-  );
+  )
 }
 
 export const getServerSideProps = async () => {
@@ -337,7 +290,7 @@ export const getServerSideProps = async () => {
     tagPrograms,
     tagSupportFields,
     tagYears,
-  } = await client.ProjectsPage();
+  } = await client.ProjectsPage()
   return {
     props: {
       tagCategories,
@@ -348,7 +301,7 @@ export const getServerSideProps = async () => {
       tagSupportFields,
       tagYears,
     },
-  };
-};
+  }
+}
 
-export default Projects;
+export default Projects

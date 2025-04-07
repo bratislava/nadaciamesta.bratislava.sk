@@ -12,7 +12,14 @@ interface ISearchBarProps {
   inputRef?: MutableRefObject<HTMLInputElement>
 }
 
-const SearchBar = ({ query, onQueryChange, className, onFocus, onBlur, inputRef }: ISearchBarProps) => {
+const SearchBar = ({
+  query,
+  onQueryChange,
+  className,
+  onFocus,
+  onBlur,
+  inputRef,
+}: ISearchBarProps) => {
   return (
     <div className={cx('relative rounded bg-white', className)}>
       <input
@@ -23,7 +30,7 @@ const SearchBar = ({ query, onQueryChange, className, onFocus, onBlur, inputRef 
         value={query}
         onChange={(event) => onQueryChange(event.target.value)}
         placeholder="Vyhľadávanie"
-        className="relative z-10 h-12 w-full flex-1 rounded border-dark-gray-color bg-transparent pl-11 "
+        className="relative z-10 h-12 w-full flex-1 rounded border-dark-gray-color bg-transparent pl-11"
       />
       <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center text-black">
         <SearchIcon />

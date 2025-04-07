@@ -13,7 +13,13 @@ export interface ITagGroupSingleProps {
   uppercase?: boolean
 }
 
-const TagGroupSingle = ({ tags, value, setValue, clearable = false, uppercase = false }: ITagGroupSingleProps) => {
+const TagGroupSingle = ({
+  tags,
+  value,
+  setValue,
+  clearable = false,
+  uppercase = false,
+}: ITagGroupSingleProps) => {
   return (
     <div className="mb-4 flex flex-wrap items-center gap-2">
       {tags.map((tag, index) => (
@@ -28,7 +34,7 @@ const TagGroupSingle = ({ tags, value, setValue, clearable = false, uppercase = 
       {clearable && (
         <div className="w-6">
           {value && (
-            <Button onClick={() => setValue()} className="w-full border-none p-1">
+            <Button onClick={() => setValue('')} className="w-full border-none p-1">
               <CancelIcon stroke="var(--font-color)" />
             </Button>
           )}
