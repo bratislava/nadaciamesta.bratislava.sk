@@ -1,66 +1,68 @@
-import { GraphQLClient } from 'graphql-request';
-import * as Dom from 'graphql-request/dist/types.dom';
+import { GraphQLClient, RequestOptions } from 'graphql-request';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  Date: any;
-  DateTime: any;
-  JSON: any;
-  Long: any;
-  Time: any;
-  Upload: any;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  Date: { input: any; output: any; }
+  DateTime: { input: any; output: any; }
+  JSON: { input: any; output: any; }
+  Long: { input: any; output: any; }
+  Time: { input: any; output: any; }
+  Upload: { input: any; output: any; }
 };
 
 export type AboutUs = {
   __typename?: 'AboutUs';
-  created_at: Scalars['DateTime'];
-  id: Scalars['ID'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
   sections?: Maybe<Array<Maybe<ComponentBasicComponentsAboutUsSection>>>;
-  updated_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type AboutUsInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
   sections?: InputMaybe<Array<InputMaybe<ComponentBasicComponentsAboutUsSectionInput>>>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type AdminUser = {
   __typename?: 'AdminUser';
-  firstname: Scalars['String'];
-  id: Scalars['ID'];
-  lastname: Scalars['String'];
-  username?: Maybe<Scalars['String']>;
+  firstname: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  lastname: Scalars['String']['output'];
+  username?: Maybe<Scalars['String']['output']>;
 };
 
 export type BlogPost = {
   __typename?: 'BlogPost';
-  author: Scalars['String'];
-  content: Scalars['String'];
-  created_at: Scalars['DateTime'];
-  description: Scalars['String'];
-  id: Scalars['ID'];
+  author: Scalars['String']['output'];
+  content: Scalars['String']['output'];
+  created_at: Scalars['DateTime']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
   image?: Maybe<UploadFile>;
-  published_at?: Maybe<Scalars['DateTime']>;
-  slug: Scalars['String'];
-  title: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  published_at?: Maybe<Scalars['DateTime']['output']>;
+  slug: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type BlogPostAggregator = {
   __typename?: 'BlogPostAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type BlogPostConnection = {
@@ -73,61 +75,61 @@ export type BlogPostConnection = {
 export type BlogPostConnectionAuthor = {
   __typename?: 'BlogPostConnectionAuthor';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type BlogPostConnectionContent = {
   __typename?: 'BlogPostConnectionContent';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type BlogPostConnectionCreated_At = {
   __typename?: 'BlogPostConnectionCreated_at';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type BlogPostConnectionDescription = {
   __typename?: 'BlogPostConnectionDescription';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type BlogPostConnectionId = {
   __typename?: 'BlogPostConnectionId';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type BlogPostConnectionImage = {
   __typename?: 'BlogPostConnectionImage';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type BlogPostConnectionPublished_At = {
   __typename?: 'BlogPostConnectionPublished_at';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type BlogPostConnectionSlug = {
   __typename?: 'BlogPostConnectionSlug';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type BlogPostConnectionTitle = {
   __typename?: 'BlogPostConnectionTitle';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type BlogPostConnectionUpdated_At = {
   __typename?: 'BlogPostConnectionUpdated_at';
   connection?: Maybe<BlogPostConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type BlogPostGroupBy = {
@@ -145,65 +147,65 @@ export type BlogPostGroupBy = {
 };
 
 export type BlogPostInput = {
-  author?: InputMaybe<Scalars['String']>;
-  content: Scalars['String'];
-  created_by?: InputMaybe<Scalars['ID']>;
-  description: Scalars['String'];
-  image?: InputMaybe<Scalars['ID']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  slug?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  content: Scalars['String']['input'];
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['ID']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type ComponentBasicComponentsAboutUsSection = {
   __typename?: 'ComponentBasicComponentsAboutUsSection';
-  detail?: Maybe<Scalars['String']>;
+  detail?: Maybe<Scalars['String']['output']>;
   files?: Maybe<Array<Maybe<UploadFile>>>;
-  id: Scalars['ID'];
-  title?: Maybe<Scalars['String']>;
+  id: Scalars['ID']['output'];
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 
 export type ComponentBasicComponentsAboutUsSectionFilesArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type ComponentBasicComponentsAboutUsSectionInput = {
-  detail?: InputMaybe<Scalars['String']>;
-  files?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  title?: InputMaybe<Scalars['String']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+  files?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ContactInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  email?: InputMaybe<Scalars['String']>;
-  full_name_including_degrees: Scalars['String'];
-  phone?: InputMaybe<Scalars['String']>;
-  photo?: InputMaybe<Scalars['ID']>;
-  role?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  full_name_including_degrees: Scalars['String']['input'];
+  phone?: InputMaybe<Scalars['String']['input']>;
+  photo?: InputMaybe<Scalars['ID']['input']>;
+  role?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type Contacts = {
   __typename?: 'Contacts';
-  created_at: Scalars['DateTime'];
-  email?: Maybe<Scalars['String']>;
-  full_name_including_degrees: Scalars['String'];
-  id: Scalars['ID'];
-  phone?: Maybe<Scalars['String']>;
+  created_at: Scalars['DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  full_name_including_degrees: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  phone?: Maybe<Scalars['String']['output']>;
   photo?: Maybe<UploadFile>;
-  role?: Maybe<Scalars['String']>;
-  updated_at: Scalars['DateTime'];
+  role?: Maybe<Scalars['String']['output']>;
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type ContactsAggregator = {
   __typename?: 'ContactsAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type ContactsConnection = {
@@ -216,49 +218,49 @@ export type ContactsConnection = {
 export type ContactsConnectionCreated_At = {
   __typename?: 'ContactsConnectionCreated_at';
   connection?: Maybe<ContactsConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type ContactsConnectionEmail = {
   __typename?: 'ContactsConnectionEmail';
   connection?: Maybe<ContactsConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type ContactsConnectionFull_Name_Including_Degrees = {
   __typename?: 'ContactsConnectionFull_name_including_degrees';
   connection?: Maybe<ContactsConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type ContactsConnectionId = {
   __typename?: 'ContactsConnectionId';
   connection?: Maybe<ContactsConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type ContactsConnectionPhone = {
   __typename?: 'ContactsConnectionPhone';
   connection?: Maybe<ContactsConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type ContactsConnectionPhoto = {
   __typename?: 'ContactsConnectionPhoto';
   connection?: Maybe<ContactsConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type ContactsConnectionRole = {
   __typename?: 'ContactsConnectionRole';
   connection?: Maybe<ContactsConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type ContactsConnectionUpdated_At = {
   __typename?: 'ContactsConnectionUpdated_at';
   connection?: Maybe<ContactsConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type ContactsGroupBy = {
@@ -274,29 +276,29 @@ export type ContactsGroupBy = {
 };
 
 export type DocumentInput = {
-  archived?: InputMaybe<Scalars['Boolean']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  file?: InputMaybe<Scalars['ID']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  title: Scalars['String'];
-  updated_by?: InputMaybe<Scalars['ID']>;
+  archived?: InputMaybe<Scalars['Boolean']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  file?: InputMaybe<Scalars['ID']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  title: Scalars['String']['input'];
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type Documents = {
   __typename?: 'Documents';
-  archived?: Maybe<Scalars['Boolean']>;
-  created_at: Scalars['DateTime'];
+  archived?: Maybe<Scalars['Boolean']['output']>;
+  created_at: Scalars['DateTime']['output'];
   file?: Maybe<UploadFile>;
-  id: Scalars['ID'];
-  published_at?: Maybe<Scalars['DateTime']>;
-  title: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  id: Scalars['ID']['output'];
+  published_at?: Maybe<Scalars['DateTime']['output']>;
+  title: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type DocumentsAggregator = {
   __typename?: 'DocumentsAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type DocumentsConnection = {
@@ -309,43 +311,43 @@ export type DocumentsConnection = {
 export type DocumentsConnectionArchived = {
   __typename?: 'DocumentsConnectionArchived';
   connection?: Maybe<DocumentsConnection>;
-  key?: Maybe<Scalars['Boolean']>;
+  key?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type DocumentsConnectionCreated_At = {
   __typename?: 'DocumentsConnectionCreated_at';
   connection?: Maybe<DocumentsConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type DocumentsConnectionFile = {
   __typename?: 'DocumentsConnectionFile';
   connection?: Maybe<DocumentsConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type DocumentsConnectionId = {
   __typename?: 'DocumentsConnectionId';
   connection?: Maybe<DocumentsConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type DocumentsConnectionPublished_At = {
   __typename?: 'DocumentsConnectionPublished_at';
   connection?: Maybe<DocumentsConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type DocumentsConnectionTitle = {
   __typename?: 'DocumentsConnectionTitle';
   connection?: Maybe<DocumentsConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type DocumentsConnectionUpdated_At = {
   __typename?: 'DocumentsConnectionUpdated_at';
   connection?: Maybe<DocumentsConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type DocumentsGroupBy = {
@@ -360,123 +362,123 @@ export type DocumentsGroupBy = {
 };
 
 export type FileInfoInput = {
-  alternativeText?: InputMaybe<Scalars['String']>;
-  caption?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  alternativeText?: InputMaybe<Scalars['String']['input']>;
+  caption?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FileInput = {
-  alternativeText?: InputMaybe<Scalars['String']>;
-  caption?: InputMaybe<Scalars['String']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  ext?: InputMaybe<Scalars['String']>;
-  formats?: InputMaybe<Scalars['JSON']>;
-  hash: Scalars['String'];
-  height?: InputMaybe<Scalars['Int']>;
-  mime: Scalars['String'];
-  name: Scalars['String'];
-  previewUrl?: InputMaybe<Scalars['String']>;
-  provider: Scalars['String'];
-  provider_metadata?: InputMaybe<Scalars['JSON']>;
-  related?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  size: Scalars['Float'];
-  updated_by?: InputMaybe<Scalars['ID']>;
-  url: Scalars['String'];
-  width?: InputMaybe<Scalars['Int']>;
+  alternativeText?: InputMaybe<Scalars['String']['input']>;
+  caption?: InputMaybe<Scalars['String']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  ext?: InputMaybe<Scalars['String']['input']>;
+  formats?: InputMaybe<Scalars['JSON']['input']>;
+  hash: Scalars['String']['input'];
+  height?: InputMaybe<Scalars['Int']['input']>;
+  mime: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  previewUrl?: InputMaybe<Scalars['String']['input']>;
+  provider: Scalars['String']['input'];
+  provider_metadata?: InputMaybe<Scalars['JSON']['input']>;
+  related?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  size: Scalars['Float']['input'];
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
+  url: Scalars['String']['input'];
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type General = {
   __typename?: 'General';
-  address?: Maybe<Scalars['String']>;
-  bank_account_iban?: Maybe<Scalars['String']>;
-  bank_account_url?: Maybe<Scalars['String']>;
-  copyright_text?: Maybe<Scalars['String']>;
-  created_at: Scalars['DateTime'];
-  email?: Maybe<Scalars['String']>;
-  facebook_link?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  instagram_link?: Maybe<Scalars['String']>;
-  newsletter_text?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  updated_at: Scalars['DateTime'];
+  address?: Maybe<Scalars['String']['output']>;
+  bank_account_iban?: Maybe<Scalars['String']['output']>;
+  bank_account_url?: Maybe<Scalars['String']['output']>;
+  copyright_text?: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  facebook_link?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  instagram_link?: Maybe<Scalars['String']['output']>;
+  newsletter_text?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type GeneralInput = {
-  address?: InputMaybe<Scalars['String']>;
-  bank_account_iban?: InputMaybe<Scalars['String']>;
-  bank_account_url?: InputMaybe<Scalars['String']>;
-  copyright_text?: InputMaybe<Scalars['String']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  email?: InputMaybe<Scalars['String']>;
-  facebook_link?: InputMaybe<Scalars['String']>;
-  instagram_link?: InputMaybe<Scalars['String']>;
-  newsletter_text?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  address?: InputMaybe<Scalars['String']['input']>;
+  bank_account_iban?: InputMaybe<Scalars['String']['input']>;
+  bank_account_url?: InputMaybe<Scalars['String']['input']>;
+  copyright_text?: InputMaybe<Scalars['String']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  facebook_link?: InputMaybe<Scalars['String']['input']>;
+  instagram_link?: InputMaybe<Scalars['String']['input']>;
+  newsletter_text?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type GrantInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  description?: InputMaybe<Scalars['String']>;
-  files?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  link?: InputMaybe<Scalars['String']>;
-  order?: InputMaybe<Scalars['Int']>;
-  program?: InputMaybe<Scalars['ID']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  title: Scalars['String'];
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  files?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  link?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Scalars['Int']['input']>;
+  program?: InputMaybe<Scalars['ID']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  title: Scalars['String']['input'];
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type Grants = {
   __typename?: 'Grants';
-  created_at: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
+  created_at: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   files?: Maybe<Array<Maybe<UploadFile>>>;
-  id: Scalars['ID'];
-  link?: Maybe<Scalars['String']>;
-  order?: Maybe<Scalars['Int']>;
+  id: Scalars['ID']['output'];
+  link?: Maybe<Scalars['String']['output']>;
+  order?: Maybe<Scalars['Int']['output']>;
   program?: Maybe<TagProgram>;
-  published_at?: Maybe<Scalars['DateTime']>;
-  title: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  published_at?: Maybe<Scalars['DateTime']['output']>;
+  title: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 
 export type GrantsFilesArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type GrantsAggregator = {
   __typename?: 'GrantsAggregator';
   avg?: Maybe<GrantsAggregatorAvg>;
-  count?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
   max?: Maybe<GrantsAggregatorMax>;
   min?: Maybe<GrantsAggregatorMin>;
   sum?: Maybe<GrantsAggregatorSum>;
-  totalCount?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type GrantsAggregatorAvg = {
   __typename?: 'GrantsAggregatorAvg';
-  order?: Maybe<Scalars['Float']>;
+  order?: Maybe<Scalars['Float']['output']>;
 };
 
 export type GrantsAggregatorMax = {
   __typename?: 'GrantsAggregatorMax';
-  order?: Maybe<Scalars['Float']>;
+  order?: Maybe<Scalars['Float']['output']>;
 };
 
 export type GrantsAggregatorMin = {
   __typename?: 'GrantsAggregatorMin';
-  order?: Maybe<Scalars['Float']>;
+  order?: Maybe<Scalars['Float']['output']>;
 };
 
 export type GrantsAggregatorSum = {
   __typename?: 'GrantsAggregatorSum';
-  order?: Maybe<Scalars['Float']>;
+  order?: Maybe<Scalars['Float']['output']>;
 };
 
 export type GrantsConnection = {
@@ -489,55 +491,55 @@ export type GrantsConnection = {
 export type GrantsConnectionCreated_At = {
   __typename?: 'GrantsConnectionCreated_at';
   connection?: Maybe<GrantsConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type GrantsConnectionDescription = {
   __typename?: 'GrantsConnectionDescription';
   connection?: Maybe<GrantsConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type GrantsConnectionId = {
   __typename?: 'GrantsConnectionId';
   connection?: Maybe<GrantsConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type GrantsConnectionLink = {
   __typename?: 'GrantsConnectionLink';
   connection?: Maybe<GrantsConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type GrantsConnectionOrder = {
   __typename?: 'GrantsConnectionOrder';
   connection?: Maybe<GrantsConnection>;
-  key?: Maybe<Scalars['Int']>;
+  key?: Maybe<Scalars['Int']['output']>;
 };
 
 export type GrantsConnectionProgram = {
   __typename?: 'GrantsConnectionProgram';
   connection?: Maybe<GrantsConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type GrantsConnectionPublished_At = {
   __typename?: 'GrantsConnectionPublished_at';
   connection?: Maybe<GrantsConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type GrantsConnectionTitle = {
   __typename?: 'GrantsConnectionTitle';
   connection?: Maybe<GrantsConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type GrantsConnectionUpdated_At = {
   __typename?: 'GrantsConnectionUpdated_at';
   connection?: Maybe<GrantsConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type GrantsGroupBy = {
@@ -555,78 +557,78 @@ export type GrantsGroupBy = {
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
-  code?: Maybe<Scalars['String']>;
-  created_at: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
-  updated_at: Scalars['DateTime'];
+  code?: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type InputId = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 export type LandingPage = {
   __typename?: 'LandingPage';
-  created_at: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
+  created_at: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   featured_projects_bottom?: Maybe<Array<Maybe<Project>>>;
   featured_projects_top?: Maybe<Array<Maybe<Project>>>;
-  grants_button_text?: Maybe<Scalars['String']>;
-  grants_text?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  updated_at: Scalars['DateTime'];
+  grants_button_text?: Maybe<Scalars['String']['output']>;
+  grants_text?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 
 export type LandingPageFeatured_Projects_BottomArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type LandingPageFeatured_Projects_TopArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type LandingPageInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  description?: InputMaybe<Scalars['String']>;
-  featured_projects_bottom?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  featured_projects_top?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  grants_button_text?: InputMaybe<Scalars['String']>;
-  grants_text?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  featured_projects_bottom?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  featured_projects_top?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  grants_button_text?: InputMaybe<Scalars['String']['input']>;
+  grants_text?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type Legal = {
   __typename?: 'Legal';
-  created_at: Scalars['DateTime'];
-  gdpr?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  project_detail_disclaimer?: Maybe<Scalars['String']>;
-  published_at?: Maybe<Scalars['DateTime']>;
-  updated_at: Scalars['DateTime'];
+  created_at: Scalars['DateTime']['output'];
+  gdpr?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  project_detail_disclaimer?: Maybe<Scalars['String']['output']>;
+  published_at?: Maybe<Scalars['DateTime']['output']>;
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type LegalInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  gdpr?: InputMaybe<Scalars['String']>;
-  project_detail_disclaimer?: InputMaybe<Scalars['String']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  gdpr?: InputMaybe<Scalars['String']['input']>;
+  project_detail_disclaimer?: InputMaybe<Scalars['String']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type LocaleInput = {
-  code?: InputMaybe<Scalars['String']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  code?: InputMaybe<Scalars['String']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type Morph = AboutUs | BlogPost | BlogPostAggregator | BlogPostConnection | BlogPostConnectionAuthor | BlogPostConnectionContent | BlogPostConnectionCreated_At | BlogPostConnectionDescription | BlogPostConnectionId | BlogPostConnectionImage | BlogPostConnectionPublished_At | BlogPostConnectionSlug | BlogPostConnectionTitle | BlogPostConnectionUpdated_At | BlogPostGroupBy | ComponentBasicComponentsAboutUsSection | Contacts | ContactsAggregator | ContactsConnection | ContactsConnectionCreated_At | ContactsConnectionEmail | ContactsConnectionFull_Name_Including_Degrees | ContactsConnectionId | ContactsConnectionPhone | ContactsConnectionPhoto | ContactsConnectionRole | ContactsConnectionUpdated_At | ContactsGroupBy | Documents | DocumentsAggregator | DocumentsConnection | DocumentsConnectionArchived | DocumentsConnectionCreated_At | DocumentsConnectionFile | DocumentsConnectionId | DocumentsConnectionPublished_At | DocumentsConnectionTitle | DocumentsConnectionUpdated_At | DocumentsGroupBy | General | Grants | GrantsAggregator | GrantsAggregatorAvg | GrantsAggregatorMax | GrantsAggregatorMin | GrantsAggregatorSum | GrantsConnection | GrantsConnectionCreated_At | GrantsConnectionDescription | GrantsConnectionId | GrantsConnectionLink | GrantsConnectionOrder | GrantsConnectionProgram | GrantsConnectionPublished_At | GrantsConnectionTitle | GrantsConnectionUpdated_At | GrantsGroupBy | I18NLocale | LandingPage | Legal | Project | ProjectAggregator | ProjectConnection | ProjectConnectionAmount | ProjectConnectionAppliciant | ProjectConnectionCreated_At | ProjectConnectionDescription | ProjectConnectionId | ProjectConnectionLegal_Form | ProjectConnectionProgram | ProjectConnectionPublished_At | ProjectConnectionTitle | ProjectConnectionUpdated_At | ProjectConnectionYear | ProjectGroupBy | TagCategory | TagCategoryAggregator | TagCategoryConnection | TagCategoryConnectionCreated_At | TagCategoryConnectionId | TagCategoryConnectionName | TagCategoryConnectionUpdated_At | TagCategoryGroupBy | TagDistrict | TagDistrictAggregator | TagDistrictConnection | TagDistrictConnectionCreated_At | TagDistrictConnectionId | TagDistrictConnectionName | TagDistrictConnectionUpdated_At | TagDistrictGroupBy | TagGoal | TagGoalAggregator | TagGoalConnection | TagGoalConnectionCreated_At | TagGoalConnectionId | TagGoalConnectionName | TagGoalConnectionUpdated_At | TagGoalGroupBy | TagLegalForm | TagLegalFormAggregator | TagLegalFormConnection | TagLegalFormConnectionCreated_At | TagLegalFormConnectionId | TagLegalFormConnectionName | TagLegalFormConnectionUpdated_At | TagLegalFormGroupBy | TagProgram | TagProgramAggregator | TagProgramConnection | TagProgramConnectionCreated_At | TagProgramConnectionId | TagProgramConnectionName | TagProgramConnectionUpdated_At | TagProgramGroupBy | TagSupportField | TagSupportFieldAggregator | TagSupportFieldConnection | TagSupportFieldConnectionCreated_At | TagSupportFieldConnectionId | TagSupportFieldConnectionName | TagSupportFieldConnectionUpdated_At | TagSupportFieldGroupBy | TagYear | TagYearAggregator | TagYearConnection | TagYearConnectionCreated_At | TagYearConnectionId | TagYearConnectionName | TagYearConnectionUpdated_At | TagYearGroupBy | UploadFile | UploadFileAggregator | UploadFileAggregatorAvg | UploadFileAggregatorMax | UploadFileAggregatorMin | UploadFileAggregatorSum | UploadFileConnection | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionCreated_At | UploadFileConnectionExt | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionHeight | UploadFileConnectionId | UploadFileConnectionMime | UploadFileConnectionName | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | UploadFileConnectionSize | UploadFileConnectionUpdated_At | UploadFileConnectionUrl | UploadFileConnectionWidth | UploadFileGroupBy | UserPermissionsPasswordPayload | UsersPermissionsLoginPayload | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleAggregator | UsersPermissionsRoleConnection | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionType | UsersPermissionsRoleGroupBy | UsersPermissionsUser | UsersPermissionsUserAggregator | UsersPermissionsUserConnection | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserGroupBy | CreateBlogPostPayload | CreateContactPayload | CreateDocumentPayload | CreateGrantPayload | CreateProjectPayload | CreateRolePayload | CreateTagCategoryPayload | CreateTagDistrictPayload | CreateTagGoalPayload | CreateTagLegalFormPayload | CreateTagProgramPayload | CreateTagSupportFieldPayload | CreateTagYearPayload | CreateUserPayload | DeleteAboutUsPayload | DeleteBlogPostPayload | DeleteContactPayload | DeleteDocumentPayload | DeleteFilePayload | DeleteGeneralPayload | DeleteGrantPayload | DeleteLandingPagePayload | DeleteLegalPayload | DeleteProjectPayload | DeleteRolePayload | DeleteTagCategoryPayload | DeleteTagDistrictPayload | DeleteTagGoalPayload | DeleteTagLegalFormPayload | DeleteTagProgramPayload | DeleteTagSupportFieldPayload | DeleteTagYearPayload | DeleteUserPayload | UpdateAboutUsPayload | UpdateBlogPostPayload | UpdateContactPayload | UpdateDocumentPayload | UpdateGeneralPayload | UpdateGrantPayload | UpdateLandingPagePayload | UpdateLegalPayload | UpdateProjectPayload | UpdateRolePayload | UpdateTagCategoryPayload | UpdateTagDistrictPayload | UpdateTagGoalPayload | UpdateTagLegalFormPayload | UpdateTagProgramPayload | UpdateTagSupportFieldPayload | UpdateTagYearPayload | UpdateUserPayload;
@@ -848,12 +850,12 @@ export type MutationDeleteUserArgs = {
 
 
 export type MutationEmailConfirmationArgs = {
-  confirmation: Scalars['String'];
+  confirmation: Scalars['String']['input'];
 };
 
 
 export type MutationForgotPasswordArgs = {
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
 };
 
 
@@ -863,11 +865,11 @@ export type MutationLoginArgs = {
 
 
 export type MutationMultipleUploadArgs = {
-  field?: InputMaybe<Scalars['String']>;
-  files: Array<InputMaybe<Scalars['Upload']>>;
-  ref?: InputMaybe<Scalars['String']>;
-  refId?: InputMaybe<Scalars['ID']>;
-  source?: InputMaybe<Scalars['String']>;
+  field?: InputMaybe<Scalars['String']['input']>;
+  files: Array<InputMaybe<Scalars['Upload']['input']>>;
+  ref?: InputMaybe<Scalars['String']['input']>;
+  refId?: InputMaybe<Scalars['ID']['input']>;
+  source?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -877,9 +879,9 @@ export type MutationRegisterArgs = {
 
 
 export type MutationResetPasswordArgs = {
-  code: Scalars['String'];
-  password: Scalars['String'];
-  passwordConfirmation: Scalars['String'];
+  code: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  passwordConfirmation: Scalars['String']['input'];
 };
 
 
@@ -904,7 +906,7 @@ export type MutationUpdateDocumentArgs = {
 
 
 export type MutationUpdateFileInfoArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   info: FileInfoInput;
 };
 
@@ -980,78 +982,78 @@ export type MutationUpdateUserArgs = {
 
 
 export type MutationUploadArgs = {
-  field?: InputMaybe<Scalars['String']>;
-  file: Scalars['Upload'];
+  field?: InputMaybe<Scalars['String']['input']>;
+  file: Scalars['Upload']['input'];
   info?: InputMaybe<FileInfoInput>;
-  ref?: InputMaybe<Scalars['String']>;
-  refId?: InputMaybe<Scalars['ID']>;
-  source?: InputMaybe<Scalars['String']>;
+  ref?: InputMaybe<Scalars['String']['input']>;
+  refId?: InputMaybe<Scalars['ID']['input']>;
+  source?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Project = {
   __typename?: 'Project';
-  amount?: Maybe<Scalars['String']>;
-  appliciant: Scalars['String'];
+  amount?: Maybe<Scalars['String']['output']>;
+  appliciant: Scalars['String']['output'];
   categories?: Maybe<Array<Maybe<TagCategory>>>;
-  created_at: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
+  created_at: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   districts?: Maybe<Array<Maybe<TagDistrict>>>;
   goals?: Maybe<Array<Maybe<TagGoal>>>;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   images?: Maybe<Array<Maybe<UploadFile>>>;
   legal_form?: Maybe<TagLegalForm>;
   program?: Maybe<TagProgram>;
-  published_at?: Maybe<Scalars['DateTime']>;
+  published_at?: Maybe<Scalars['DateTime']['output']>;
   support_fields?: Maybe<Array<Maybe<TagSupportField>>>;
-  title: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  title: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
   year?: Maybe<TagYear>;
 };
 
 
 export type ProjectCategoriesArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type ProjectDistrictsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type ProjectGoalsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type ProjectImagesArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type ProjectSupport_FieldsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type ProjectAggregator = {
   __typename?: 'ProjectAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type ProjectConnection = {
@@ -1064,67 +1066,67 @@ export type ProjectConnection = {
 export type ProjectConnectionAmount = {
   __typename?: 'ProjectConnectionAmount';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type ProjectConnectionAppliciant = {
   __typename?: 'ProjectConnectionAppliciant';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type ProjectConnectionCreated_At = {
   __typename?: 'ProjectConnectionCreated_at';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type ProjectConnectionDescription = {
   __typename?: 'ProjectConnectionDescription';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type ProjectConnectionId = {
   __typename?: 'ProjectConnectionId';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type ProjectConnectionLegal_Form = {
   __typename?: 'ProjectConnectionLegal_form';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type ProjectConnectionProgram = {
   __typename?: 'ProjectConnectionProgram';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type ProjectConnectionPublished_At = {
   __typename?: 'ProjectConnectionPublished_at';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type ProjectConnectionTitle = {
   __typename?: 'ProjectConnectionTitle';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type ProjectConnectionUpdated_At = {
   __typename?: 'ProjectConnectionUpdated_at';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type ProjectConnectionYear = {
   __typename?: 'ProjectConnectionYear';
   connection?: Maybe<ProjectConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type ProjectGroupBy = {
@@ -1143,21 +1145,21 @@ export type ProjectGroupBy = {
 };
 
 export type ProjectInput = {
-  amount?: InputMaybe<Scalars['String']>;
-  appliciant: Scalars['String'];
-  categories?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  description?: InputMaybe<Scalars['String']>;
-  districts?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  goals?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  images?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  legal_form?: InputMaybe<Scalars['ID']>;
-  program?: InputMaybe<Scalars['ID']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  support_fields?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  title: Scalars['String'];
-  updated_by?: InputMaybe<Scalars['ID']>;
-  year?: InputMaybe<Scalars['ID']>;
+  amount?: InputMaybe<Scalars['String']['input']>;
+  appliciant: Scalars['String']['input'];
+  categories?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  districts?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  goals?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  images?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  legal_form?: InputMaybe<Scalars['ID']['input']>;
+  program?: InputMaybe<Scalars['ID']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  support_fields?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  title: Scalars['String']['input'];
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
+  year?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export enum PublicationState {
@@ -1226,88 +1228,88 @@ export type QueryAboutUsArgs = {
 
 
 export type QueryBlogPostArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryBlogPostsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryBlogPostsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryContactArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryContactsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryContactsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryDocumentArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryDocumentsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryDocumentsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryFilesArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryFilesConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -1317,25 +1319,25 @@ export type QueryGeneralArgs = {
 
 
 export type QueryGrantArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryGrantsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryGrantsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -1350,256 +1352,256 @@ export type QueryLegalArgs = {
 
 
 export type QueryProjectArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryProjectsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryProjectsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryRoleArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryRolesArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryRolesConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagCategoriesArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagCategoriesConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagCategoryArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryTagDistrictArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryTagDistrictsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagDistrictsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagGoalArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryTagGoalsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagGoalsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagLegalFormArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryTagLegalFormsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagLegalFormsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagProgramArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryTagProgramsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagProgramsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagSupportFieldArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryTagSupportFieldsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagSupportFieldsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagYearArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryTagYearsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryTagYearsConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryUserArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
   publicationState?: InputMaybe<PublicationState>;
 };
 
 
 export type QueryUsersArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type QueryUsersConnectionArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type RoleInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  description?: InputMaybe<Scalars['String']>;
-  name: Scalars['String'];
-  permissions?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  type?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
-  users?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  permissions?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
+  users?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
 };
 
 export type TagCategory = {
   __typename?: 'TagCategory';
-  created_at: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type TagCategoryAggregator = {
   __typename?: 'TagCategoryAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type TagCategoryConnection = {
@@ -1612,25 +1614,25 @@ export type TagCategoryConnection = {
 export type TagCategoryConnectionCreated_At = {
   __typename?: 'TagCategoryConnectionCreated_at';
   connection?: Maybe<TagCategoryConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagCategoryConnectionId = {
   __typename?: 'TagCategoryConnectionId';
   connection?: Maybe<TagCategoryConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type TagCategoryConnectionName = {
   __typename?: 'TagCategoryConnectionName';
   connection?: Maybe<TagCategoryConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type TagCategoryConnectionUpdated_At = {
   __typename?: 'TagCategoryConnectionUpdated_at';
   connection?: Maybe<TagCategoryConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagCategoryGroupBy = {
@@ -1642,23 +1644,23 @@ export type TagCategoryGroupBy = {
 };
 
 export type TagCategoryInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type TagDistrict = {
   __typename?: 'TagDistrict';
-  created_at: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type TagDistrictAggregator = {
   __typename?: 'TagDistrictAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type TagDistrictConnection = {
@@ -1671,25 +1673,25 @@ export type TagDistrictConnection = {
 export type TagDistrictConnectionCreated_At = {
   __typename?: 'TagDistrictConnectionCreated_at';
   connection?: Maybe<TagDistrictConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagDistrictConnectionId = {
   __typename?: 'TagDistrictConnectionId';
   connection?: Maybe<TagDistrictConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type TagDistrictConnectionName = {
   __typename?: 'TagDistrictConnectionName';
   connection?: Maybe<TagDistrictConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type TagDistrictConnectionUpdated_At = {
   __typename?: 'TagDistrictConnectionUpdated_at';
   connection?: Maybe<TagDistrictConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagDistrictGroupBy = {
@@ -1701,23 +1703,23 @@ export type TagDistrictGroupBy = {
 };
 
 export type TagDistrictInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type TagGoal = {
   __typename?: 'TagGoal';
-  created_at: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type TagGoalAggregator = {
   __typename?: 'TagGoalAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type TagGoalConnection = {
@@ -1730,25 +1732,25 @@ export type TagGoalConnection = {
 export type TagGoalConnectionCreated_At = {
   __typename?: 'TagGoalConnectionCreated_at';
   connection?: Maybe<TagGoalConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagGoalConnectionId = {
   __typename?: 'TagGoalConnectionId';
   connection?: Maybe<TagGoalConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type TagGoalConnectionName = {
   __typename?: 'TagGoalConnectionName';
   connection?: Maybe<TagGoalConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type TagGoalConnectionUpdated_At = {
   __typename?: 'TagGoalConnectionUpdated_at';
   connection?: Maybe<TagGoalConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagGoalGroupBy = {
@@ -1760,23 +1762,23 @@ export type TagGoalGroupBy = {
 };
 
 export type TagGoalInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type TagLegalForm = {
   __typename?: 'TagLegalForm';
-  created_at: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type TagLegalFormAggregator = {
   __typename?: 'TagLegalFormAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type TagLegalFormConnection = {
@@ -1789,25 +1791,25 @@ export type TagLegalFormConnection = {
 export type TagLegalFormConnectionCreated_At = {
   __typename?: 'TagLegalFormConnectionCreated_at';
   connection?: Maybe<TagLegalFormConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagLegalFormConnectionId = {
   __typename?: 'TagLegalFormConnectionId';
   connection?: Maybe<TagLegalFormConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type TagLegalFormConnectionName = {
   __typename?: 'TagLegalFormConnectionName';
   connection?: Maybe<TagLegalFormConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type TagLegalFormConnectionUpdated_At = {
   __typename?: 'TagLegalFormConnectionUpdated_at';
   connection?: Maybe<TagLegalFormConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagLegalFormGroupBy = {
@@ -1819,23 +1821,23 @@ export type TagLegalFormGroupBy = {
 };
 
 export type TagLegalFormInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type TagProgram = {
   __typename?: 'TagProgram';
-  created_at: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type TagProgramAggregator = {
   __typename?: 'TagProgramAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type TagProgramConnection = {
@@ -1848,25 +1850,25 @@ export type TagProgramConnection = {
 export type TagProgramConnectionCreated_At = {
   __typename?: 'TagProgramConnectionCreated_at';
   connection?: Maybe<TagProgramConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagProgramConnectionId = {
   __typename?: 'TagProgramConnectionId';
   connection?: Maybe<TagProgramConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type TagProgramConnectionName = {
   __typename?: 'TagProgramConnectionName';
   connection?: Maybe<TagProgramConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type TagProgramConnectionUpdated_At = {
   __typename?: 'TagProgramConnectionUpdated_at';
   connection?: Maybe<TagProgramConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagProgramGroupBy = {
@@ -1878,23 +1880,23 @@ export type TagProgramGroupBy = {
 };
 
 export type TagProgramInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type TagSupportField = {
   __typename?: 'TagSupportField';
-  created_at: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type TagSupportFieldAggregator = {
   __typename?: 'TagSupportFieldAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type TagSupportFieldConnection = {
@@ -1907,25 +1909,25 @@ export type TagSupportFieldConnection = {
 export type TagSupportFieldConnectionCreated_At = {
   __typename?: 'TagSupportFieldConnectionCreated_at';
   connection?: Maybe<TagSupportFieldConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagSupportFieldConnectionId = {
   __typename?: 'TagSupportFieldConnectionId';
   connection?: Maybe<TagSupportFieldConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type TagSupportFieldConnectionName = {
   __typename?: 'TagSupportFieldConnectionName';
   connection?: Maybe<TagSupportFieldConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type TagSupportFieldConnectionUpdated_At = {
   __typename?: 'TagSupportFieldConnectionUpdated_at';
   connection?: Maybe<TagSupportFieldConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagSupportFieldGroupBy = {
@@ -1937,23 +1939,23 @@ export type TagSupportFieldGroupBy = {
 };
 
 export type TagSupportFieldInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type TagYear = {
   __typename?: 'TagYear';
-  created_at: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  updated_at: Scalars['DateTime'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  updated_at: Scalars['DateTime']['output'];
 };
 
 export type TagYearAggregator = {
   __typename?: 'TagYearAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type TagYearConnection = {
@@ -1966,25 +1968,25 @@ export type TagYearConnection = {
 export type TagYearConnectionCreated_At = {
   __typename?: 'TagYearConnectionCreated_at';
   connection?: Maybe<TagYearConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagYearConnectionId = {
   __typename?: 'TagYearConnectionId';
   connection?: Maybe<TagYearConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type TagYearConnectionName = {
   __typename?: 'TagYearConnectionName';
   connection?: Maybe<TagYearConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type TagYearConnectionUpdated_At = {
   __typename?: 'TagYearConnectionUpdated_at';
   connection?: Maybe<TagYearConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type TagYearGroupBy = {
@@ -1996,77 +1998,77 @@ export type TagYearGroupBy = {
 };
 
 export type TagYearInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UploadFile = {
   __typename?: 'UploadFile';
-  alternativeText?: Maybe<Scalars['String']>;
-  caption?: Maybe<Scalars['String']>;
-  created_at: Scalars['DateTime'];
-  ext?: Maybe<Scalars['String']>;
-  formats?: Maybe<Scalars['JSON']>;
-  hash: Scalars['String'];
-  height?: Maybe<Scalars['Int']>;
-  id: Scalars['ID'];
-  mime: Scalars['String'];
-  name: Scalars['String'];
-  previewUrl?: Maybe<Scalars['String']>;
-  provider: Scalars['String'];
-  provider_metadata?: Maybe<Scalars['JSON']>;
+  alternativeText?: Maybe<Scalars['String']['output']>;
+  caption?: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  ext?: Maybe<Scalars['String']['output']>;
+  formats?: Maybe<Scalars['JSON']['output']>;
+  hash: Scalars['String']['output'];
+  height?: Maybe<Scalars['Int']['output']>;
+  id: Scalars['ID']['output'];
+  mime: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  previewUrl?: Maybe<Scalars['String']['output']>;
+  provider: Scalars['String']['output'];
+  provider_metadata?: Maybe<Scalars['JSON']['output']>;
   related?: Maybe<Array<Maybe<Morph>>>;
-  size: Scalars['Float'];
-  updated_at: Scalars['DateTime'];
-  url: Scalars['String'];
-  width?: Maybe<Scalars['Int']>;
+  size: Scalars['Float']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  url: Scalars['String']['output'];
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 
 export type UploadFileRelatedArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type UploadFileAggregator = {
   __typename?: 'UploadFileAggregator';
   avg?: Maybe<UploadFileAggregatorAvg>;
-  count?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
   max?: Maybe<UploadFileAggregatorMax>;
   min?: Maybe<UploadFileAggregatorMin>;
   sum?: Maybe<UploadFileAggregatorSum>;
-  totalCount?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UploadFileAggregatorAvg = {
   __typename?: 'UploadFileAggregatorAvg';
-  height?: Maybe<Scalars['Float']>;
-  size?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Float']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  size?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UploadFileAggregatorMax = {
   __typename?: 'UploadFileAggregatorMax';
-  height?: Maybe<Scalars['Float']>;
-  size?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Float']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  size?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UploadFileAggregatorMin = {
   __typename?: 'UploadFileAggregatorMin';
-  height?: Maybe<Scalars['Float']>;
-  size?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Float']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  size?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UploadFileAggregatorSum = {
   __typename?: 'UploadFileAggregatorSum';
-  height?: Maybe<Scalars['Float']>;
-  size?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Float']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  size?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UploadFileConnection = {
@@ -2079,103 +2081,103 @@ export type UploadFileConnection = {
 export type UploadFileConnectionAlternativeText = {
   __typename?: 'UploadFileConnectionAlternativeText';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadFileConnectionCaption = {
   __typename?: 'UploadFileConnectionCaption';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadFileConnectionCreated_At = {
   __typename?: 'UploadFileConnectionCreated_at';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type UploadFileConnectionExt = {
   __typename?: 'UploadFileConnectionExt';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadFileConnectionFormats = {
   __typename?: 'UploadFileConnectionFormats';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['JSON']>;
+  key?: Maybe<Scalars['JSON']['output']>;
 };
 
 export type UploadFileConnectionHash = {
   __typename?: 'UploadFileConnectionHash';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadFileConnectionHeight = {
   __typename?: 'UploadFileConnectionHeight';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['Int']>;
+  key?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UploadFileConnectionId = {
   __typename?: 'UploadFileConnectionId';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type UploadFileConnectionMime = {
   __typename?: 'UploadFileConnectionMime';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadFileConnectionName = {
   __typename?: 'UploadFileConnectionName';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadFileConnectionPreviewUrl = {
   __typename?: 'UploadFileConnectionPreviewUrl';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadFileConnectionProvider = {
   __typename?: 'UploadFileConnectionProvider';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadFileConnectionProvider_Metadata = {
   __typename?: 'UploadFileConnectionProvider_metadata';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['JSON']>;
+  key?: Maybe<Scalars['JSON']['output']>;
 };
 
 export type UploadFileConnectionSize = {
   __typename?: 'UploadFileConnectionSize';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['Float']>;
+  key?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UploadFileConnectionUpdated_At = {
   __typename?: 'UploadFileConnectionUpdated_at';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type UploadFileConnectionUrl = {
   __typename?: 'UploadFileConnectionUrl';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadFileConnectionWidth = {
   __typename?: 'UploadFileConnectionWidth';
   connection?: Maybe<UploadFileConnection>;
-  key?: Maybe<Scalars['Int']>;
+  key?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UploadFileGroupBy = {
@@ -2200,101 +2202,101 @@ export type UploadFileGroupBy = {
 };
 
 export type UserInput = {
-  blocked?: InputMaybe<Scalars['Boolean']>;
-  confirmationToken?: InputMaybe<Scalars['String']>;
-  confirmed?: InputMaybe<Scalars['Boolean']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  email: Scalars['String'];
-  password?: InputMaybe<Scalars['String']>;
-  provider?: InputMaybe<Scalars['String']>;
-  resetPasswordToken?: InputMaybe<Scalars['String']>;
-  role?: InputMaybe<Scalars['ID']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
-  username: Scalars['String'];
+  blocked?: InputMaybe<Scalars['Boolean']['input']>;
+  confirmationToken?: InputMaybe<Scalars['String']['input']>;
+  confirmed?: InputMaybe<Scalars['Boolean']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  email: Scalars['String']['input'];
+  password?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  resetPasswordToken?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<Scalars['ID']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
+  username: Scalars['String']['input'];
 };
 
 export type UserPermissionsPasswordPayload = {
   __typename?: 'UserPermissionsPasswordPayload';
-  ok: Scalars['Boolean'];
+  ok: Scalars['Boolean']['output'];
 };
 
 export type UsersPermissionsLoginInput = {
-  identifier: Scalars['String'];
-  password: Scalars['String'];
-  provider?: InputMaybe<Scalars['String']>;
+  identifier: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  provider?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UsersPermissionsLoginPayload = {
   __typename?: 'UsersPermissionsLoginPayload';
-  jwt?: Maybe<Scalars['String']>;
+  jwt?: Maybe<Scalars['String']['output']>;
   user: UsersPermissionsMe;
 };
 
 export type UsersPermissionsMe = {
   __typename?: 'UsersPermissionsMe';
-  blocked?: Maybe<Scalars['Boolean']>;
-  confirmed?: Maybe<Scalars['Boolean']>;
-  email: Scalars['String'];
-  id: Scalars['ID'];
+  blocked?: Maybe<Scalars['Boolean']['output']>;
+  confirmed?: Maybe<Scalars['Boolean']['output']>;
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
   role?: Maybe<UsersPermissionsMeRole>;
-  username: Scalars['String'];
+  username: Scalars['String']['output'];
 };
 
 export type UsersPermissionsMeRole = {
   __typename?: 'UsersPermissionsMeRole';
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 export type UsersPermissionsPermission = {
   __typename?: 'UsersPermissionsPermission';
-  action: Scalars['String'];
-  controller: Scalars['String'];
-  enabled: Scalars['Boolean'];
-  id: Scalars['ID'];
-  policy?: Maybe<Scalars['String']>;
+  action: Scalars['String']['output'];
+  controller: Scalars['String']['output'];
+  enabled: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
+  policy?: Maybe<Scalars['String']['output']>;
   role?: Maybe<UsersPermissionsRole>;
-  type: Scalars['String'];
+  type: Scalars['String']['output'];
 };
 
 export type UsersPermissionsRegisterInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-  username: Scalars['String'];
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 export type UsersPermissionsRole = {
   __typename?: 'UsersPermissionsRole';
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
   permissions?: Maybe<Array<Maybe<UsersPermissionsPermission>>>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']['output']>;
   users?: Maybe<Array<Maybe<UsersPermissionsUser>>>;
 };
 
 
 export type UsersPermissionsRolePermissionsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
 export type UsersPermissionsRoleUsersArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  sort?: InputMaybe<Scalars['String']>;
-  start?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<Scalars['JSON']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  start?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 export type UsersPermissionsRoleAggregator = {
   __typename?: 'UsersPermissionsRoleAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UsersPermissionsRoleConnection = {
@@ -2307,25 +2309,25 @@ export type UsersPermissionsRoleConnection = {
 export type UsersPermissionsRoleConnectionDescription = {
   __typename?: 'UsersPermissionsRoleConnectionDescription';
   connection?: Maybe<UsersPermissionsRoleConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UsersPermissionsRoleConnectionId = {
   __typename?: 'UsersPermissionsRoleConnectionId';
   connection?: Maybe<UsersPermissionsRoleConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type UsersPermissionsRoleConnectionName = {
   __typename?: 'UsersPermissionsRoleConnectionName';
   connection?: Maybe<UsersPermissionsRoleConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UsersPermissionsRoleConnectionType = {
   __typename?: 'UsersPermissionsRoleConnectionType';
   connection?: Maybe<UsersPermissionsRoleConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UsersPermissionsRoleGroupBy = {
@@ -2338,21 +2340,21 @@ export type UsersPermissionsRoleGroupBy = {
 
 export type UsersPermissionsUser = {
   __typename?: 'UsersPermissionsUser';
-  blocked?: Maybe<Scalars['Boolean']>;
-  confirmed?: Maybe<Scalars['Boolean']>;
-  created_at: Scalars['DateTime'];
-  email: Scalars['String'];
-  id: Scalars['ID'];
-  provider?: Maybe<Scalars['String']>;
+  blocked?: Maybe<Scalars['Boolean']['output']>;
+  confirmed?: Maybe<Scalars['Boolean']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  provider?: Maybe<Scalars['String']['output']>;
   role?: Maybe<UsersPermissionsRole>;
-  updated_at: Scalars['DateTime'];
-  username: Scalars['String'];
+  updated_at: Scalars['DateTime']['output'];
+  username: Scalars['String']['output'];
 };
 
 export type UsersPermissionsUserAggregator = {
   __typename?: 'UsersPermissionsUserAggregator';
-  count?: Maybe<Scalars['Int']>;
-  totalCount?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UsersPermissionsUserConnection = {
@@ -2365,55 +2367,55 @@ export type UsersPermissionsUserConnection = {
 export type UsersPermissionsUserConnectionBlocked = {
   __typename?: 'UsersPermissionsUserConnectionBlocked';
   connection?: Maybe<UsersPermissionsUserConnection>;
-  key?: Maybe<Scalars['Boolean']>;
+  key?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UsersPermissionsUserConnectionConfirmed = {
   __typename?: 'UsersPermissionsUserConnectionConfirmed';
   connection?: Maybe<UsersPermissionsUserConnection>;
-  key?: Maybe<Scalars['Boolean']>;
+  key?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UsersPermissionsUserConnectionCreated_At = {
   __typename?: 'UsersPermissionsUserConnectionCreated_at';
   connection?: Maybe<UsersPermissionsUserConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type UsersPermissionsUserConnectionEmail = {
   __typename?: 'UsersPermissionsUserConnectionEmail';
   connection?: Maybe<UsersPermissionsUserConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UsersPermissionsUserConnectionId = {
   __typename?: 'UsersPermissionsUserConnectionId';
   connection?: Maybe<UsersPermissionsUserConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type UsersPermissionsUserConnectionProvider = {
   __typename?: 'UsersPermissionsUserConnectionProvider';
   connection?: Maybe<UsersPermissionsUserConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UsersPermissionsUserConnectionRole = {
   __typename?: 'UsersPermissionsUserConnectionRole';
   connection?: Maybe<UsersPermissionsUserConnection>;
-  key?: Maybe<Scalars['ID']>;
+  key?: Maybe<Scalars['ID']['output']>;
 };
 
 export type UsersPermissionsUserConnectionUpdated_At = {
   __typename?: 'UsersPermissionsUserConnectionUpdated_at';
   connection?: Maybe<UsersPermissionsUserConnection>;
-  key?: Maybe<Scalars['DateTime']>;
+  key?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type UsersPermissionsUserConnectionUsername = {
   __typename?: 'UsersPermissionsUserConnectionUsername';
   connection?: Maybe<UsersPermissionsUserConnection>;
-  key?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']['output']>;
 };
 
 export type UsersPermissionsUserGroupBy = {
@@ -2711,202 +2713,202 @@ export type DeleteUserPayload = {
 };
 
 export type EditAboutUsInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
   sections?: InputMaybe<Array<InputMaybe<EditComponentBasicComponentsAboutUsSectionInput>>>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditBlogPostInput = {
-  author?: InputMaybe<Scalars['String']>;
-  content?: InputMaybe<Scalars['String']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  description?: InputMaybe<Scalars['String']>;
-  image?: InputMaybe<Scalars['ID']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  slug?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  content?: InputMaybe<Scalars['String']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditComponentBasicComponentsAboutUsSectionInput = {
-  detail?: InputMaybe<Scalars['String']>;
-  files?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  id?: InputMaybe<Scalars['ID']>;
-  title?: InputMaybe<Scalars['String']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+  files?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type EditContactInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  email?: InputMaybe<Scalars['String']>;
-  full_name_including_degrees?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  photo?: InputMaybe<Scalars['ID']>;
-  role?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  full_name_including_degrees?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  photo?: InputMaybe<Scalars['ID']['input']>;
+  role?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditDocumentInput = {
-  archived?: InputMaybe<Scalars['Boolean']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  file?: InputMaybe<Scalars['ID']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  title?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  archived?: InputMaybe<Scalars['Boolean']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  file?: InputMaybe<Scalars['ID']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditFileInput = {
-  alternativeText?: InputMaybe<Scalars['String']>;
-  caption?: InputMaybe<Scalars['String']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  ext?: InputMaybe<Scalars['String']>;
-  formats?: InputMaybe<Scalars['JSON']>;
-  hash?: InputMaybe<Scalars['String']>;
-  height?: InputMaybe<Scalars['Int']>;
-  mime?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  previewUrl?: InputMaybe<Scalars['String']>;
-  provider?: InputMaybe<Scalars['String']>;
-  provider_metadata?: InputMaybe<Scalars['JSON']>;
-  related?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  size?: InputMaybe<Scalars['Float']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
-  url?: InputMaybe<Scalars['String']>;
-  width?: InputMaybe<Scalars['Int']>;
+  alternativeText?: InputMaybe<Scalars['String']['input']>;
+  caption?: InputMaybe<Scalars['String']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  ext?: InputMaybe<Scalars['String']['input']>;
+  formats?: InputMaybe<Scalars['JSON']['input']>;
+  hash?: InputMaybe<Scalars['String']['input']>;
+  height?: InputMaybe<Scalars['Int']['input']>;
+  mime?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  previewUrl?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  provider_metadata?: InputMaybe<Scalars['JSON']['input']>;
+  related?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  size?: InputMaybe<Scalars['Float']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type EditGeneralInput = {
-  address?: InputMaybe<Scalars['String']>;
-  bank_account_iban?: InputMaybe<Scalars['String']>;
-  bank_account_url?: InputMaybe<Scalars['String']>;
-  copyright_text?: InputMaybe<Scalars['String']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  email?: InputMaybe<Scalars['String']>;
-  facebook_link?: InputMaybe<Scalars['String']>;
-  instagram_link?: InputMaybe<Scalars['String']>;
-  newsletter_text?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  address?: InputMaybe<Scalars['String']['input']>;
+  bank_account_iban?: InputMaybe<Scalars['String']['input']>;
+  bank_account_url?: InputMaybe<Scalars['String']['input']>;
+  copyright_text?: InputMaybe<Scalars['String']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  facebook_link?: InputMaybe<Scalars['String']['input']>;
+  instagram_link?: InputMaybe<Scalars['String']['input']>;
+  newsletter_text?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditGrantInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  description?: InputMaybe<Scalars['String']>;
-  files?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  link?: InputMaybe<Scalars['String']>;
-  order?: InputMaybe<Scalars['Int']>;
-  program?: InputMaybe<Scalars['ID']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  title?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  files?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  link?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Scalars['Int']['input']>;
+  program?: InputMaybe<Scalars['ID']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditLandingPageInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  description?: InputMaybe<Scalars['String']>;
-  featured_projects_bottom?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  featured_projects_top?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  grants_button_text?: InputMaybe<Scalars['String']>;
-  grants_text?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  featured_projects_bottom?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  featured_projects_top?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  grants_button_text?: InputMaybe<Scalars['String']['input']>;
+  grants_text?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditLegalInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  gdpr?: InputMaybe<Scalars['String']>;
-  project_detail_disclaimer?: InputMaybe<Scalars['String']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  gdpr?: InputMaybe<Scalars['String']['input']>;
+  project_detail_disclaimer?: InputMaybe<Scalars['String']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditLocaleInput = {
-  code?: InputMaybe<Scalars['String']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  code?: InputMaybe<Scalars['String']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditProjectInput = {
-  amount?: InputMaybe<Scalars['String']>;
-  appliciant?: InputMaybe<Scalars['String']>;
-  categories?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  description?: InputMaybe<Scalars['String']>;
-  districts?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  goals?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  images?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  legal_form?: InputMaybe<Scalars['ID']>;
-  program?: InputMaybe<Scalars['ID']>;
-  published_at?: InputMaybe<Scalars['DateTime']>;
-  support_fields?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  title?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
-  year?: InputMaybe<Scalars['ID']>;
+  amount?: InputMaybe<Scalars['String']['input']>;
+  appliciant?: InputMaybe<Scalars['String']['input']>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  districts?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  goals?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  images?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  legal_form?: InputMaybe<Scalars['ID']['input']>;
+  program?: InputMaybe<Scalars['ID']['input']>;
+  published_at?: InputMaybe<Scalars['DateTime']['input']>;
+  support_fields?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
+  year?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditRoleInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  description?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  permissions?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  type?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
-  users?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  permissions?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
+  users?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
 };
 
 export type EditTagCategoryInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditTagDistrictInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditTagGoalInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditTagLegalFormInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditTagProgramInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditTagSupportFieldInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditTagYearInput = {
-  created_by?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type EditUserInput = {
-  blocked?: InputMaybe<Scalars['Boolean']>;
-  confirmationToken?: InputMaybe<Scalars['String']>;
-  confirmed?: InputMaybe<Scalars['Boolean']>;
-  created_by?: InputMaybe<Scalars['ID']>;
-  email?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
-  provider?: InputMaybe<Scalars['String']>;
-  resetPasswordToken?: InputMaybe<Scalars['String']>;
-  role?: InputMaybe<Scalars['ID']>;
-  updated_by?: InputMaybe<Scalars['ID']>;
-  username?: InputMaybe<Scalars['String']>;
+  blocked?: InputMaybe<Scalars['Boolean']['input']>;
+  confirmationToken?: InputMaybe<Scalars['String']['input']>;
+  confirmed?: InputMaybe<Scalars['Boolean']['input']>;
+  created_by?: InputMaybe<Scalars['ID']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  resetPasswordToken?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<Scalars['ID']['input']>;
+  updated_by?: InputMaybe<Scalars['ID']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateAboutUsInput = {
@@ -3121,37 +3123,37 @@ export type HeaderAndFooterQueryVariables = Exact<{ [key: string]: never; }>;
 export type HeaderAndFooterQuery = { __typename?: 'Query', general?: { __typename?: 'General', copyright_text?: string | null, phone?: string | null, email?: string | null, facebook_link?: string | null, instagram_link?: string | null } | null };
 
 export type ProjectQueryVariables = Exact<{
-  pid: Scalars['ID'];
+  pid: Scalars['ID']['input'];
 }>;
 
 
 export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', id: string, title: string, description?: string | null, categories?: Array<{ __typename?: 'TagCategory', id: string, name: string } | null> | null, year?: { __typename?: 'TagYear', id: string, name: string } | null, districts?: Array<{ __typename?: 'TagDistrict', id: string, name: string } | null> | null, legal_form?: { __typename?: 'TagLegalForm', id: string, name: string } | null, program?: { __typename?: 'TagProgram', id: string, name: string } | null, support_fields?: Array<{ __typename?: 'TagSupportField', id: string, name: string } | null> | null, goals?: Array<{ __typename?: 'TagGoal', id: string, name: string } | null> | null, images?: Array<{ __typename?: 'UploadFile', id: string, alternativeText?: string | null, url: string, formats?: any | null } | null> | null } | null, legal?: { __typename?: 'Legal', project_detail_disclaimer?: string | null } | null };
 
 export type ProjectsTotalCountQueryVariables = Exact<{
-  query?: InputMaybe<Scalars['String']>;
-  year?: InputMaybe<Scalars['String']>;
-  program?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  categories?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  district?: InputMaybe<Scalars['String']>;
-  supportFields?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  goals?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  legalForms?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  year?: InputMaybe<Scalars['String']['input']>;
+  program?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  district?: InputMaybe<Scalars['String']['input']>;
+  supportFields?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  goals?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  legalForms?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
 }>;
 
 
 export type ProjectsTotalCountQuery = { __typename?: 'Query', projects?: Array<{ __typename?: 'Project', id: string } | null> | null };
 
 export type ProjectsQueryVariables = Exact<{
-  query?: InputMaybe<Scalars['String']>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  year?: InputMaybe<Scalars['String']>;
-  program?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  categories?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  district?: InputMaybe<Scalars['String']>;
-  supportFields?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  goals?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
-  legalForms?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  year?: InputMaybe<Scalars['String']['input']>;
+  program?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  district?: InputMaybe<Scalars['String']['input']>;
+  supportFields?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  goals?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  legalForms?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
 }>;
 
 
@@ -3168,7 +3170,7 @@ export type BlogPostsPageQueryVariables = Exact<{ [key: string]: never; }>;
 export type BlogPostsPageQuery = { __typename?: 'Query', blogPosts?: Array<{ __typename?: 'BlogPost', id: string, title: string, description: string, slug: string, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null> | null };
 
 export type BlogPostsBySlugQueryVariables = Exact<{
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 }>;
 
 
@@ -3451,51 +3453,51 @@ export const BlogPostsBySlugDocument = gql`
 }
     `;
 
-export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) => action();
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    ContactPage(variables?: ContactPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ContactPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<ContactPageQuery>(ContactPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ContactPage', 'query');
+    ContactPage(variables?: ContactPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ContactPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ContactPageQuery>(ContactPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ContactPage', 'query', variables);
     },
-    GrantsPage(variables?: GrantsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GrantsPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GrantsPageQuery>(GrantsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GrantsPage', 'query');
+    GrantsPage(variables?: GrantsPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GrantsPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GrantsPageQuery>(GrantsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GrantsPage', 'query', variables);
     },
-    GdprPage(variables?: GdprPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GdprPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GdprPageQuery>(GdprPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GdprPage', 'query');
+    GdprPage(variables?: GdprPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GdprPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GdprPageQuery>(GdprPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GdprPage', 'query', variables);
     },
-    DocumentsPage(variables?: DocumentsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DocumentsPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<DocumentsPageQuery>(DocumentsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DocumentsPage', 'query');
+    DocumentsPage(variables?: DocumentsPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DocumentsPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DocumentsPageQuery>(DocumentsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DocumentsPage', 'query', variables);
     },
-    AboutUsPage(variables?: AboutUsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AboutUsPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<AboutUsPageQuery>(AboutUsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AboutUsPage', 'query');
+    AboutUsPage(variables?: AboutUsPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<AboutUsPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AboutUsPageQuery>(AboutUsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AboutUsPage', 'query', variables);
     },
-    LandingPage(variables?: LandingPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LandingPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<LandingPageQuery>(LandingPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'LandingPage', 'query');
+    LandingPage(variables?: LandingPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LandingPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<LandingPageQuery>(LandingPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'LandingPage', 'query', variables);
     },
-    HeaderAndFooter(variables?: HeaderAndFooterQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HeaderAndFooterQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<HeaderAndFooterQuery>(HeaderAndFooterDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'HeaderAndFooter', 'query');
+    HeaderAndFooter(variables?: HeaderAndFooterQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<HeaderAndFooterQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<HeaderAndFooterQuery>(HeaderAndFooterDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'HeaderAndFooter', 'query', variables);
     },
-    Project(variables: ProjectQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProjectQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<ProjectQuery>(ProjectDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Project', 'query');
+    Project(variables: ProjectQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ProjectQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProjectQuery>(ProjectDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Project', 'query', variables);
     },
-    ProjectsTotalCount(variables?: ProjectsTotalCountQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProjectsTotalCountQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<ProjectsTotalCountQuery>(ProjectsTotalCountDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProjectsTotalCount', 'query');
+    ProjectsTotalCount(variables?: ProjectsTotalCountQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ProjectsTotalCountQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProjectsTotalCountQuery>(ProjectsTotalCountDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProjectsTotalCount', 'query', variables);
     },
-    Projects(variables?: ProjectsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProjectsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<ProjectsQuery>(ProjectsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Projects', 'query');
+    Projects(variables?: ProjectsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ProjectsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProjectsQuery>(ProjectsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Projects', 'query', variables);
     },
-    ProjectsPage(variables?: ProjectsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProjectsPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<ProjectsPageQuery>(ProjectsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProjectsPage', 'query');
+    ProjectsPage(variables?: ProjectsPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ProjectsPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProjectsPageQuery>(ProjectsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProjectsPage', 'query', variables);
     },
-    BlogPostsPage(variables?: BlogPostsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BlogPostsPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<BlogPostsPageQuery>(BlogPostsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BlogPostsPage', 'query');
+    BlogPostsPage(variables?: BlogPostsPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<BlogPostsPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<BlogPostsPageQuery>(BlogPostsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BlogPostsPage', 'query', variables);
     },
-    BlogPostsBySlug(variables: BlogPostsBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BlogPostsBySlugQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<BlogPostsBySlugQuery>(BlogPostsBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BlogPostsBySlug', 'query');
+    BlogPostsBySlug(variables: BlogPostsBySlugQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<BlogPostsBySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<BlogPostsBySlugQuery>(BlogPostsBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BlogPostsBySlug', 'query', variables);
     }
   };
 }
