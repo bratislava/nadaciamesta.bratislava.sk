@@ -69,6 +69,17 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    projects: Project;
+    contacts: Contact;
+    documents: Document;
+    grants: Grant;
+    'tag-categories': TagCategory;
+    'tag-districts': TagDistrict;
+    'tag-goals': TagGoal;
+    'tag-legal-forms': TagLegalForm;
+    'tag-programs': TagProgram;
+    'tag-support-fields': TagSupportField;
+    'tag-years': TagYear;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +88,17 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    contacts: ContactsSelect<false> | ContactsSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
+    grants: GrantsSelect<false> | GrantsSelect<true>;
+    'tag-categories': TagCategoriesSelect<false> | TagCategoriesSelect<true>;
+    'tag-districts': TagDistrictsSelect<false> | TagDistrictsSelect<true>;
+    'tag-goals': TagGoalsSelect<false> | TagGoalsSelect<true>;
+    'tag-legal-forms': TagLegalFormsSelect<false> | TagLegalFormsSelect<true>;
+    'tag-programs': TagProgramsSelect<false> | TagProgramsSelect<true>;
+    'tag-support-fields': TagSupportFieldsSelect<false> | TagSupportFieldsSelect<true>;
+    'tag-years': TagYearsSelect<false> | TagYearsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -151,6 +173,160 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  images?: (number | Media)[] | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  applicant?: string | null;
+  amount?: string | null;
+  categories?: (number | TagCategory)[] | null;
+  support_fields?: (number | TagSupportField)[] | null;
+  year?: (number | null) | TagYear;
+  program?: (number | null) | TagProgram;
+  districts?: (number | TagDistrict)[] | null;
+  legal_form?: (number | null) | TagLegalForm;
+  goals?: (number | TagGoal)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-categories".
+ */
+export interface TagCategory {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-support-fields".
+ */
+export interface TagSupportField {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-years".
+ */
+export interface TagYear {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-programs".
+ */
+export interface TagProgram {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-districts".
+ */
+export interface TagDistrict {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-legal-forms".
+ */
+export interface TagLegalForm {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-goals".
+ */
+export interface TagGoal {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts".
+ */
+export interface Contact {
+  id: number;
+  photo: number | Media;
+  full_name_including_degrees: string;
+  email?: string | null;
+  role?: string | null;
+  phone: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number;
+  title: string;
+  archived?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "grants".
+ */
+export interface Grant {
+  id: number;
+  title: string;
+  program?: (number | null) | TagProgram;
+  description?: string | null;
+  files?: (number | Media)[] | null;
+  link?: string | null;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -163,6 +339,50 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'contacts';
+        value: number | Contact;
+      } | null)
+    | ({
+        relationTo: 'documents';
+        value: number | Document;
+      } | null)
+    | ({
+        relationTo: 'grants';
+        value: number | Grant;
+      } | null)
+    | ({
+        relationTo: 'tag-categories';
+        value: number | TagCategory;
+      } | null)
+    | ({
+        relationTo: 'tag-districts';
+        value: number | TagDistrict;
+      } | null)
+    | ({
+        relationTo: 'tag-goals';
+        value: number | TagGoal;
+      } | null)
+    | ({
+        relationTo: 'tag-legal-forms';
+        value: number | TagLegalForm;
+      } | null)
+    | ({
+        relationTo: 'tag-programs';
+        value: number | TagProgram;
+      } | null)
+    | ({
+        relationTo: 'tag-support-fields';
+        value: number | TagSupportField;
+      } | null)
+    | ({
+        relationTo: 'tag-years';
+        value: number | TagYear;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -238,6 +458,135 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  images?: T;
+  description?: T;
+  applicant?: T;
+  amount?: T;
+  categories?: T;
+  support_fields?: T;
+  year?: T;
+  program?: T;
+  districts?: T;
+  legal_form?: T;
+  goals?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts_select".
+ */
+export interface ContactsSelect<T extends boolean = true> {
+  photo?: T;
+  full_name_including_degrees?: T;
+  email?: T;
+  role?: T;
+  phone?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  title?: T;
+  archived?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "grants_select".
+ */
+export interface GrantsSelect<T extends boolean = true> {
+  title?: T;
+  program?: T;
+  description?: T;
+  files?: T;
+  link?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-categories_select".
+ */
+export interface TagCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-districts_select".
+ */
+export interface TagDistrictsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-goals_select".
+ */
+export interface TagGoalsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-legal-forms_select".
+ */
+export interface TagLegalFormsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-programs_select".
+ */
+export interface TagProgramsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-support-fields_select".
+ */
+export interface TagSupportFieldsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-years_select".
+ */
+export interface TagYearsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
