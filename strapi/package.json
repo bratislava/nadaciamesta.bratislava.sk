@@ -4,8 +4,9 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop:clean": "npm run build && npm run develop",
-    "develop": "strapi develop",
+    "dev": "yarn develop",
+    "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
+    "develop:clean": "yarn build && yarn develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
@@ -45,6 +46,6 @@
   "license": "MIT",
   "volta": {
     "node": "14.21.3",
-    "yarn": "1.22.17"
+    "yarn": "1.22.22"
   }
 }
