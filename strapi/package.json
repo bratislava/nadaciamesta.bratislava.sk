@@ -13,7 +13,7 @@
   "dependencies": {
     "flexsearch": "^0.7.43",
     "knex": "0.21.18",
-    "pg": "8.5.1",
+    "pg": "8.16.0",
     "slugify": "^1.6.6",
     "sqlite3": "5.0.0",
     "strapi": "3.6.8",
