@@ -6,17 +6,16 @@ metadata:
   labels:
     service: app
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: cloudflare-dns01
     cert-manager.io/issue-temporary-certificate: 'true'
-    kubernetes.io/ingress.class: haproxy
 spec:
   tls:
     - hosts:
-        - ${HOSTNAME}
-        - www.${HOSTNAME}
+        - ${BRATISKA_HOSTNAME}
+        - www.${BRATISKA_HOSTNAME}
       secretName: ${BUILD_REPOSITORY_NAME}-tls
   rules:
-    - host: ${HOSTNAME}
+    - host: ${BRATISKA_HOSTNAME}
       http:
         paths:
           - path: /
@@ -26,7 +25,7 @@ spec:
                 name: ${BUILD_REPOSITORY_NAME}-app
                 port:
                   number: 80
-    - host: www.${HOSTNAME}
+    - host: www.${BRATISKA_HOSTNAME}
       http:
         paths:
           - path: /

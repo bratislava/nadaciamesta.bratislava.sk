@@ -1,30 +1,5 @@
-# development
-FROM node:14.21.3 AS dev
-
-RUN apt-get update && apt-get install -y git \
-    vim \
-    libvips-dev
-
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /home/node/app
-COPY package*.json ./
-COPY yarn.lock ./
-
-RUN yarn install
-COPY . ./
-
-RUN yarn build
-
-EXPOSE 1337
-CMD ["yarn", "develop"]
-
 # production
 FROM node:14.21.3 AS prod
-
-RUN apt-get update && apt-get install -y git \
-    libvips-dev
 
 USER node
 

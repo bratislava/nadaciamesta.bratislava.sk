@@ -6,17 +6,16 @@ metadata:
   labels:
     service: app
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: cloudflare-dns01
     cert-manager.io/issue-temporary-certificate: 'true'
-    kubernetes.io/ingress.class: haproxy
 spec:
   tls:
     - hosts:
-        - ${HOSTNAME}
+        - ${BRATISKA_HOSTNAME}
         - ${BUILD_REPOSITORY_NAME}-meilisearch.${DEPLOYMENT_ENV}bratislava.sk
       secretName: ${BUILD_REPOSITORY_NAME}-tls
   rules:
-    - host: ${HOSTNAME}
+    - host: ${BRATISKA_HOSTNAME}
       http:
         paths:
           - path: /
