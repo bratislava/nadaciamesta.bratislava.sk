@@ -1,0 +1,341 @@
+name: Build Containers
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+    tags:
+      - "dev**"
+      - "dev-next**"
+      - "dev-strapi**"
+      - "prod**"
+      - "prod-next**"
+      - "prod-strapi**"
+
+env:
+  REGISTRY: harbor.bratislava.sk
+  REGISTRY_USERNAME: robot$github_actions
+  STRAPI_IMAGE: harbor.bratislava.sk/standalone/city-foundation-strapi
+  NEXT_IMAGE: harbor.bratislava.sk/standalone/city-foundation-next
+
+jobs:
+  # Detect which directories have changes
+  detect-changes:
+    name: Detect Changes
+    runs-on: bratislava
+    outputs:
+      strapi: ${{ steps.filter.outputs.strapi }}
+      next: ${{ steps.filter.outputs.next }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect directory changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            strapi:
+              - 'strapi/**'
+            next:
+              - 'next/**'
+
+  # Determine build conditions based on trigger type
+  build-conditions:
+    name: Build Conditions
+    runs-on: bratislava
+    needs: detect-changes
+    outputs:
+      build-strapi: ${{ steps.conditions.outputs.build-strapi }}
+      build-next-dev: ${{ steps.conditions.outputs.build-next-dev }}
+      build-next-staging: ${{ steps.conditions.outputs.build-next-staging }}
+      build-next-prod: ${{ steps.conditions.outputs.build-next-prod }}
+      strapi-tag-prefix: ${{ steps.conditions.outputs.strapi-tag-prefix }}
+    steps:
+      - name: Determine build conditions
+        id: conditions
+        run: |
+          # Initialize variables
+          BUILD_STRAPI="false"
+          BUILD_NEXT_DEV="false"
+          BUILD_NEXT_STAGING="false"
+          BUILD_NEXT_PROD="false"
+          STRAPI_TAG_PREFIX="development"
+
+          EVENT="${{ github.event_name }}"
+          REF="${{ github.ref }}"
+          STRAPI_CHANGED="${{ needs.detect-changes.outputs.strapi }}"
+          NEXT_CHANGED="${{ needs.detect-changes.outputs.next }}"
+
+          echo "Event: $EVENT"
+          echo "Ref: $REF"
+          echo "Strapi changed: $STRAPI_CHANGED"
+          echo "Next changed: $NEXT_CHANGED"
+
+          # PR against master
+          if [ "$EVENT" = "pull_request" ]; then
+            if [ "$STRAPI_CHANGED" = "true" ]; then
+              BUILD_STRAPI="true"
+              STRAPI_TAG_PREFIX="development"
+            fi
+            if [ "$NEXT_CHANGED" = "true" ]; then
+              BUILD_NEXT_DEV="true"
+            fi
+          fi
+
+          # Push to master branch
+          if [ "$EVENT" = "push" ] && [ "$REF" = "refs/heads/master" ]; then
+            if [ "$STRAPI_CHANGED" = "true" ]; then
+              BUILD_STRAPI="true"
+              STRAPI_TAG_PREFIX="staging"
+            fi
+            if [ "$NEXT_CHANGED" = "true" ]; then
+              BUILD_NEXT_STAGING="true"
+            fi
+          fi
+
+          # Tag-based triggers
+          if [ "$EVENT" = "push" ]; then
+            # dev tags (dev*, dev-next*, dev-strapi*)
+            if [[ "$REF" == refs/tags/dev* ]]; then
+              # dev-strapi tags build only strapi
+              if [[ "$REF" == refs/tags/dev-strapi* ]]; then
+                BUILD_STRAPI="true"
+                STRAPI_TAG_PREFIX="development"
+              # dev-next tags build only next
+              elif [[ "$REF" == refs/tags/dev-next* ]]; then
+                BUILD_NEXT_DEV="true"
+              # dev tags (without -strapi or -next) build both
+              else
+                BUILD_STRAPI="true"
+                STRAPI_TAG_PREFIX="development"
+                BUILD_NEXT_DEV="true"
+              fi
+            fi
+
+            # prod tags (prod*, prod-next*, prod-strapi*)
+            if [[ "$REF" == refs/tags/prod* ]]; then
+              # prod-strapi tags build only strapi
+              if [[ "$REF" == refs/tags/prod-strapi* ]]; then
+                BUILD_STRAPI="true"
+                STRAPI_TAG_PREFIX="production"
+              # prod-next tags build only next
+              elif [[ "$REF" == refs/tags/prod-next* ]]; then
+                BUILD_NEXT_PROD="true"
+              # prod tags (without -strapi or -next) build both
+              else
+                BUILD_STRAPI="true"
+                STRAPI_TAG_PREFIX="production"
+                BUILD_NEXT_PROD="true"
+              fi
+            fi
+          fi
+
+          echo "build-strapi=$BUILD_STRAPI" >> $GITHUB_OUTPUT
+          echo "build-next-dev=$BUILD_NEXT_DEV" >> $GITHUB_OUTPUT
+          echo "build-next-staging=$BUILD_NEXT_STAGING" >> $GITHUB_OUTPUT
+          echo "build-next-prod=$BUILD_NEXT_PROD" >> $GITHUB_OUTPUT
+          echo "strapi-tag-prefix=$STRAPI_TAG_PREFIX" >> $GITHUB_OUTPUT
+
+          echo "### Build Conditions" >> $GITHUB_STEP_SUMMARY
+          echo "- Build Strapi: $BUILD_STRAPI (prefix: $STRAPI_TAG_PREFIX)" >> $GITHUB_STEP_SUMMARY
+          echo "- Build Next Dev: $BUILD_NEXT_DEV" >> $GITHUB_STEP_SUMMARY
+          echo "- Build Next Staging: $BUILD_NEXT_STAGING" >> $GITHUB_STEP_SUMMARY
+          echo "- Build Next Prod: $BUILD_NEXT_PROD" >> $GITHUB_STEP_SUMMARY
+
+  # Build Strapi container
+  build-strapi:
+    name: Build Strapi
+    runs-on: bratislava
+    needs: build-conditions
+    if: needs.build-conditions.outputs.build-strapi == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Harbor
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.REGISTRY_USERNAME }}
+          password: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+      - name: Generate image tag
+        id: tag
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          TAG_PREFIX="${{ needs.build-conditions.outputs.strapi-tag-prefix }}"
+          IMAGE_TAG="${{ env.STRAPI_IMAGE }}:${TAG_PREFIX}-${SHORT_SHA}"
+          echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "Image tag: $IMAGE_TAG"
+
+      - name: Build and push Strapi
+        uses: docker/build-push-action@v5
+        with:
+          context: ./strapi
+          push: true
+          tags: ${{ steps.tag.outputs.image-tag }}
+          cache-from: type=gha,scope=strapi
+          cache-to: type=gha,mode=max,scope=strapi
+
+      - name: Print summary
+        run: |
+          echo "### Strapi Build Complete" >> $GITHUB_STEP_SUMMARY
+          echo "Image: \`${{ steps.tag.outputs.image-tag }}\`" >> $GITHUB_STEP_SUMMARY
+
+  # Build Next.js container - Development
+  build-next-dev:
+    name: Build Next (Development)
+    runs-on: bratislava
+    needs: build-conditions
+    if: needs.build-conditions.outputs.build-next-dev == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Harbor
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.REGISTRY_USERNAME }}
+          password: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+      - name: Prepare environment file
+        working-directory: ./next
+        run: |
+          cp .env.bratiska-cli-build.dev .env.production.local
+          echo "Copied .env.bratiska-cli-build.dev to .env.production.local"
+
+      - name: Generate image tag
+        id: tag
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          IMAGE_TAG="${{ env.NEXT_IMAGE }}:development-${SHORT_SHA}"
+          echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "Image tag: $IMAGE_TAG"
+
+      - name: Build and push Next
+        uses: docker/build-push-action@v5
+        with:
+          context: ./next
+          target: prod
+          push: true
+          tags: ${{ steps.tag.outputs.image-tag }}
+          build-args: |
+            GIT_COMMIT=${{ github.sha }}
+          cache-from: type=gha,scope=next
+          cache-to: type=gha,mode=max,scope=next
+
+      - name: Print summary
+        run: |
+          echo "### Next.js Build Complete (Development)" >> $GITHUB_STEP_SUMMARY
+          echo "Image: \`${{ steps.tag.outputs.image-tag }}\`" >> $GITHUB_STEP_SUMMARY
+
+  # Build Next.js container - Staging
+  build-next-staging:
+    name: Build Next (Staging)
+    runs-on: bratislava
+    needs: build-conditions
+    if: needs.build-conditions.outputs.build-next-staging == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Harbor
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.REGISTRY_USERNAME }}
+          password: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+      - name: Prepare environment file
+        working-directory: ./next
+        run: |
+          cp .env.bratiska-cli-build.staging .env.production.local
+          echo "Copied .env.bratiska-cli-build.staging to .env.production.local"
+
+      - name: Generate image tag
+        id: tag
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          IMAGE_TAG="${{ env.NEXT_IMAGE }}:staging-${SHORT_SHA}"
+          echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "Image tag: $IMAGE_TAG"
+
+      - name: Build and push Next
+        uses: docker/build-push-action@v5
+        with:
+          context: ./next
+          target: prod
+          push: true
+          tags: ${{ steps.tag.outputs.image-tag }}
+          build-args: |
+            GIT_COMMIT=${{ github.sha }}
+          cache-from: type=gha,scope=next
+          cache-to: type=gha,mode=max,scope=next
+
+      - name: Print summary
+        run: |
+          echo "### Next.js Build Complete (Staging)" >> $GITHUB_STEP_SUMMARY
+          echo "Image: \`${{ steps.tag.outputs.image-tag }}\`" >> $GITHUB_STEP_SUMMARY
+
+  # Build Next.js container - Production
+  build-next-prod:
+    name: Build Next (Production)
+    runs-on: bratislava
+    needs: build-conditions
+    if: needs.build-conditions.outputs.build-next-prod == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Harbor
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.REGISTRY_USERNAME }}
+          password: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
+
+      - name: Prepare environment file
+        working-directory: ./next
+        run: |
+          cp .env.bratiska-cli-build.prod .env.production.local
+          echo "Copied .env.bratiska-cli-build.prod to .env.production.local"
+
+      - name: Generate image tag
+        id: tag
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          IMAGE_TAG="${{ env.NEXT_IMAGE }}:production-${SHORT_SHA}"
+          echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "Image tag: $IMAGE_TAG"
+
+      - name: Build and push Next
+        uses: docker/build-push-action@v5
+        with:
+          context: ./next
+          target: prod
+          push: true
+          tags: ${{ steps.tag.outputs.image-tag }}
+          build-args: |
+            GIT_COMMIT=${{ github.sha }}
+          cache-from: type=gha,scope=next
+          cache-to: type=gha,mode=max,scope=next
+
+      - name: Print summary
+        run: |
+          echo "### Next.js Build Complete (Production)" >> $GITHUB_STEP_SUMMARY
+          echo "Image: \`${{ steps.tag.outputs.image-tag }}\`" >> $GITHUB_STEP_SUMMARY
