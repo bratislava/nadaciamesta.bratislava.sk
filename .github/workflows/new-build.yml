@@ -12,6 +12,10 @@ on:
       - "prod**"
       - "prod-next**"
       - "prod-strapi**"
+      # TEMP: test tags for testing (behave like prod)
+      - "test**"
+      - "test-next**"
+      - "test-strapi**"
 
 env:
   REGISTRY: harbor.bratislava.sk
@@ -25,8 +29,9 @@ jobs:
     name: Detect Changes
     runs-on: bratislava
     outputs:
-      strapi: ${{ steps.filter.outputs.strapi }}
-      next: ${{ steps.filter.outputs.next }}
+      # TEMP: Force both to true for testing
+      strapi: "true" # ${{ steps.filter.outputs.strapi }}
+      next: "true" # ${{ steps.filter.outputs.next }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -124,6 +129,23 @@ jobs:
               elif [[ "$REF" == refs/tags/prod-next* ]]; then
                 BUILD_NEXT_PROD="true"
               # prod tags (without -strapi or -next) build both
+              else
+                BUILD_STRAPI="true"
+                STRAPI_TAG_PREFIX="production"
+                BUILD_NEXT_PROD="true"
+              fi
+            fi
+
+            # TEMP: test tags (test*, test-next*, test-strapi*) - behave like prod
+            if [[ "$REF" == refs/tags/test* ]]; then
+              # test-strapi tags build only strapi
+              if [[ "$REF" == refs/tags/test-strapi* ]]; then
+                BUILD_STRAPI="true"
+                STRAPI_TAG_PREFIX="production"
+              # test-next tags build only next
+              elif [[ "$REF" == refs/tags/test-next* ]]; then
+                BUILD_NEXT_PROD="true"
+              # test tags (without -strapi or -next) build both
               else
                 BUILD_STRAPI="true"
                 STRAPI_TAG_PREFIX="production"
