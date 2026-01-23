@@ -48,20 +48,18 @@ jobs:
     needs: detect-changes
     outputs:
       build-strapi: ${{ steps.conditions.outputs.build-strapi }}
-      build-next-dev: ${{ steps.conditions.outputs.build-next-dev }}
-      build-next-staging: ${{ steps.conditions.outputs.build-next-staging }}
-      build-next-prod: ${{ steps.conditions.outputs.build-next-prod }}
-      strapi-tag-prefix: ${{ steps.conditions.outputs.strapi-tag-prefix }}
+      build-next: ${{ steps.conditions.outputs.build-next }}
+      tag-prefix: ${{ steps.conditions.outputs.tag-prefix }}
+      next-env: ${{ steps.conditions.outputs.next-env }}
     steps:
       - name: Determine build conditions
         id: conditions
         run: |
           # Initialize variables
           BUILD_STRAPI="false"
-          BUILD_NEXT_DEV="false"
-          BUILD_NEXT_STAGING="false"
-          BUILD_NEXT_PROD="false"
-          STRAPI_TAG_PREFIX="development"
+          BUILD_NEXT="false"
+          TAG_PREFIX=""
+          NEXT_ENV=""
 
           EVENT="${{ github.event_name }}"
           REF="${{ github.ref }}"
@@ -75,23 +73,25 @@ jobs:
 
           # PR against master
           if [ "$EVENT" = "pull_request" ]; then
+            TAG_PREFIX="development"
+            NEXT_ENV="dev"
             if [ "$STRAPI_CHANGED" = "true" ]; then
               BUILD_STRAPI="true"
-              STRAPI_TAG_PREFIX="development"
             fi
             if [ "$NEXT_CHANGED" = "true" ]; then
-              BUILD_NEXT_DEV="true"
+              BUILD_NEXT="true"
             fi
           fi
 
           # Push to master branch
           if [ "$EVENT" = "push" ] && [ "$REF" = "refs/heads/master" ]; then
+            TAG_PREFIX="staging"
+            NEXT_ENV="staging"
             if [ "$STRAPI_CHANGED" = "true" ]; then
               BUILD_STRAPI="true"
-              STRAPI_TAG_PREFIX="staging"
             fi
             if [ "$NEXT_CHANGED" = "true" ]; then
-              BUILD_NEXT_STAGING="true"
+              BUILD_NEXT="true"
             fi
           fi
 
@@ -99,50 +99,48 @@ jobs:
           if [ "$EVENT" = "push" ]; then
             # dev tags (dev*, dev-next*, dev-strapi*)
             if [[ "$REF" == refs/tags/dev* ]]; then
+              TAG_PREFIX="development"
+              NEXT_ENV="dev"
               # dev-strapi tags build only strapi
               if [[ "$REF" == refs/tags/dev-strapi* ]]; then
                 BUILD_STRAPI="true"
-                STRAPI_TAG_PREFIX="development"
               # dev-next tags build only next
               elif [[ "$REF" == refs/tags/dev-next* ]]; then
-                BUILD_NEXT_DEV="true"
+                BUILD_NEXT="true"
               # dev tags (without -strapi or -next) build both
               else
                 BUILD_STRAPI="true"
-                STRAPI_TAG_PREFIX="development"
-                BUILD_NEXT_DEV="true"
+                BUILD_NEXT="true"
               fi
             fi
 
             # prod tags (prod*, prod-next*, prod-strapi*)
             if [[ "$REF" == refs/tags/prod* ]]; then
+              TAG_PREFIX="production"
+              NEXT_ENV="prod"
               # prod-strapi tags build only strapi
               if [[ "$REF" == refs/tags/prod-strapi* ]]; then
                 BUILD_STRAPI="true"
-                STRAPI_TAG_PREFIX="production"
               # prod-next tags build only next
               elif [[ "$REF" == refs/tags/prod-next* ]]; then
-                BUILD_NEXT_PROD="true"
+                BUILD_NEXT="true"
               # prod tags (without -strapi or -next) build both
               else
                 BUILD_STRAPI="true"
-                STRAPI_TAG_PREFIX="production"
-                BUILD_NEXT_PROD="true"
+                BUILD_NEXT="true"
               fi
             fi
           fi
 
           echo "build-strapi=$BUILD_STRAPI" >> $GITHUB_OUTPUT
-          echo "build-next-dev=$BUILD_NEXT_DEV" >> $GITHUB_OUTPUT
-          echo "build-next-staging=$BUILD_NEXT_STAGING" >> $GITHUB_OUTPUT
-          echo "build-next-prod=$BUILD_NEXT_PROD" >> $GITHUB_OUTPUT
-          echo "strapi-tag-prefix=$STRAPI_TAG_PREFIX" >> $GITHUB_OUTPUT
+          echo "build-next=$BUILD_NEXT" >> $GITHUB_OUTPUT
+          echo "tag-prefix=$TAG_PREFIX" >> $GITHUB_OUTPUT
+          echo "next-env=$NEXT_ENV" >> $GITHUB_OUTPUT
 
           echo "### Build Conditions" >> $GITHUB_STEP_SUMMARY
-          echo "- Build Strapi: $BUILD_STRAPI (prefix: $STRAPI_TAG_PREFIX)" >> $GITHUB_STEP_SUMMARY
-          echo "- Build Next Dev: $BUILD_NEXT_DEV" >> $GITHUB_STEP_SUMMARY
-          echo "- Build Next Staging: $BUILD_NEXT_STAGING" >> $GITHUB_STEP_SUMMARY
-          echo "- Build Next Prod: $BUILD_NEXT_PROD" >> $GITHUB_STEP_SUMMARY
+          echo "- Tag prefix: $TAG_PREFIX" >> $GITHUB_STEP_SUMMARY
+          echo "- Build Strapi: $BUILD_STRAPI" >> $GITHUB_STEP_SUMMARY
+          echo "- Build Next: $BUILD_NEXT (env: $NEXT_ENV)" >> $GITHUB_STEP_SUMMARY
 
   # Build Strapi container
   build-strapi:
@@ -168,7 +166,7 @@ jobs:
         id: tag
         run: |
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          TAG_PREFIX="${{ needs.build-conditions.outputs.strapi-tag-prefix }}"
+          TAG_PREFIX="${{ needs.build-conditions.outputs.tag-prefix }}"
           IMAGE_TAG="${{ env.STRAPI_IMAGE }}:${TAG_PREFIX}-${SHORT_SHA}"
           echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
           echo "Image tag: $IMAGE_TAG"
@@ -187,12 +185,12 @@ jobs:
           echo "### Strapi Build Complete" >> $GITHUB_STEP_SUMMARY
           echo "Image: \`${{ steps.tag.outputs.image-tag }}\`" >> $GITHUB_STEP_SUMMARY
 
-  # Build Next.js container - Development
-  build-next-dev:
-    name: Build Next (Development)
+  # Build Next.js container
+  build-next:
+    name: Build Next (${{ needs.build-conditions.outputs.tag-prefix }})
     runs-on: bratislava
     needs: build-conditions
-    if: needs.build-conditions.outputs.build-next-dev == 'true'
+    if: needs.build-conditions.outputs.build-next == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -210,14 +208,15 @@ jobs:
       - name: Prepare environment file
         working-directory: ./next
         run: |
-          cp .env.bratiska-cli-build.dev .env.production.local
-          echo "Copied .env.bratiska-cli-build.dev to .env.production.local"
+          cp .env.bratiska-cli-build.${{ needs.build-conditions.outputs.next-env }} .env.production.local
+          echo "Copied .env.bratiska-cli-build.${{ needs.build-conditions.outputs.next-env }} to .env.production.local"
 
       - name: Generate image tag
         id: tag
         run: |
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          IMAGE_TAG="${{ env.NEXT_IMAGE }}:development-${SHORT_SHA}"
+          TAG_PREFIX="${{ needs.build-conditions.outputs.tag-prefix }}"
+          IMAGE_TAG="${{ env.NEXT_IMAGE }}:${TAG_PREFIX}-${SHORT_SHA}"
           echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
           echo "Image tag: $IMAGE_TAG"
 
@@ -235,107 +234,5 @@ jobs:
 
       - name: Print summary
         run: |
-          echo "### Next.js Build Complete (Development)" >> $GITHUB_STEP_SUMMARY
-          echo "Image: \`${{ steps.tag.outputs.image-tag }}\`" >> $GITHUB_STEP_SUMMARY
-
-  # Build Next.js container - Staging
-  build-next-staging:
-    name: Build Next (Staging)
-    runs-on: bratislava
-    needs: build-conditions
-    if: needs.build-conditions.outputs.build-next-staging == 'true'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Harbor
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ env.REGISTRY_USERNAME }}
-          password: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-
-      - name: Prepare environment file
-        working-directory: ./next
-        run: |
-          cp .env.bratiska-cli-build.staging .env.production.local
-          echo "Copied .env.bratiska-cli-build.staging to .env.production.local"
-
-      - name: Generate image tag
-        id: tag
-        run: |
-          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          IMAGE_TAG="${{ env.NEXT_IMAGE }}:staging-${SHORT_SHA}"
-          echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
-          echo "Image tag: $IMAGE_TAG"
-
-      - name: Build and push Next
-        uses: docker/build-push-action@v5
-        with:
-          context: ./next
-          target: prod
-          push: true
-          tags: ${{ steps.tag.outputs.image-tag }}
-          build-args: |
-            GIT_COMMIT=${{ github.sha }}
-          cache-from: type=gha,scope=next
-          cache-to: type=gha,mode=max,scope=next
-
-      - name: Print summary
-        run: |
-          echo "### Next.js Build Complete (Staging)" >> $GITHUB_STEP_SUMMARY
-          echo "Image: \`${{ steps.tag.outputs.image-tag }}\`" >> $GITHUB_STEP_SUMMARY
-
-  # Build Next.js container - Production
-  build-next-prod:
-    name: Build Next (Production)
-    runs-on: bratislava
-    needs: build-conditions
-    if: needs.build-conditions.outputs.build-next-prod == 'true'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Harbor
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ env.REGISTRY_USERNAME }}
-          password: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-
-      - name: Prepare environment file
-        working-directory: ./next
-        run: |
-          cp .env.bratiska-cli-build.prod .env.production.local
-          echo "Copied .env.bratiska-cli-build.prod to .env.production.local"
-
-      - name: Generate image tag
-        id: tag
-        run: |
-          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          IMAGE_TAG="${{ env.NEXT_IMAGE }}:production-${SHORT_SHA}"
-          echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
-          echo "Image tag: $IMAGE_TAG"
-
-      - name: Build and push Next
-        uses: docker/build-push-action@v5
-        with:
-          context: ./next
-          target: prod
-          push: true
-          tags: ${{ steps.tag.outputs.image-tag }}
-          build-args: |
-            GIT_COMMIT=${{ github.sha }}
-          cache-from: type=gha,scope=next
-          cache-to: type=gha,mode=max,scope=next
-
-      - name: Print summary
-        run: |
-          echo "### Next.js Build Complete (Production)" >> $GITHUB_STEP_SUMMARY
+          echo "### Next.js Build Complete (${{ needs.build-conditions.outputs.tag-prefix }})" >> $GITHUB_STEP_SUMMARY
           echo "Image: \`${{ steps.tag.outputs.image-tag }}\`" >> $GITHUB_STEP_SUMMARY
