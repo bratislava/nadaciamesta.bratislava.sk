@@ -185,9 +185,8 @@ jobs:
       - name: Generate image tag
         id: tag
         run: |
-          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           TAG_PREFIX="${{ needs.build-conditions.outputs.tag-prefix }}"
-          IMAGE_TAG="${{ env.STRAPI_IMAGE }}:${TAG_PREFIX}-${SHORT_SHA}"
+          IMAGE_TAG="${{ env.STRAPI_IMAGE }}:${TAG_PREFIX}-${{ github.sha }}"
           echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
           echo "Image tag: $IMAGE_TAG"
 
@@ -234,9 +233,8 @@ jobs:
       - name: Generate image tag
         id: tag
         run: |
-          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           TAG_PREFIX="${{ needs.build-conditions.outputs.tag-prefix }}"
-          IMAGE_TAG="${{ env.NEXT_IMAGE }}:${TAG_PREFIX}-${SHORT_SHA}"
+          IMAGE_TAG="${{ env.NEXT_IMAGE }}:${TAG_PREFIX}-${{ github.sha }}"
           echo "image-tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
           echo "Image tag: $IMAGE_TAG"
 
