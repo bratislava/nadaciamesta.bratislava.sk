@@ -9,6 +9,9 @@ on:
       - "dev**"
       - "dev-next**"
       - "dev-strapi**"
+      - "staging**"
+      - "staging-next**"
+      - "staging-strapi**"
       - "prod**"
       - "prod-next**"
       - "prod-strapi**"
@@ -108,6 +111,23 @@ jobs:
               elif [[ "$REF" == refs/tags/dev-next* ]]; then
                 BUILD_NEXT="true"
               # dev tags (without -strapi or -next) build both
+              else
+                BUILD_STRAPI="true"
+                BUILD_NEXT="true"
+              fi
+            fi
+
+            # staging tags (staging*, staging-next*, staging-strapi*)
+            if [[ "$REF" == refs/tags/staging* ]]; then
+              TAG_PREFIX="staging"
+              NEXT_ENV="staging"
+              # staging-strapi tags build only strapi
+              if [[ "$REF" == refs/tags/staging-strapi* ]]; then
+                BUILD_STRAPI="true"
+              # staging-next tags build only next
+              elif [[ "$REF" == refs/tags/staging-next* ]]; then
+                BUILD_NEXT="true"
+              # staging tags (without -strapi or -next) build both
               else
                 BUILD_STRAPI="true"
                 BUILD_NEXT="true"
