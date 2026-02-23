@@ -7,21 +7,11 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import Script from 'next/script'
 import { useEffect, useState } from 'react'
-import SwiperCore, {
-  Autoplay,
-  FreeMode,
-  Grid,
-  Navigation as SwiperNavigation,
-  Pagination,
-  Scrollbar,
-} from 'swiper'
 
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Navigation from '../components/Navigation/Navigation'
 import { client } from '../utils/gql'
-
-SwiperCore.use([Autoplay, FreeMode, Pagination, Grid, SwiperNavigation, Scrollbar])
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
   const [facebookLink, setFacebookLink] = useState<string>(null)

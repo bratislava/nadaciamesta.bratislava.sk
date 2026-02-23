@@ -1,6 +1,7 @@
 import cx from 'classnames'
 import Link from 'next/link'
 import React from 'react'
+import { Autoplay, FreeMode } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 export interface ILandingSwiperProps {
@@ -15,6 +16,7 @@ export interface ILandingSwiperProps {
 const LandingSwiper = ({ numOfSlides, speed, slides }: ILandingSwiperProps) => {
   return (
     <Swiper
+      modules={[Autoplay, FreeMode]}
       slidesPerView={numOfSlides}
       spaceBetween={15}
       speed={speed}
