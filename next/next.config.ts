@@ -21,18 +21,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: [svgrLoader],
-          as: '*.js',
-        },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: [svgrLoader],
+        as: '*.js',
       },
-      // resolveAlias: {
-      //   react: 'react',
-      //   'react-dom': 'react-dom',
-      // },
     },
   },
   output: 'standalone',

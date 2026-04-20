@@ -3,14 +3,14 @@
 Install dependencies:
 
 ```bash
-yarn
+npm install
 ```
 
 To start the frontend app, simply run:
 
 ```bash
-yarn dev
-# the same as yarn develop
+npm run dev
+# the same as npm run develop
 ```
 
 ## Strapi SDK for city-foundation
@@ -20,14 +20,14 @@ When you change something in Strapi Content type builder, and/or if you change G
 To generate new types:
 
 ```
-yarn gen
+npm run gen
 ```
 
 For more information, refer to [the documentation](/docs/libs/Strapi-SDK.md).
 
 ## Static Site Generation
 
-If you want to test static site generation locally, you need to run `yarn build` and `yarn start`. This commands run by default with the prod env variable, so in order to have the local env variable for strapi, you need to create `.env.local` with `STRAPI_URL=localhost:1337` to override the prod values. This file is ignored by git, because it often contains sensitive secrets
+If you want to test static site generation locally, you need to run `npm run build` and `npm start`. This commands run by default with the prod env variable, so in order to have the local env variable for strapi, you need to create `.env.local` with `STRAPI_URL=localhost:1337` to override the prod values. This file is ignored by git, because it often contains sensitive secrets
 
 ## Mailgun
 

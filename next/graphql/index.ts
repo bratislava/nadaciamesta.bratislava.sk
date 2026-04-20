@@ -1,5 +1,4 @@
 import { GraphQLClient } from 'graphql-request';
-import * as Dom from 'graphql-request/dist/types.dom';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -3458,43 +3457,43 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    ContactPage(variables?: ContactPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ContactPageQuery> {
+    ContactPage(variables?: ContactPageQueryVariables, requestHeaders?: HeadersInit): Promise<ContactPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ContactPageQuery>(ContactPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ContactPage', 'query');
     },
-    GrantsPage(variables?: GrantsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GrantsPageQuery> {
+    GrantsPage(variables?: GrantsPageQueryVariables, requestHeaders?: HeadersInit): Promise<GrantsPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GrantsPageQuery>(GrantsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GrantsPage', 'query');
     },
-    GdprPage(variables?: GdprPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GdprPageQuery> {
+    GdprPage(variables?: GdprPageQueryVariables, requestHeaders?: HeadersInit): Promise<GdprPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GdprPageQuery>(GdprPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GdprPage', 'query');
     },
-    DocumentsPage(variables?: DocumentsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DocumentsPageQuery> {
+    DocumentsPage(variables?: DocumentsPageQueryVariables, requestHeaders?: HeadersInit): Promise<DocumentsPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DocumentsPageQuery>(DocumentsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DocumentsPage', 'query');
     },
-    AboutUsPage(variables?: AboutUsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AboutUsPageQuery> {
+    AboutUsPage(variables?: AboutUsPageQueryVariables, requestHeaders?: HeadersInit): Promise<AboutUsPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AboutUsPageQuery>(AboutUsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AboutUsPage', 'query');
     },
-    LandingPage(variables?: LandingPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LandingPageQuery> {
+    LandingPage(variables?: LandingPageQueryVariables, requestHeaders?: HeadersInit): Promise<LandingPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<LandingPageQuery>(LandingPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'LandingPage', 'query');
     },
-    HeaderAndFooter(variables?: HeaderAndFooterQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HeaderAndFooterQuery> {
+    HeaderAndFooter(variables?: HeaderAndFooterQueryVariables, requestHeaders?: HeadersInit): Promise<HeaderAndFooterQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HeaderAndFooterQuery>(HeaderAndFooterDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'HeaderAndFooter', 'query');
     },
-    Project(variables: ProjectQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProjectQuery> {
+    Project(variables: ProjectQueryVariables, requestHeaders?: HeadersInit): Promise<ProjectQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProjectQuery>(ProjectDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Project', 'query');
     },
-    ProjectsTotalCount(variables?: ProjectsTotalCountQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProjectsTotalCountQuery> {
+    ProjectsTotalCount(variables?: ProjectsTotalCountQueryVariables, requestHeaders?: HeadersInit): Promise<ProjectsTotalCountQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProjectsTotalCountQuery>(ProjectsTotalCountDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProjectsTotalCount', 'query');
     },
-    Projects(variables?: ProjectsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProjectsQuery> {
+    Projects(variables?: ProjectsQueryVariables, requestHeaders?: HeadersInit): Promise<ProjectsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProjectsQuery>(ProjectsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Projects', 'query');
     },
-    ProjectsPage(variables?: ProjectsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProjectsPageQuery> {
+    ProjectsPage(variables?: ProjectsPageQueryVariables, requestHeaders?: HeadersInit): Promise<ProjectsPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProjectsPageQuery>(ProjectsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ProjectsPage', 'query');
     },
-    BlogPostsPage(variables?: BlogPostsPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BlogPostsPageQuery> {
+    BlogPostsPage(variables?: BlogPostsPageQueryVariables, requestHeaders?: HeadersInit): Promise<BlogPostsPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<BlogPostsPageQuery>(BlogPostsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BlogPostsPage', 'query');
     },
-    BlogPostsBySlug(variables: BlogPostsBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BlogPostsBySlugQuery> {
+    BlogPostsBySlug(variables: BlogPostsBySlugQueryVariables, requestHeaders?: HeadersInit): Promise<BlogPostsBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<BlogPostsBySlugQuery>(BlogPostsBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BlogPostsBySlug', 'query');
     }
   };
