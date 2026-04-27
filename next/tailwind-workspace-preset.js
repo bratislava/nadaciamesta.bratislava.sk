@@ -16,7 +16,7 @@ const scrollBarHide = plugin(({ addUtilities }) => {
   })
 })
 
-module.exports = {
+export default {
   theme: {
     screens: {
       xs: '360px',

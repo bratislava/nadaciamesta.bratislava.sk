@@ -5,7 +5,7 @@
  *
  * Docs: https://github.com/svg/svgo?tab=readme-ov-file#configuration
  */
-module.exports = {
+export default {
   plugins: [
     {
       name: 'preset-default',

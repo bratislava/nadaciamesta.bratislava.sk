@@ -15,7 +15,7 @@ const scrollBarHide = plugin(function ({ addUtilities }) {
   })
 })
 
-module.exports = {
+export default {
   presets: [require('./tailwind-workspace-preset.js')],
   content: [
     join(__dirname, 'pages/**/*.{js,ts,jsx,tsx}'),

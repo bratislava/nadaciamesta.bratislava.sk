@@ -1,3 +1,4 @@
+import { withPayload } from '@payloadcms/next/withPayload'
 import { NextConfig } from 'next'
 import svgoConfig from './svgo.config.js'
 
@@ -99,4 +100,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default withPayload(nextConfig)
