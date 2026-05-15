@@ -2,15 +2,8 @@ resources:
   - deployment.yml
   - service-app.yml
   - ingress.yml
-  # Comment-out these lines if no database is used
-  - stateful-set.yml
   - stateful-set-meilisearch.yml
-  - service-database.yml
   - service-meilisearch.yml
-  # Add any secrets here
-  #- ./secrets/database.secret.dev.yml
-  #- ./secrets/database.secret.staging.yml
-  #- ./secrets/database.secret.prod.yml
 configurations:
   - configuration.yml
 
