@@ -5137,7 +5137,7 @@ flatstr@^1.0.5:
   resolved "https://registry.yarnpkg.com/flatstr/-/flatstr-1.0.12.tgz#c2ba6a08173edbb6c9640e3055b95e287ceb5931"
   integrity sha512-4zPxDyhCyiN2wIAtSLI6gc82/EjqZc1onI4Mz/l0pWrAlsSfYH/2ZIcU+e3oA2wDwbzIWNKwa23F8rh6+DRWkw==
 
-flexsearch@^0.7.43:
+flexsearch@0.7.43:
   version "0.7.43"
   resolved "https://registry.yarnpkg.com/flexsearch/-/flexsearch-0.7.43.tgz#34f89b36278a466ce379c5bf6fb341965ed3f16c"
   integrity sha512-c5o/+Um8aqCSOXGcZoqZOm+NqtVwNsvVpWv6lfmSclU954O3wvQKxxK8zj74fPaSJbXpSLTs4PRhh+wnoCXnKg==
@@ -10586,7 +10586,7 @@ sliced@1.0.1:
   resolved "https://registry.yarnpkg.com/sliced/-/sliced-1.0.1.tgz#0b3a662b5d04c3177b1926bea82b03f837a2ef41"
   integrity sha512-VZBmZP8WU3sMOZm1bdgTadsQbcscK0UM8oKxKVBs4XAhUo2Xxzm/OFMGBkPusxw9xL3Uy8LrzEqGqJhclsr0yA==
 
-slugify@^1.6.6:
+slugify@1.6.6:
   version "1.6.6"
   resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.6.tgz#2d4ac0eacb47add6af9e04d3be79319cbcc7924b"
   integrity sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==
@@ -11193,7 +11193,7 @@ strapi-plugin-i18n@3.6.8:
     pluralize "8.0.0"
     strapi-utils "3.6.8"
 
-strapi-plugin-meilisearch@^0.5.1:
+strapi-plugin-meilisearch@0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/strapi-plugin-meilisearch/-/strapi-plugin-meilisearch-0.5.1.tgz#73e65f30dd1c9f657c0bbfd60fa780ce93474d35"
   integrity sha512-7WC2zmS/rqZ0Rkl4//SUOYEwjOcjnSmL772RLesM6qnUI8r4J3FM2FJR8EA2+W2Wf3x4gb3U6eXlknG8+95yfQ==
@@ -11268,7 +11268,7 @@ strapi-plugin-users-permissions@3.6.8:
     strapi-utils "3.6.8"
     uuid "^3.1.0"
 
-strapi-provider-email-mailgun@^3.6.8:
+strapi-provider-email-mailgun@3.6.10:
   version "3.6.10"
   resolved "https://registry.yarnpkg.com/strapi-provider-email-mailgun/-/strapi-provider-email-mailgun-3.6.10.tgz#6a076d6c8612153bee60fd3fb65508bcd432d412"
   integrity sha512-na3AiuUeq96PdWq4JSdbcxA2X028r5fuFo3Dcbh+xiACJwM6kRgq21TquoY2g1spstLOUkIhWGayqrfCha0a1A==
@@ -11284,7 +11284,7 @@ strapi-provider-email-sendmail@3.6.8:
     sendmail "^1.6.1"
     strapi-utils "3.6.8"
 
-strapi-provider-upload-azure-storage@^2.1.0:
+strapi-provider-upload-azure-storage@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/strapi-provider-upload-azure-storage/-/strapi-provider-upload-azure-storage-2.1.0.tgz#100ceb30e4e2f50474214a52f50573135e9c145b"
   integrity sha512-Mfr1DtHQ8IxVjuZlsT4h7/7FM+kj9Qmaq91g0dzpjHF1azR3qWWcT5x0SpOzqA7ipTH/UTE4qKf9Djrpm04kdg==
@@ -11296,7 +11296,7 @@ strapi-provider-upload-local@3.6.8:
   resolved "https://registry.yarnpkg.com/strapi-provider-upload-local/-/strapi-provider-upload-local-3.6.8.tgz#4666269e96f2ae878f366ae091d09ea69fb0237b"
   integrity sha512-GkedrjO+T4DN649Ak0SMSS5Vdta0AoZRt9+IWLO9TGLZ7hjtIjnB60kGf0fQKspIhbS7DUqtwuzQAXTd8fXJOg==
 
-strapi-provider-upload-ts-minio@^3.1.0:
+strapi-provider-upload-ts-minio@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/strapi-provider-upload-ts-minio/-/strapi-provider-upload-ts-minio-3.1.0.tgz#ed2e55c4654a92c3059ef4090008b1506912b604"
   integrity sha512-hloaGnHyZONAPwMca2VXv1tguilGAk3t8eKMeMws9I2jJtbUoq7WIqOxZVgP+ACoycR2sQEX7IfxZyehI3uCdQ==
