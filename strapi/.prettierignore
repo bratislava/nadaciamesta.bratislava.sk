@@ -1,0 +1,8 @@
+node_modules
+dist
+.strapi
+.tmp
+public
+types/generated
+package-lock.json
+.strapi-updater.json

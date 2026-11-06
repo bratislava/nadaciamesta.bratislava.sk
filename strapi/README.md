@@ -1,27 +1,15 @@
-# Strapi city-foundation
+# Strapi (nadaciamesta.bratislava.sk)
 
-Note - even in development, strapi connects to Azure for media storage. If you don't wish to do this, you can set Azurite locally or disable the Azure upload plugin (more info in [plugin readme](https://github.com/jakeFeldman/strapi-provider-upload-azure-storage)).
+Strapi 5, PostgreSQL, GraphQL (`/graphql`) and REST (`/api`).
 
-To run:
+- Content types: `src/api/*/content-types`, the one component in `src/components`.
+- Search: `GET /api/search/:query` (`src/api/search`), an in-memory FlexSearch index over the
+  titles of published projects, grants, documents and blog posts. Next proxies it as
+  `/search/:query`. The index is rebuilt on start and a few seconds after any change.
+- Blog post slugs follow the title (`src/api/blog-post/content-types/blog-post/lifecycles.ts`).
+- The public role's read permissions are granted on every start (`src/index.ts`).
+- Media: local `public/uploads` in development, the MinIO bucket in deployed clusters
+  (`config/env/production/plugins.ts`).
 
-```
-nx serve strapi-city-foundation
-```
-
-To access data without loging in, you need to setup permissions for each of the strapi instances / deployments. See the appropriate section in [Strapi-SDK docs](../../../docs/libs/Strapi-SDK.md)
-
-## Seeding data
-
-There is a simple seeding system in `/config/functions/bootstrap.js` which allows seeding data of multiple collections and relationships. It can only handle json files, so if you have your data in any other format, just convert it.
-
-By default, it seeds critical data (without which the FE crashes) in development - to seed the production projects in development, or to seed data on staging/prod environments, modify the `/config/functions/bootstrap.js` file.
-
-#### Example: csv to json
-
-```
-npm i -g csvtojson
-```
-
-```
-csvtojson <input.csv> > <output.json>
-```
+Local setup is in the [root README](../README.md). The v3 → v5 data migration is in
+[scripts/migrate-v3](scripts/migrate-v3/README.md).

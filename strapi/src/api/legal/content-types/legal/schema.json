@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "legals",
+  "info": {
+    "singularName": "legal",
+    "pluralName": "legals",
+    "displayName": "Legal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "project_detail_disclaimer": {
+      "type": "text"
+    },
+    "gdpr": {
+      "type": "richtext"
+    }
+  }
+}
