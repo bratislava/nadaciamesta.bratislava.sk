@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 
 import Button from '../../components/Button'
 import ProjectCard from '../../components/ProjectCard'
@@ -8,10 +8,10 @@ import SearchBar from '../../components/SearchBar'
 import Tag from '../../components/Tag'
 import TagGroupMultiple from '../../components/TagGroupMultiple'
 import TagGroupSingle from '../../components/TagGroupSingle'
+import { ProjectFiltersInput, ProjectsQuery } from '../../graphql'
 import { client } from '../../utils/gql'
 import { parseQueryArray, parseQueryString } from '../../utils/helpers'
 import { AsyncServerProps } from '../../utils/types'
-import { ProjectsQuery } from '../../graphql'
 
 const PROJECT_COUNT_PER_LOAD = 24
 
@@ -29,6 +29,9 @@ export const Projects = ({
   const [projects, setProjects] = useState<ProjectsQuery['projects']>([])
   const [projectsTotalCount, setProjectsTotalCount] = useState(0)
   const [allProjectsLoaded, setAllProjectsLoaded] = useState(false)
+  // Filters change in quick succession (e.g. when read from the URL); only the
+  // newest request may write its results.
+  const latestRequest = useRef(0)
 
   const [year, setYear] = useState<string>()
   const [program, setProgram] = useState<string>()
@@ -48,7 +51,9 @@ export const Projects = ({
     queryParam: string | string[] | undefined,
     tagsObj: { name: string }[],
   ) => {
-    if (!queryParam) return
+    if (!queryParam) {
+      return
+    }
     const tags = tagsObj.map((tag) => tag.name)
     if (tags.includes(parseQueryString(queryParam))) {
       setValue(parseQueryString(queryParam))
@@ -60,7 +65,9 @@ export const Projects = ({
     queryParam: string | string[] | undefined,
     tagsObj: { name: string }[],
   ) => {
-    if (!queryParam) return
+    if (!queryParam) {
+      return
+    }
 
     const tags = new Set(tagsObj.map((tag) => tag.name))
     setValue(parseQueryArray(queryParam).filter((param) => tags.has(param)))
@@ -133,34 +140,37 @@ export const Projects = ({
 
   const loadProjects = useCallback(
     async (offset: number) => {
+      const request = ++latestRequest.current
       setAllProjectsLoaded(true)
-      const { projects: newProjects } = await client.Projects({
-        limit: PROJECT_COUNT_PER_LOAD,
-        offset,
-        year,
-        program,
-        district,
-        supportFields,
-        goals,
-        categories,
-        legalForms,
-        query: legalSearchQuery,
-      })
+      // Only the filters that are set; an empty list or string filters nothing.
+      const filters: ProjectFiltersInput = {
+        ...(year && { year: { name: { eq: year } } }),
+        ...(program && { program: { name: { eq: program } } }),
+        ...(district && { districts: { name: { eq: district } } }),
+        ...(categories.length > 0 && { categories: { name: { in: categories } } }),
+        ...(goals.length > 0 && { goals: { name: { in: goals } } }),
+        ...(supportFields.length > 0 && { support_fields: { name: { in: supportFields } } }),
+        ...(legalForms.length > 0 && { legal_form: { name: { in: legalForms } } }),
+        ...(legalSearchQuery && {
+          or: [
+            { title: { containsi: legalSearchQuery } },
+            { appliciant: { containsi: legalSearchQuery } },
+          ],
+        }),
+      }
 
-      const projectsCount = await client
-        .ProjectsTotalCount({
-          year,
-          program,
-          district,
-          supportFields,
-          goals,
-          categories,
-          legalForms,
-          query: legalSearchQuery,
-        })
-        .then(({ projects }) => projects.length)
+      const {
+        projects: newProjects,
+        projects_connection: {
+          pageInfo: { total: projectsCount },
+        },
+      } = await client.Projects({ limit: PROJECT_COUNT_PER_LOAD, offset, filters })
 
-      setProjects((projects) => [...projects, ...newProjects])
+      if (request !== latestRequest.current) {
+        return
+      }
+
+      setProjects((projects) => (offset === 0 ? newProjects : [...projects, ...newProjects]))
       setProjectsTotalCount(projectsCount)
 
       if (newProjects.length === PROJECT_COUNT_PER_LOAD) {
@@ -260,13 +270,13 @@ export const Projects = ({
         <div className="container mx-auto">
           <div className="mb-12 grid w-full gap-8 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {projects.map((project) => (
-              <ProjectCard project={project} key={project.id} />
+              <ProjectCard project={project} key={project.documentId} />
             ))}
           </div>
           {!allProjectsLoaded && (
             <div className="flex justify-center">
               <Button
-                onClick={() => loadProjects(projects.length)}
+                onClick={async () => loadProjects(projects.length)}
                 className="w-fit"
                 variant="primary"
                 size="xl"
@@ -291,6 +301,7 @@ export const getServerSideProps = async () => {
     tagSupportFields,
     tagYears,
   } = await client.ProjectsPage()
+
   return {
     props: {
       tagCategories,

@@ -1,25 +1,27 @@
-FROM node:20.19-alpine AS base
+FROM node:26-alpine AS base
 
 FROM base AS build-base
+# npm 12 only where npm ci runs; runtime stages keep the stock npm.
+RUN npm install -g npm@12.0.2
 WORKDIR /build
-COPY ./package.json ./yarn.lock ./
-
-FROM build-base AS install-prod
-ENV YARN_CACHE_FOLDER=/build/.cache/yarn
-RUN --mount=type=cache,target=/build/.cache/yarn \
-    yarn config set network-timeout 600000 -g \
- && yarn install --production --frozen-lockfile
-
-FROM install-prod AS build
-COPY . ./
+COPY package.json package-lock.json .npmrc ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --include=dev
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN --mount=type=cache,target=/build/.cache/yarn \
-    yarn install --development --frozen-lockfile \
- && yarn build
+COPY . ./
+
+FROM build-base AS build
+RUN npm run build
+
+# ---- CI check stage (dockerized lint / typecheck / format) ----
+FROM build-base AS check
+RUN npm run lint \
+ && npm run typecheck \
+ && npm run format:check
 
 FROM base AS app-base
-RUN apk add --no-cache tini
-RUN mkdir -p /home/node/app \
+RUN apk add --no-cache tini \
+ && mkdir -p /home/node/app \
  && chown node:node /home/node/app
 USER node
 WORKDIR /home/node/app
@@ -29,24 +31,18 @@ EXPOSE 3000
 ARG GIT_COMMIT="undefined"
 ENV GIT_COMMIT=$GIT_COMMIT
 LABEL org.opencontainers.image.revision="${GIT_COMMIT}" \
-      org.opencontainers.image.source="https://github.com/bratislava/nadaciamesta.bratislava.sk" \
+      org.opencontainers.image.source="https://github.com/bratislava/nadaciamesta.bratislava.sk/tree/master/next" \
       org.opencontainers.image.licenses="EUPL-1.2"
 ENTRYPOINT [ "/sbin/tini", "--" ]
 
 FROM app-base AS dev
 ENV NODE_ENV=development
-COPY --chown=node:node --from=build /build/node_modules ./node_modules
-CMD [ "yarn", "develop" ]
+COPY --chown=node:node --from=build-base /build ./
+CMD [ "npm", "run", "dev" ]
 
 FROM app-base AS prod
 COPY --chown=node:node .env.*.local ./
 COPY --chown=node:node --from=build /build/.next/standalone ./
-COPY --chown=node:node --from=build /build/public ./public
 COPY --chown=node:node --from=build /build/.next/static ./.next/static
-# sharp@0.32.6 must be installed for this to work
-# see https://github.com/vercel/next.js/discussions/40125
-COPY --chown=node:node --from=build /build/node_modules/sharp ./node_modules/sharp
-
-ENV NEXT_SHARP_PATH=/home/node/app/node_modules/sharp
-
+COPY --chown=node:node --from=build /build/public ./public
 CMD [ "sh", "-c", "HOSTNAME=0.0.0.0 node server.js" ]

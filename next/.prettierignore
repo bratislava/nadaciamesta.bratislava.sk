@@ -1,5 +1,7 @@
-# Add files here to ignore them from prettier formatting
-
-yarn.lock
 .next
+node_modules
 graphql/index.ts
+public
+package-lock.json
+next-env.d.ts
+AGENTS.md
