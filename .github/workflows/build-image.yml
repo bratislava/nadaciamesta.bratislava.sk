@@ -1,0 +1,148 @@
+name: Build Image
+# Reusable build for both services (strapi, next). Two modes, selected by the
+# `cluster` input:
+#   - CI (cluster == ''): run the dockerized checks (`check` target: lint,
+#     typecheck, format) and build the final `prod` image without pushing.
+#   - Deploy (cluster != ''): reuse an existing commit image or build+push it
+#     and re-tag it for the cluster. The infrastructure deploy is triggered
+#     separately by the caller (deploy.yml).
+#
+# `env_flavor: true` (Next) bakes the cluster's .env.build.<cluster> into the
+# image, so its tags and Docker cache carry a `-<cluster>` suffix and images
+# are not shared across clusters. CI builds fall back to development.
+on:
+  workflow_call:
+    inputs:
+      directory:
+        description: "Base dir of the service."
+        type: string
+        required: true
+      image:
+        description: "Full image name including registry/repository."
+        type: string
+        required: true
+      cluster:
+        description: >-
+          Target cluster (development, staging, production). Empty = CI build
+          only (checks + build, no push).
+        type: string
+        required: false
+        default: ""
+      env_flavor:
+        description: "Bake .env.build.<cluster> into the image (Next.js)."
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      DOCKER_REGISTRY_USERNAME:
+        required: true
+      DOCKER_REGISTRY_PASSWORD:
+        required: true
+      HARBOR_PUSH_USERNAME:
+        required: true
+      HARBOR_PUSH_PASSWORD:
+        required: true
+
+permissions:
+  contents: read
+
+env:
+  REGISTRY: harbor.bratislava.sk
+
+jobs:
+  build:
+    name: Build
+    runs-on: bratislava
+    env:
+      CLUSTER_PREFIX: ${{ inputs.cluster != '' && format('{0}-', inputs.cluster) || '' }}
+      BUILD_ENV: ${{ inputs.cluster != '' && inputs.cluster || 'development' }}
+      ENV_SUFFIX: ${{ inputs.env_flavor && format('-{0}', inputs.cluster != '' && inputs.cluster || 'development') || '' }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.directory }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+
+      - name: Resolve short SHA
+        id: sha
+        run: echo "short_sha=${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare build env
+        if: ${{ inputs.env_flavor }}
+        shell: bash
+        run: |
+          case "$BUILD_ENV" in
+            development|staging|production) ;;
+            *)
+              echo "::error::Unsupported environment '$BUILD_ENV'. Allowed values: development, staging, production."
+              exit 1
+              ;;
+          esac
+          source_env_file=".env.build.$BUILD_ENV"
+          if [[ ! -f "$source_env_file" ]]; then
+            echo "::error file=$source_env_file::Missing $source_env_file in $PWD"
+            exit 1
+          fi
+          cp "$source_env_file" .env.production.local
+
+      - name: Set up Docker build
+        uses: bratislava/github-actions/.github/actions/setup-docker-build@7a3c849b65c1edbea5c3a95fd29952ae1f3e1412 # v3.0.1
+        with:
+          docker_registry_username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          docker_registry_password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          harbor_registry: ${{ env.REGISTRY }}
+          harbor_registry_username: ${{ secrets.HARBOR_PUSH_USERNAME }}
+          harbor_registry_password: ${{ secrets.HARBOR_PUSH_PASSWORD }}
+
+      # CI mode only: dockerized lint / typecheck / format check.
+      - name: Docker metadata (check)
+        if: ${{ inputs.cluster == '' }}
+        id: meta-check
+        uses: bratislava/github-actions/.github/actions/docker-metadata@7a3c849b65c1edbea5c3a95fd29952ae1f3e1412 # v3.0.1
+        with:
+          image: ${{ inputs.image }}
+          suffix: -check
+
+      - name: Run checks
+        if: ${{ inputs.cluster == '' }}
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: ${{ inputs.directory }}
+          target: check
+          cache-from: ${{ steps.meta-check.outputs.cache_from }}
+          cache-to: ${{ steps.meta-check.outputs.cache_to }}
+
+      - name: Docker metadata
+        id: meta
+        uses: bratislava/github-actions/.github/actions/docker-metadata@7a3c849b65c1edbea5c3a95fd29952ae1f3e1412 # v3.0.1
+        with:
+          image: ${{ inputs.image }}
+          prefix: ${{ env.CLUSTER_PREFIX }}
+          suffix: ${{ env.ENV_SUFFIX }}
+
+      # Deploy mode only: reuse the commit image across clusters. If it already
+      # exists, re-tag it for this cluster and skip the build below.
+      - name: Check for existing image
+        if: ${{ inputs.cluster != '' }}
+        id: existing
+        uses: bratislava/github-actions/.github/actions/check-existing-image@7a3c849b65c1edbea5c3a95fd29952ae1f3e1412 # v3.0.1
+        with:
+          existing_tag: ${{ inputs.image }}:${{ steps.sha.outputs.short_sha }}${{ env.ENV_SUFFIX }}
+          new_tag: ${{ inputs.image }}:${{ env.CLUSTER_PREFIX }}${{ steps.sha.outputs.short_sha }}${{ env.ENV_SUFFIX }}
+
+      - name: Build image
+        if: ${{ inputs.cluster == '' || steps.existing.outputs.found != 'true' }}
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: ${{ inputs.directory }}
+          target: prod
+          push: ${{ inputs.cluster != '' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: ${{ steps.meta.outputs.cache_from }}
+          cache-to: ${{ steps.meta.outputs.cache_to }}
+          build-args: |
+            GIT_COMMIT=${{ github.sha }}

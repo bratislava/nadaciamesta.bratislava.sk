@@ -1,0 +1,124 @@
+name: Strapi/Next deploy pipeline
+# master -> staging; tags dev*/staging*/prod* -> that cluster. A `-strapi` or
+# `-next` suffix after the environment (e.g. dev-strapi3) deploys one service.
+# Images go to Harbor, then this repo's units in
+# bratislava/infrastructure-deployment-configuration
+# (clusters/<cluster>/applications/nadaciamesta.bratislava.sk/<service>/app)
+# are applied by that repo's deploy workflow.
+on:
+  push:
+    tags:
+      - "dev**"
+      - "staging**"
+      - "prod**"
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    name: Resolve Environment and Services
+    runs-on: ubuntu-latest
+    outputs:
+      cluster: ${{ steps.resolve.outputs.cluster }}
+      next: ${{ steps.resolve.outputs.next }}
+      strapi: ${{ steps.resolve.outputs.strapi }}
+    steps:
+      - name: Map ref to environment and services
+        id: resolve
+        run: |
+          REF="$GITHUB_REF"
+
+          if [[ "$REF" == "refs/heads/master" ]]; then
+            CLUSTER="staging"
+            ONLY="all"
+          elif [[ "$REF" == refs/tags/* ]]; then
+            TAG="${REF#refs/tags/}"
+            case "$TAG" in
+              dev*)     CLUSTER="development"; REST="${TAG#dev}" ;;
+              staging*) CLUSTER="staging";     REST="${TAG#staging}" ;;
+              prod*)    CLUSTER="production";  REST="${TAG#prod}" ;;
+              *)
+                echo "::error::Unable to determine environment from tag: $TAG"
+                exit 1
+                ;;
+            esac
+            case "$REST" in
+              -next*)   ONLY="next" ;;
+              -strapi*) ONLY="strapi" ;;
+              *)        ONLY="all" ;;
+            esac
+          else
+            echo "::error::Unable to determine environment from ref: $REF"
+            exit 1
+          fi
+
+          echo "cluster=$CLUSTER" >> "$GITHUB_OUTPUT"
+          {
+            echo "## Pipeline info :rocket:"
+            echo ":arrow_right: Ref: **$REF**"
+            echo ":arrow_right: Cluster: **$CLUSTER**"
+            echo "### We are going to deploy :ship:"
+          } >> "$GITHUB_STEP_SUMMARY"
+          for SVC in next strapi; do
+            if [[ "$ONLY" == "all" || "$ONLY" == "$SVC" ]]; then
+              echo "$SVC=true" >> "$GITHUB_OUTPUT"
+              echo ":soon: **$SVC**" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "$SVC=false" >> "$GITHUB_OUTPUT"
+            fi
+          done
+
+  build-strapi:
+    name: Build Strapi
+    needs: resolve
+    if: needs.resolve.outputs.strapi == 'true'
+    uses: ./.github/workflows/build-image.yml
+    secrets: inherit
+    with:
+      directory: strapi/
+      image: harbor.bratislava.sk/nadaciamesta.bratislava.sk/nadaciamesta-strapi
+      cluster: ${{ needs.resolve.outputs.cluster }}
+
+  build-next:
+    name: Build Next
+    needs: resolve
+    if: needs.resolve.outputs.next == 'true'
+    uses: ./.github/workflows/build-image.yml
+    secrets: inherit
+    with:
+      directory: next/
+      image: harbor.bratislava.sk/nadaciamesta.bratislava.sk/nadaciamesta-next
+      cluster: ${{ needs.resolve.outputs.cluster }}
+      env_flavor: true
+
+  # No-op barrier: nothing deploys until every in-scope build succeeded.
+  builds-complete:
+    name: All builds completed
+    needs: [resolve, build-strapi, build-next]
+    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All in-scope builds completed."
+
+  deploy-strapi:
+    name: Strapi
+    needs: [resolve, build-strapi, builds-complete]
+    if: ${{ !failure() && !cancelled() && needs.resolve.outputs.strapi == 'true' }}
+    uses: bratislava/github-actions/.github/workflows/trigger-infra-deploy.yml@v3.0.1
+    secrets: inherit
+    with:
+      cluster: ${{ needs.resolve.outputs.cluster }}
+      app: nadaciamesta.bratislava.sk/strapi
+
+  deploy-next:
+    name: after Strapi deploy Next
+    needs: [resolve, build-next, builds-complete, deploy-strapi]
+    if: ${{ !failure() && !cancelled() && needs.resolve.outputs.next == 'true' }}
+    uses: bratislava/github-actions/.github/workflows/trigger-infra-deploy.yml@v3.0.1
+    secrets: inherit
+    with:
+      cluster: ${{ needs.resolve.outputs.cluster }}
+      app: nadaciamesta.bratislava.sk/next

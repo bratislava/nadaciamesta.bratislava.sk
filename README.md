@@ -1,52 +1,70 @@
-# nadaciamesta.bratislava.sk website
+# nadaciamesta.bratislava.sk
 
-## How to run locally
+Website of Nadácia mesta Bratislavy: a Next.js site (`next/`) backed by Strapi 5 (`strapi/`).
 
-Start database with `docker-compose`
+Node 26 and npm 12 (see `engines` in each `package.json`).
 
-```bash
-docker-compose up postgres
-```
-
-Go to `/strapi` folder and run
+## Run locally
 
 ```bash
-yarn
-yarn dev
+docker compose up -d postgres
+
+cd strapi
+cp .env.example .env
+npm ci
+npm run develop          # http://localhost:1337/admin
+
+cd ../next
+cp .env.example .env.local
+npm ci
+npm run dev              # http://localhost:3000
 ```
 
-Go to `/next` folder and run
+After changing a Strapi content type, regenerate the GraphQL client with Strapi running:
+`npm run gen` in `next/`.
+
+To get production-like data locally, import a Strapi v3 dump with the importer in
+[`strapi/scripts/migrate-v3`](strapi/scripts/migrate-v3/README.md).
+
+## Checks
+
+Both services have a Docker `check` target, which is what CI runs on every pull request:
 
 ```bash
-yarn
-yarn dev
+docker build --target check next     # eslint, tsc, prettier
+docker build --target check strapi   # tsc, prettier
 ```
 
-Follow readme files in folders `/strapi` and `/next`.
+Or directly: `npm run lint`, `npm run typecheck`, `npm run format:check`.
 
 ## Deployment
 
-### Manual
+Images are built by GitHub Actions and pushed to the `nadaciamesta.bratislava.sk` Harbor
+project; the Kubernetes resources live in
+[infrastructure-deployment-configuration](https://github.com/bratislava/infrastructure-deployment-configuration)
+under `clusters/<cluster>/applications/nadaciamesta.bratislava.sk/` (namespace `nadaciamesta`).
 
-You can use our `bratiska-cli`, which takes care of deploying the app.
+| Ref | Deploys to |
+| --- | --- |
+| push to `master` | staging |
+| tag `dev…` / `staging…` / `prod…` | that cluster, both services |
+| tag `dev-strapi…`, `dev-next…` (same for staging/prod) | one service |
 
-1. First, install the utility:
+The pipeline (`.github/workflows/deploy.yml`) builds and pushes the images, then dispatches the
+infra repo's deploy workflow, which applies `<service>/app` and waits for the rollout.
 
-   ```bash
-   yarn global add bratislava/bratiska-cli
-   ```
+Configuration:
 
-2. then go to folder of `/strapi` or `/next` and run just this command:
-   ```bash
-   bartiska-cli deploy
-   ```
+- `<service>/.env.deploy.<cluster>`: non-secret runtime env, read by Terraform at the commit the
+  image was built from. Every file must exist for every cluster.
+- `next/.env.build.<cluster>`: baked into the Next.js build (public Strapi URL for the
+  browser-side `/graphql` and `/search` proxies).
+- Secrets: Passbolt entries `<cluster>/nadaciamesta-strapi/*` and `<cluster>/nadaciamesta-next/*`,
+  synced into the namespace by External Secrets.
+- Media: MinIO bucket `nadaciamesta` on s3.bratislava.sk, shared by all clusters.
 
-That`s all, everything should run automatically and if not you will be notified. You can also check [user guide of bratiska-cli](https://github.com/bratislava/bratiska-cli/blob/master/README.md).
-
-### Pipelines
-
-TODO
-
-## Stay in touch
-
-- Website - [https://inovacie.bratislava.sk/](https://inovacie.bratislava.sk/)
+| | Next | Strapi |
+| --- | --- | --- |
+| development | https://nadaciamesta-next.dev.bratislava.sk | https://nadaciamesta-strapi.dev.bratislava.sk |
+| staging | https://nadaciamesta-next.staging.bratislava.sk | https://nadaciamesta-strapi.staging.bratislava.sk |
+| production | https://nadaciamesta.bratislava.sk | https://nadaciamesta-strapi.bratislava.sk |
