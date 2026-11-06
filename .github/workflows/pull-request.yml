@@ -49,6 +49,8 @@ jobs:
   build-strapi:
     name: Strapi
     needs: [env-files]
+    # always(): a skipped dependabot-approval would otherwise skip the builds too
+    if: always() && needs.env-files.result == 'success'
     uses: ./.github/workflows/build-image.yml
     secrets: inherit
     with:
@@ -58,6 +60,8 @@ jobs:
   build-next:
     name: Next
     needs: [env-files]
+    # always(): a skipped dependabot-approval would otherwise skip the builds too
+    if: always() && needs.env-files.result == 'success'
     uses: ./.github/workflows/build-image.yml
     secrets: inherit
     with:
