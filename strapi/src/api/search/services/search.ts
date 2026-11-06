@@ -3,6 +3,8 @@ import type { Core, UID } from '@strapi/strapi'
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { Document } = require('flexsearch')
 
+const PERIODIC_REBUILD_MS = 10 * 60 * 1000
+
 type Indexed = { prefix: string; uid: UID.ContentType; fields: string[] }
 
 // Result ids are `<prefix>-<documentId>`; the frontend splits on the dash to
@@ -69,5 +71,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       })
     },
     indexedUids: INDEXED.map(({ uid }) => uid),
+    // Writes that bypass lifecycles (`strapi transfer`, `strapi import`, SQL)
+    // show up at the next periodic rebuild.
+    startPeriodicRebuild() {
+      setInterval(() => {
+        rebuild().catch((error) => strapi.log.error('Search index rebuild failed', error))
+      }, PERIODIC_REBUILD_MS).unref()
+    },
   }
 }

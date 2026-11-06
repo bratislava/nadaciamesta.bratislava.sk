@@ -46,6 +46,7 @@ export default {
 
     const search = strapi.service('api::search.search')
     await search.rebuild()
+    search.startPeriodicRebuild()
 
     // Unlike v3 (index built once at boot), keep search in sync with edits.
     strapi.db.lifecycles.subscribe({
