@@ -415,6 +415,14 @@ const main = async () => {
     // ------------------------------------------- content-manager layouts
     await migrateContentManagerConfig(q, strapi)
 
+    // The patches above rewrote every row, which scrambles Postgres' physical
+    // order. `strapi transfer` streams rows unsorted and inserts them in that
+    // order, so put them back in id (= v3) order for a transfer to keep it.
+    for (const uid of Object.keys(strapi.contentTypes).filter((u) => u.startsWith('api::'))) {
+      const table = strapi.getModel(uid).collectionName
+      await knex.raw('cluster ?? using ??', [table, `${table}_pkey`])
+    }
+
     log('done')
   } finally {
     await v3.end()
