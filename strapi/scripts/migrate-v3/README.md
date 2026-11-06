@@ -44,6 +44,28 @@ NODE_ENV=development npm run migrate:v3
 Without `MEDIA_PUBLIC_URL` the files keep their Azure URLs. `@aws-sdk/client-s3` comes with
 `@strapi/provider-upload-aws-s3`.
 
-To fill a cluster's database, run the import locally and restore the result into that cluster's
-`nadaciamesta` database (`pg_dump --no-owner --no-acl`, then `psql` with the credentials from the
-`strapi-cnpg-nadaciamesta-credentials` secret), then restart Strapi.
+## Into a cluster
+
+Either restore the local result into that cluster's `nadaciamesta` database
+(`pg_dump --no-owner --no-acl`, then `psql` with the `strapi-cnpg-nadaciamesta-credentials`
+secret) and restart Strapi, or push it over HTTPS with Strapi's data transfer (how development
+was filled):
+
+1. On a fresh deployment, create the first admin at `/admin` and a transfer token with `push`
+   permission (Settings → Transfer tokens).
+2. From this directory, with the local database holding the import:
+
+   ```bash
+   NODE_ENV=development npx strapi transfer \
+     --to https://nadaciamesta-strapi.<cluster>.bratislava.sk/admin --to-token … \
+     --exclude files --force
+   ```
+
+**Always pass `--exclude files`.** The media bucket is shared by all clusters and the import's
+file records already point into it. Without the flag the destination first deletes every file it
+has through the S3 provider, i.e. from the shared bucket, and then the transfer fails reading
+them back. `npm run migrate:media` restores anything deleted this way.
+
+The transfer moves content, media records, relations and content-manager layouts with their
+documentIds and timestamps. It does not move admin users (create them in the admin) and assigns
+new row ids in the order it reads them, which is why the importer leaves the tables in id order.
