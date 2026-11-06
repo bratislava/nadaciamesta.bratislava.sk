@@ -1,50 +1,51 @@
 {
-  "name": "city-foundation-strapi",
+  "name": "nadaciamesta-strapi",
+  "version": "2.0.0",
   "private": true,
-  "version": "0.1.0",
-  "description": "A Strapi application",
+  "description": "Strapi CMS for nadaciamesta.bratislava.sk",
   "scripts": {
-    "develop:clean": "npm run build && npm run develop",
-    "develop": "strapi develop",
-    "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "develop": "strapi develop",
+    "dev": "strapi develop",
+    "start": "strapi start",
+    "strapi": "strapi",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "migrate:v3": "node scripts/migrate-v3/index.js",
+    "migrate:media": "node scripts/migrate-v3/media.js"
   },
   "dependencies": {
+    "@strapi/plugin-graphql": "5.60.0",
+    "@strapi/plugin-users-permissions": "5.60.0",
+    "@strapi/provider-upload-aws-s3": "5.60.0",
+    "@strapi/strapi": "5.60.0",
     "flexsearch": "0.7.43",
-    "knex": "0.21.18",
-    "pg": "8.5.1",
+    "pg": "8.23.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.30.6",
     "slugify": "1.6.6",
-    "sqlite3": "5.0.0",
-    "strapi": "3.6.8",
-    "strapi-admin": "3.6.8",
-    "strapi-connector-bookshelf": "3.6.8",
-    "strapi-plugin-content-manager": "3.6.8",
-    "strapi-plugin-content-type-builder": "3.6.8",
-    "strapi-plugin-email": "3.6.8",
-    "strapi-plugin-graphql": "3.6.8",
-    "strapi-plugin-i18n": "3.6.8",
-    "strapi-plugin-meilisearch": "0.5.1",
-    "strapi-plugin-upload": "3.6.8",
-    "strapi-plugin-users-permissions": "3.6.8",
-    "strapi-provider-email-mailgun": "3.6.10",
-    "strapi-provider-upload-azure-storage": "2.1.0",
-    "strapi-provider-upload-ts-minio": "3.1.0",
-    "strapi-utils": "3.6.8"
+    "styled-components": "6.6.0"
   },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "strapi": {
-    "uuid": "62908f29-fa21-4203-ae51-1e7d76e8f0d6"
+  "devDependencies": {
+    "@types/koa": "3.0.3",
+    "@types/node": "26.6.6",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3"
   },
   "engines": {
-    "node": ">=10.16.0 <=14.x.x",
-    "npm": "^6.0.0"
+    "node": ">=26.0.0 <27",
+    "npm": ">=12.0.2 <13"
   },
-  "license": "MIT",
-  "volta": {
-    "node": "14.21.3",
-    "yarn": "1.22.17"
+  "strapi": {
+    "uuid": "62908f29-fa21-4203-ae51-1e7d76e8f0d6",
+    "telemetryDisabled": true
+  },
+  "license": "EUPL-1.2",
+  "overrides": {
+    "zod@^4": "4.6.7",
+    "qs": "6.17.1",
+    "nodemailer": "10.3.1"
   }
 }

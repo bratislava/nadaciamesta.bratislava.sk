@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import MenuIcon from '../../assets/icons/menu.svg'
 import SearchIcon from '../../assets/icons/search.svg'
 import FoundationLogo from '../../assets/images/foundation-logo.svg'
+import { toUrlId } from '../../utils/documentId'
 import SearchBar from '../SearchBar'
 import NavigationItem from './NavigationItem'
 
@@ -27,6 +28,7 @@ const Navigation = () => {
 
   useEffect(() => {
     router.events.on('beforeHistoryChange', () => setSearchQuery(''))
+
     return () => router.events.off('beforeHistoryChange', () => setSearchQuery(''))
   }, [router])
 
@@ -37,7 +39,7 @@ const Navigation = () => {
   const [isSearchModalOpen, setSearchModalOpen] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  const search = (query: string) => fetch(`/search/${query}`).then((res) => res.json())
+  const search = async (query: string) => fetch(`/search/${query}`).then(async (res) => res.json())
 
   useEffect(() => {
     if (searchQuery.length > 2) {
@@ -131,14 +133,14 @@ const Navigation = () => {
                 {searchResults.map((searchResult, index) => (
                   <div className="cursor-pointer select-none" key={index}>
                     {searchResult.result.map(({ id: fullId, doc: { title, slug } }) => {
-                      const type = fullId.split('-')[0]
-                      const id = fullId.split('-')[1]
+                      const [type, id] = fullId.split('-')
+
                       return (
                         <div
                           key={id}
                           onMouseDown={() => {
                             setSearchModalOpen(false)
-                            router.push(searchResultLinks[type](slug ?? id))
+                            router.push(searchResultLinks[type](slug ?? toUrlId(id)))
                           }}
                           role="link"
                           tabIndex={0}

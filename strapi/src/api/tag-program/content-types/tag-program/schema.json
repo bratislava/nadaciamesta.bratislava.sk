@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tag_programs",
+  "info": {
+    "singularName": "tag-program",
+    "pluralName": "tag-programs",
+    "displayName": "TAG program",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "default": "Untitled program"
+    }
+  }
+}

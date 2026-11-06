@@ -41,6 +41,17 @@
   display: none;
 }
 
+/* Swiper 12+ fills the svg inside navigation buttons, moved them closer to
+   the edge and zeroes their margin-left; the project gallery uses its own
+   outline icons, so keep the Swiper 7 look. */
+:root {
+  --swiper-navigation-sides-offset: 10px;
+}
+.swiper-button-next svg,
+.swiper-button-prev svg {
+  fill: none;
+}
+
 /* the timing property needs to be controlled on a child component we don't have direct acces to
    this way, we can append linear-swiper sclass to the <Swiper> element to affect the child */
 .linear-swiper .swiper-wrapper {

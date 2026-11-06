@@ -10,6 +10,7 @@ export type NextRedirectServerSideProps =
       }
     }
   | { notFound: boolean }
+  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
   | void
 
 // tends to work better then GetServerSidePropsResult - gives you inferred props only for when the page component actually renders

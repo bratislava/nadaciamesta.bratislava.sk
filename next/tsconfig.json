@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "jsx": "preserve",
+    "target": "ES2022",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx",
     "allowJs": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -11,21 +11,21 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    "plugins": [
-      {
-        "name": "typescript-strict-plugin"
-      },
-      {
-        "name": "next"
-      }
-    ]
+    "noUncheckedSideEffectImports": false,
+    "plugins": [{ "name": "next" }]
   },
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts"],
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

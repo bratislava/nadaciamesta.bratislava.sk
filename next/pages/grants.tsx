@@ -5,6 +5,7 @@ import { useState } from 'react'
 import GrantCard from '../components/GrantCard'
 import Newsletter from '../components/Newsletter'
 import Tag from '../components/Tag'
+import { toUrlId } from '../utils/documentId'
 import { client } from '../utils/gql'
 import { AsyncServerProps } from '../utils/types'
 
@@ -43,11 +44,11 @@ export const Grants = ({
               .filter((grant) => grant.program.name === selectedProgram)
               .sort((a, b) => a.order - b.order)
               .map((grant) => (
-                <div key={grant.id} id={grant.id}>
+                <div key={grant.documentId} id={toUrlId(grant.documentId)}>
                   <GrantCard
                     className={cx({
                       'rounded-xl border-4 border-primary-muted p-2':
-                        router.asPath.split('#')[1] == grant.id,
+                        router.asPath.split('#')[1] === toUrlId(grant.documentId),
                     })}
                     href={grant.link}
                     title={grant.title}

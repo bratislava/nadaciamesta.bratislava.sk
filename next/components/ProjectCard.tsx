@@ -1,4 +1,5 @@
 import { ProjectsQuery } from '../graphql/index'
+import { toUrlId } from '../utils/documentId'
 import Card from './Card'
 import Tag from './Tag'
 
@@ -10,7 +11,7 @@ const ProjectCard = ({ project }: IProjectCardProps) => {
   return (
     <Card
       className="flex flex-col space-y-4 border-2 border-transparent hover:border-black"
-      href={`/projects/${project.id}/`}
+      href={`/projects/${toUrlId(project.documentId)}/`}
     >
       <div className="relative h-48">
         <img

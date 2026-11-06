@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 import DownloadCard from '../components/DownloadCard'
 import Newsletter from '../components/Newsletter'
+import { toUrlId } from '../utils/documentId'
 import { client } from '../utils/gql'
 import { formatKiloBytes, getLocalDate } from '../utils/helpers'
 import { AsyncServerProps } from '../utils/types'
@@ -28,19 +29,23 @@ export const Documents = ({
         <div className="container mx-auto">
           <div className="mb-8 text-xl font-bold">Aktuálne dokumenty</div>
           <div className="grid w-full gap-12 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {activeDocuments.map(({ id, title, created_at, file }) => (
-              <div key={id} id={id}>
-                <DownloadCard
-                  title={title}
-                  downloadLink={file.url}
-                  uploadDate={getLocalDate(created_at)}
-                  downloadDetail={`${file.ext.toUpperCase()}; ${formatKiloBytes(file.size)}`}
-                  className={cx({
-                    'border-primary-muted': router.asPath.split('#')[1] == id,
-                  })}
-                />
-              </div>
-            ))}
+            {activeDocuments.map(({ documentId, title, createdAt, file }) => {
+              const id = toUrlId(documentId)
+
+              return (
+                <div key={id} id={id}>
+                  <DownloadCard
+                    title={title}
+                    downloadLink={file.url}
+                    uploadDate={getLocalDate(createdAt)}
+                    downloadDetail={`${file.ext.toUpperCase()}; ${formatKiloBytes(file.size)}`}
+                    className={cx({
+                      'border-primary-muted': router.asPath.split('#')[1] === id,
+                    })}
+                  />
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -48,19 +53,23 @@ export const Documents = ({
         <div className="container mx-auto">
           <div className="mb-8 text-xl font-bold">Archív</div>
           <div className="grid w-full gap-12 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {archivedDocuments.map(({ id, title, created_at, file }) => (
-              <div key={id} id={id}>
-                <DownloadCard
-                  title={title}
-                  downloadLink={file.url}
-                  uploadDate={getLocalDate(created_at)}
-                  downloadDetail={`${file.ext.toUpperCase()}; ${formatKiloBytes(file.size)}`}
-                  className={cx({
-                    'border-primary-muted': router.asPath.split('#')[1] == id,
-                  })}
-                />
-              </div>
-            ))}
+            {archivedDocuments.map(({ documentId, title, createdAt, file }) => {
+              const id = toUrlId(documentId)
+
+              return (
+                <div key={id} id={id}>
+                  <DownloadCard
+                    title={title}
+                    downloadLink={file.url}
+                    uploadDate={getLocalDate(createdAt)}
+                    downloadDetail={`${file.ext.toUpperCase()}; ${formatKiloBytes(file.size)}`}
+                    className={cx({
+                      'border-primary-muted': router.asPath.split('#')[1] === id,
+                    })}
+                  />
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>

@@ -19,7 +19,7 @@ export const Blog = ({ blogPosts }: AsyncServerProps<typeof getServerSideProps>)
           <h1 className="text-6xl font-bold">{blogPost.title}</h1>
           <div className="flex items-center justify-center divide-x-4">
             <span className="border-primary px-8">{blogPost.author}</span>
-            <span className="border-primary px-8">{getLocalDate(blogPost.created_at)}</span>
+            <span className="border-primary px-8">{getLocalDate(blogPost.createdAt)}</span>
           </div>
           <div className="relative h-100">
             <img
