@@ -16,10 +16,10 @@
     "migrate:media": "node scripts/migrate-v3/media.js"
   },
   "dependencies": {
-    "@strapi/plugin-graphql": "5.60.0",
-    "@strapi/plugin-users-permissions": "5.60.0",
-    "@strapi/provider-upload-aws-s3": "5.60.0",
-    "@strapi/strapi": "5.60.0",
+    "@strapi/plugin-graphql": "5.61.0",
+    "@strapi/plugin-users-permissions": "5.61.0",
+    "@strapi/provider-upload-aws-s3": "5.61.0",
+    "@strapi/strapi": "5.61.0",
     "flexsearch": "0.7.43",
     "pg": "8.23.1",
     "react": "18.3.1",
@@ -35,8 +35,8 @@
     "typescript": "5.9.3"
   },
   "engines": {
-    "node": ">=26.0.0 <27",
-    "npm": ">=12.0.2 <13"
+    "node": ">=26.13.x",
+    "npm": ">=12.2.x"
   },
   "strapi": {
     "uuid": "62908f29-fa21-4203-ae51-1e7d76e8f0d6",
@@ -47,5 +47,9 @@
     "zod@^4": "4.6.7",
     "qs": "6.17.1",
     "nodemailer": "10.3.1"
+  },
+  "volta": {
+    "node": "26.13.0",
+    "npm": "12.2.2"
   }
 }

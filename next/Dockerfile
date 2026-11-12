@@ -1,8 +1,8 @@
-FROM node:26-alpine AS base
+FROM node:26.13-alpine AS base
 
 FROM base AS build-base
 # npm 12 only where npm ci runs; runtime stages keep the stock npm.
-RUN npm install -g npm@12.0.2
+RUN npm install -g npm@12.2.2
 WORKDIR /build
 COPY package.json package-lock.json .npmrc ./
 RUN --mount=type=cache,target=/root/.npm \

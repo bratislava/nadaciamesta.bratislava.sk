@@ -2,7 +2,9 @@
 
 Website of Nadácia mesta Bratislavy: a Next.js site (`next/`) backed by Strapi 5 (`strapi/`).
 
-Node 26 and npm 12 (see `engines` in each `package.json`).
+Node 26 and npm 12, pinned with [Volta](https://volta.sh) (`volta` in each `package.json`; `engines` and
+`engine-strict` reject older versions). Dependencies are pinned to exact versions
+(`save-exact`), and npm only installs releases older than 7 days (`min-release-age`).
 
 ## Run locally
 
