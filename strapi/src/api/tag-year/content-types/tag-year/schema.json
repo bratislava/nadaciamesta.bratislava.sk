@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tag_years",
+  "info": {
+    "singularName": "tag-year",
+    "pluralName": "tag-years",
+    "displayName": "TAG year",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "default": "Untitled year"
+    }
+  }
+}

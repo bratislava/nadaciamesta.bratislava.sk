@@ -9,6 +9,7 @@ import ArrowLeftIcon from '../../assets/icons/arrow-circle-left.svg'
 import ArrowRightIcon from '../../assets/icons/arrow-circle-right.svg'
 import Button from '../../components/Button'
 import Tag from '../../components/Tag'
+import { fromUrlId } from '../../utils/documentId'
 import { client } from '../../utils/gql'
 import { AsyncServerProps } from '../../utils/types'
 
@@ -49,13 +50,13 @@ const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>
           onBeforeInit={(swiper) => setSwipe(swiper)}
         >
           {project.images.map((image) => (
-            <SwiperSlide style={{ height: '100%', backgroundColor: 'gray' }} key={image.id}>
+            <SwiperSlide style={{ height: '100%', backgroundColor: 'gray' }} key={image.documentId}>
               <img className="h-[100%] w-[100%]" src={image.url} alt={image.alternativeText} />
             </SwiperSlide>
           ))}
 
           <Button
-            className="swiper-button-prev ml-30 h-16 w-16 border-none p-px"
+            className="swiper-button-prev !ml-30 h-16 w-16 border-none p-px"
             onClick={() => swipe?.slidePrev()}
           >
             <ArrowLeftIcon />
@@ -91,7 +92,7 @@ const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>
               {project.categories.map((category) => (
                 <Tag
                   text={category.name}
-                  key={category.id}
+                  key={category.documentId}
                   variant="inactive"
                   onClick={() => pushQuery('categories', category.name)}
                 />
@@ -99,7 +100,7 @@ const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>
               {project.goals.map((goal) => (
                 <Tag
                   text={goal.name}
-                  key={goal.id}
+                  key={goal.documentId}
                   variant="inactive"
                   onClick={() => pushQuery('goals', goal.name)}
                 />
@@ -107,7 +108,7 @@ const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>
               {project.support_fields.map((supportField) => (
                 <Tag
                   text={supportField.name}
-                  key={supportField.id}
+                  key={supportField.documentId}
                   variant="inactive"
                   onClick={() => pushQuery('supportFields', supportField.name)}
                 />
@@ -124,7 +125,7 @@ const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>
                 /* {project.districts.map((district) => (
                 <Tag
                   text={district.name}
-                  key={district.id}
+                  key={district.documentId}
                   variant="inactive"
                   onClick={() => pushQuery('district', district.name)}
                 />
@@ -142,8 +143,13 @@ const Project = ({ project, legal }: AsyncServerProps<typeof getServerSideProps>
 
 export const getServerSideProps = async (context) => {
   const { pid } = context.query
+  const data = await client.Project({ documentId: fromUrlId(String(pid)) })
 
-  return { props: { ...(await client.Project({ pid })) } }
+  if (!data.project) {
+    return { notFound: true }
+  }
+
+  return { props: data }
 }
 
 export default Project

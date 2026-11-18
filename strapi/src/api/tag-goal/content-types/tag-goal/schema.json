@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tag_goals",
+  "info": {
+    "singularName": "tag-goal",
+    "pluralName": "tag-goals",
+    "displayName": "TAG goal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "default": "Untitled goal"
+    }
+  }
+}

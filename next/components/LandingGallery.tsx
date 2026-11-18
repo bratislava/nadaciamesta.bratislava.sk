@@ -2,14 +2,14 @@ import { useWindowSize } from '../utils/hooks'
 import LandingSwiper from './LandingSwiper'
 
 export interface ILandingGalleryProps {
-  slidesTop: Array<{
-    id: string
-    images?: Array<{ alternativeText?: string; url: string }>
-  }>
-  slidesBottom: Array<{
-    id: string
-    images?: Array<{ alternativeText?: string; url: string }>
-  }>
+  slidesTop: {
+    documentId: string
+    images?: { alternativeText?: string; url: string }[]
+  }[]
+  slidesBottom: {
+    documentId: string
+    images?: { alternativeText?: string; url: string }[]
+  }[]
 }
 
 const LandingGallery = ({ slidesTop, slidesBottom }: ILandingGalleryProps) => {
@@ -23,7 +23,6 @@ const LandingGallery = ({ slidesTop, slidesBottom }: ILandingGalleryProps) => {
     numBottomSlides = 2
   } else if (width > 800) {
     numTopSlides = 2
-    numBottomSlides = 1
   }
 
   return (

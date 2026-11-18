@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_about_us_about_us_sections",
+  "info": {
+    "displayName": "About us section",
+    "icon": "information",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "richtext"
+    },
+    "files": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images", "files", "videos"]
+    }
+  }
+}

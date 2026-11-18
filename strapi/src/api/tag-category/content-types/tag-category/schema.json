@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tag_categories",
+  "info": {
+    "singularName": "tag-category",
+    "pluralName": "tag-categories",
+    "displayName": "TAG category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "default": "Untitled category"
+    }
+  }
+}

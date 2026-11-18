@@ -7,20 +7,23 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import Script from 'next/script'
 import { useEffect, useState } from 'react'
-import SwiperCore, {
+import SwiperCore from 'swiper'
+import {
   Autoplay,
   FreeMode,
   Grid,
   Navigation as SwiperNavigation,
   Pagination,
   Scrollbar,
-} from 'swiper'
+} from 'swiper/modules'
 
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Navigation from '../components/Navigation/Navigation'
 import { client } from '../utils/gql'
 
+// Swiper's module registration, not a React hook
+// eslint-disable-next-line react-hooks/rules-of-hooks
 SwiperCore.use([Autoplay, FreeMode, Pagination, Grid, SwiperNavigation, Scrollbar])
 
 const CustomApp = ({ Component, pageProps }: AppProps) => {
@@ -54,7 +57,6 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <Script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.sk" />
       <Script
         strategy="afterInteractive"
         data-domain="nadaciamesta.bratislava.sk"

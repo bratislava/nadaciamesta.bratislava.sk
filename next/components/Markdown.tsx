@@ -17,10 +17,7 @@ export const Markdown = ({ children }: IMarkdowProps) => {
           h4: ({ children }) => <h4 className="text-lg font-bold">{children}</h4>,
           h5: ({ children }) => <h5 className="text-base font-bold">{children}</h5>,
           h6: ({ children }) => <h6 className="text-sm font-bold">{children}</h6>,
-          img: ({ src, alt }) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className="relative m-auto" src={src} alt={alt} />
-          ),
+          img: ({ src, alt }) => <img className="relative m-auto" src={src} alt={alt} />,
           a: ({ children, href }) => (
             <a href={href} className="text-primary underline">
               {children}

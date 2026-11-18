@@ -19,7 +19,7 @@ export const Contacts = ({
           <div className="grid w-full gap-12 lg:grid-cols-2">
             {contacts.map((contact) => (
               <ContactPerson
-                key={contact.id}
+                key={contact.documentId}
                 image={contact.photo?.formats?.medium?.url || contact.photo.url}
                 name={contact.full_name_including_degrees}
                 role={contact.role}

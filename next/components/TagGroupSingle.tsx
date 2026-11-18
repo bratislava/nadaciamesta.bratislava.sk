@@ -1,12 +1,12 @@
 import cx from 'classnames'
-import React, { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 import CancelIcon from '../assets/icons/cancel.svg'
 import Button from './Button'
 import Tag from './Tag'
 
 export interface ITagGroupSingleProps {
-  tags: Array<{ name: string }>
+  tags: { name: string }[]
   value: string
   setValue: Dispatch<SetStateAction<string>>
   clearable?: boolean

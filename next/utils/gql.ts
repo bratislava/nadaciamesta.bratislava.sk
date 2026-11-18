@@ -1,35 +1,19 @@
 import { GraphQLClient } from 'graphql-request'
-import getConfig from 'next/config'
 
 import { getSdk } from '../graphql'
 import { isServer } from './envDetection'
 
-const { serverRuntimeConfig } = getConfig()
+// On the server, talk to Strapi directly (STRAPI_URL may be a bare in-cluster
+// service name). In the browser, go through the /graphql rewrite in next.config.
+const serverStrapiUrl = () => {
+  const url = process.env.STRAPI_URL ?? ''
 
-// URL becomes full url to strapi on server, but just /graphql (for proxy) on client
-const protocol =
-  serverRuntimeConfig?.strapiUrl &&
-  (serverRuntimeConfig?.strapiUrl.startsWith('http://') ||
-    serverRuntimeConfig?.strapiUrl.startsWith('https://'))
-    ? ''
-    : 'http://'
-
-export const buildUrl = (path: string): string =>
-  `${
-    serverRuntimeConfig?.strapiUrl
-      ? `${protocol}${serverRuntimeConfig.strapiUrl}`
-      : isServer()
-        ? ''
-        : window.location.origin
-  }${path}`
-
-const graphQLUrl = buildUrl('/graphql')
-
-if (isServer()) {
-  // eslint-disable-next-line no-console
-  console.log('GraphQL URL:', graphQLUrl)
+  return url.startsWith('http://') || url.startsWith('https://') ? url : `http://${url}`
 }
 
-const gql = new GraphQLClient(graphQLUrl)
+export const buildUrl = (path: string): string =>
+  `${isServer() ? serverStrapiUrl() : window.location.origin}${path}`
+
+const gql = new GraphQLClient(buildUrl('/graphql'))
 
 export const client = getSdk(gql)

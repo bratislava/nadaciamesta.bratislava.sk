@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 import Tag from './Tag'
 
 export interface ITagGroupMultipleProps {
-  tags: Array<{ name: string }>
-  values: Array<string>
-  setValues: Dispatch<SetStateAction<Array<string>>>
+  tags: { name: string }[]
+  values: string[]
+  setValues: Dispatch<SetStateAction<string[]>>
 }
 
 const TagGroupMultiple = ({ tags, values, setValues }: ITagGroupMultipleProps) => {
@@ -17,9 +17,11 @@ const TagGroupMultiple = ({ tags, values, setValues }: ITagGroupMultipleProps) =
           key={index}
           variant={values.includes(tag.name) ? 'active' : 'inactive'}
           onClick={() => {
-            values.includes(tag.name)
-              ? setValues(values.filter((item) => item !== tag.name))
-              : setValues([...values, tag.name])
+            setValues(
+              values.includes(tag.name)
+                ? values.filter((item) => item !== tag.name)
+                : [...values, tag.name],
+            )
           }}
         />
       ))}

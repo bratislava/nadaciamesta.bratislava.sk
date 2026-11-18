@@ -25,9 +25,9 @@ export const AboutUs = ({ aboutUs }: AsyncServerProps<typeof getServerSideProps>
                 {section.files.map((file) => (
                   <DownloadCard
                     title={file.name}
-                    key={file.id}
+                    key={file.documentId}
                     downloadLink={file.url}
-                    uploadDate={getLocalDate(file.created_at)}
+                    uploadDate={getLocalDate(file.createdAt)}
                     downloadDetail={`${file.ext.toUpperCase()}; ${formatKiloBytes(file.size)}`}
                     containerClassName="download-card-container"
                   />

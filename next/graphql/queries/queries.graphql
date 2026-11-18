@@ -1,6 +1,10 @@
+# Strapi 5 GraphQL. Unsorted v3 lists came back in Postgres row order; the v3
+# import creates entries in that order, so sorting by id reproduces it.
+# Tag relations too: v3 returned them in tag order.
+
 query ContactPage {
-  contacts {
-    id
+  contacts(sort: "id:asc") {
+    documentId
     full_name_including_degrees
     role
     email
@@ -21,8 +25,8 @@ query GrantsPage {
   general {
     newsletter_text
   }
-  grants {
-    id
+  grants(sort: "id:asc") {
+    documentId
     order
     title
     description
@@ -31,12 +35,12 @@ query GrantsPage {
       name
     }
     files {
-      id
+      documentId
       url
       name
     }
   }
-  tagPrograms {
+  tagPrograms(sort: "id:asc") {
     name
   }
 }
@@ -51,10 +55,10 @@ query DocumentsPage {
   general {
     newsletter_text
   }
-  documents(sort: "created_at:desc") {
-    id
+  documents(sort: "createdAt:desc") {
+    documentId
     title
-    created_at
+    createdAt
     archived
     file {
       url
@@ -71,12 +75,12 @@ query AboutUsPage {
       title
       detail
       files {
-        id
+        documentId
         name
         ext
         size
         url
-        created_at
+        createdAt
       }
     }
   }
@@ -87,7 +91,7 @@ query LandingPage {
     grants_text
     # grants_button_text
     featured_projects_top {
-      id
+      documentId
       images {
         alternativeText
         url
@@ -95,7 +99,7 @@ query LandingPage {
       }
     }
     featured_projects_bottom {
-      id
+      documentId
       images {
         alternativeText
         url
@@ -115,41 +119,41 @@ query HeaderAndFooter {
   }
 }
 
-query Project($pid: ID!) {
-  project(id: $pid) {
-    id
+query Project($documentId: ID!) {
+  project(documentId: $documentId) {
+    documentId
     title
     description
-    categories {
-      id
+    categories(sort: "id:asc") {
+      documentId
       name
     }
     year {
-      id
+      documentId
       name
     }
-    districts {
-      id
+    districts(sort: "id:asc") {
+      documentId
       name
     }
     legal_form {
-      id
+      documentId
       name
     }
     program {
-      id
+      documentId
       name
     }
-    support_fields {
-      id
+    support_fields(sort: "id:asc") {
+      documentId
       name
     }
-    goals {
-      id
+    goals(sort: "id:asc") {
+      documentId
       name
     }
     images {
-      id
+      documentId
       alternativeText
       url
       formats
@@ -160,59 +164,9 @@ query Project($pid: ID!) {
   }
 }
 
-query ProjectsTotalCount(
-  $query: String
-  $year: String
-  $program: [String]
-  $categories: [String]
-  $district: String
-  $supportFields: [String]
-  $goals: [String]
-  $legalForms: [String]
-) {
-  projects(
-    where: {
-      year: { name_eq: $year }
-      program: { name_eq: $program }
-      categories: { name_in: $categories }
-      districts: { name_eq: $district }
-      support_fields: { name_in: $supportFields }
-      goals: { name_in: $goals }
-      legal_form: { name_in: $legalForms }
-      _or: [{ title_contains: $query }, { appliciant_contains: $query }]
-    }
-  ) {
-    id
-  }
-}
-
-query Projects(
-  $query: String
-  $limit: Int
-  $offset: Int
-  $year: String
-  $program: [String]
-  $categories: [String]
-  $district: String
-  $supportFields: [String]
-  $goals: [String]
-  $legalForms: [String]
-) {
-  projects(
-    limit: $limit
-    start: $offset
-    where: {
-      year: { name_eq: $year }
-      program: { name_eq: $program }
-      categories: { name_in: $categories }
-      districts: { name_eq: $district }
-      support_fields: { name_in: $supportFields }
-      goals: { name_in: $goals }
-      legal_form: { name_in: $legalForms }
-      _or: [{ title_contains: $query }, { appliciant_contains: $query }]
-    }
-  ) {
-    id
+query Projects($filters: ProjectFiltersInput, $limit: Int, $offset: Int) {
+  projects(filters: $filters, pagination: { limit: $limit, start: $offset }, sort: "id:asc") {
+    documentId
     title
     description
     images {
@@ -220,13 +174,13 @@ query Projects(
       alternativeText
       formats
     }
-    categories {
+    categories(sort: "id:asc") {
       name
     }
     year {
       name
     }
-    districts {
+    districts(sort: "id:asc") {
       name
     }
     legal_form {
@@ -235,42 +189,47 @@ query Projects(
     program {
       name
     }
-    support_fields {
+    support_fields(sort: "id:asc") {
       name
     }
-    goals {
+    goals(sort: "id:asc") {
       name
+    }
+  }
+  projects_connection(filters: $filters) {
+    pageInfo {
+      total
     }
   }
 }
 
 query ProjectsPage {
-  tagCategories {
+  tagCategories(sort: "id:asc") {
     name
   }
-  tagDistricts {
+  tagDistricts(sort: "id:asc") {
     name
   }
-  tagGoals {
+  tagGoals(sort: "id:asc") {
     name
   }
-  tagLegalForms {
+  tagLegalForms(sort: "id:asc") {
     name
   }
-  tagPrograms {
+  tagPrograms(sort: "id:asc") {
     name
   }
-  tagSupportFields {
+  tagSupportFields(sort: "id:asc") {
     name
   }
-  tagYears {
+  tagYears(sort: "id:asc") {
     name
   }
 }
 
 query BlogPostsPage {
-  blogPosts(sort: "created_at:desc") {
-    id
+  blogPosts(sort: "createdAt:desc") {
+    documentId
     title
     description
     slug
@@ -283,14 +242,14 @@ query BlogPostsPage {
 }
 
 query BlogPostsBySlug($slug: String!) {
-  blogPosts(where: { slug: $slug }) {
-    id
+  blogPosts(filters: { slug: { eq: $slug } }) {
+    documentId
     title
     description
     content
     slug
     author
-    created_at
+    createdAt
     image {
       url
       alternativeText

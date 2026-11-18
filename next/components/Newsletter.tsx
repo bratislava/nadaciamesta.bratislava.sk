@@ -49,19 +49,17 @@ const Newsletter = ({ text }: INewsletterProps) => {
   }
 
   const isFormValid = (): boolean => {
-    let nameError: string | null
     let emailError: string | null
-    let acquaintanceError: string | null
 
     // name validation
-    nameError = name.length <= 0 ? 'Meno je povinné' : null
+    const nameError = name.length <= 0 ? 'Meno je povinné' : null
 
     // email validation
     if (email.length <= 0) {
       emailError = 'Email je povinný'
     } else if (
-      !/^(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z\-]+\.)+[A-Za-z]{2,}))$/.test(
-        String(email).toLowerCase(),
+      !/^(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))$/.test(
+        email.toLowerCase(),
       )
     ) {
       emailError = 'Nesprávny formát emailovej adresy'
@@ -70,7 +68,7 @@ const Newsletter = ({ text }: INewsletterProps) => {
     }
 
     // acquaintance validation
-    acquaintanceError = !acquaintance ? 'Toto pole je povinné' : null
+    const acquaintanceError = !acquaintance ? 'Toto pole je povinné' : null
 
     setNameError(nameError)
     setEmailError(emailError)
@@ -137,7 +135,7 @@ const Newsletter = ({ text }: INewsletterProps) => {
             <CheckBox
               className="items-center"
               id="acquaintance"
-              // @ts-ignore
+              // @ts-expect-error content is typed as string but renders any node
               content={
                 <span>
                   Oboznámil/a som sa s{' '}

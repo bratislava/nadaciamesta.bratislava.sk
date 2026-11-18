@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tag_districts",
+  "info": {
+    "singularName": "tag-district",
+    "pluralName": "tag-districts",
+    "displayName": "TAG district",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "default": "Untitled district"
+    }
+  }
+}

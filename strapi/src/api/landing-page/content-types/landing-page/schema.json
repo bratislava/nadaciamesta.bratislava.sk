@@ -1,0 +1,37 @@
+{
+  "kind": "singleType",
+  "collectionName": "landing_page",
+  "info": {
+    "singularName": "landing-page",
+    "pluralName": "landing-pages",
+    "displayName": "Landing Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "text"
+    },
+    "featured_projects_top": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project.project"
+    },
+    "grants_text": {
+      "type": "text",
+      "default": "Nadácia mesta Bratislavy je nový transparentný systém grantovej podpory hlavného mesta. Svoju činnosť začala v roku 2020."
+    },
+    "featured_projects_bottom": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project.project"
+    },
+    "grants_button_text": {
+      "type": "string",
+      "default": "Chcem požiadať o grant"
+    }
+  }
+}

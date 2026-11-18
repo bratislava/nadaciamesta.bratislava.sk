@@ -28,6 +28,7 @@ export const parseQueryString = (param: string | string[]) => {
   if (typeof param === 'string') {
     return param
   }
+
   return parseQueryString(param[0])
 }
 
@@ -35,5 +36,6 @@ export const parseQueryArray = (param: string | string[]) => {
   if (typeof param === 'string') {
     return param.split(',')
   }
+
   return parseQueryArray(param[0])
 }
